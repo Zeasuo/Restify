@@ -9,7 +9,8 @@
     </header>
 
     <!--https://www.w3schools.com/bootstrap5/bootstrap_navbar.php
-    https://getbootstrap.com/docs/5.1/components/dropdowns/-->
+    https://getbootstrap.com/docs/5.1/components/dropdowns/
+    https://stackoverflow.com/questions/53297638/how-to-set-width-on-dropdown-item-in-bootstrap-->
     <body>
         <nav class="navbar navbar-expand-sm navbar-light bg-light fixed-top">
           <div class="container-fluid">
@@ -29,7 +30,8 @@
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Account</a>
-                    <ul class="dropdown-menu dropdown-menu-light">
+                    <ul class="dropdown-menu dropdown-menu-light" style="min-width: 130px;">
+                        <li><a class="dropdown-item" href="#">My Profile</a></li>
                         <li><a class="dropdown-item" href="#">Log In</a></li>
                         <li><a class="dropdown-item" href="#">Sign Up</a></li>
                         <li><a class="dropdown-item" href="#">Log Out</a></li>
@@ -39,6 +41,6 @@
             </div>
           </div>
         </nav>
-        </body>
+    </body>
 
 </html>
