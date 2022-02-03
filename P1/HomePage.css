@@ -1,3 +1,8 @@
 .nav-item:hover{
     cursor: pointer;
 }
+
+.dropdown-menu#Notification{
+    max-height: 200px;
+    overflow:scroll; 
+ }
