@@ -37,7 +37,7 @@
                 <div class="collapse navbar-collapse" id="navbarNavDarkDropdown" style="margin-left: 20%;">
                     <ul class="navbar-nav">
                       <li class="nav-item">
-                        <a class="nav-link container" href="#" data-bs-toggle="modal" data-bs-target="#myModal">
+                        <a class="nav-link container" data-bs-toggle="modal" data-bs-target="#Plus">
                           <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 18">
                             <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
                           </svg>
@@ -68,7 +68,7 @@
                                 <li><a class="dropdown-item" href="SignIn.html">Log In</a></li>
                                 <li><a class="dropdown-item" href="Signup.html">Sign Up</a></li>
                                 <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="#">Log Out</a></li>
+                                <li><a class="dropdown-item container" data-bs-toggle="modal" data-bs-target="#Logout">Log Out</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -154,17 +154,15 @@
         </div>
     </body>
 
-    <div class="modal" id="myModal">
+    <div class="modal" id="Plus">
       <div class="modal-dialog">
         <div class="modal-content">
 
-          <!-- Modal Header -->
           <div class="modal-header">
             <h4 class="modal-title">Start A Post</h4>
             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
           </div>
-    
-          <!-- Modal body -->
+
           <div class="modal-body">
             <textarea class="form-control mx-auto" rows="3" placeholder="Start A Post" required></textarea>
             <br>
@@ -173,13 +171,32 @@
               <input type="file" class="form-control" id="inputGroupFile01">
             </div>
           </div>
-    
-          <!-- Modal footer -->
+
           <div class="modal-footer">
             <button class="btn btn-light" type="submit">Post!</button>
             <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
           </div>
-    
+        </div>
+      </div>
+    </div>
+
+    <div class="modal" id="Logout">
+      <div class="modal-dialog">
+        <div class="modal-content">
+
+          <div class="modal-header">
+            <h4 class="modal-title">Log Out</h4>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+
+          <div class="modal-body">
+            <a>Are you sure to log out?</a>
+          </div>
+
+          <div class="modal-footer">
+            <a href="SignIn.html"><button class="btn btn-light" type="submit">Yes</button></a>
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+          </div>
         </div>
       </div>
     </div>
