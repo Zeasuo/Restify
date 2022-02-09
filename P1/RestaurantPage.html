@@ -205,4 +205,93 @@
     
 </body>
 
+<div class="modal" id="Plus">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h4 class="modal-title">Start A Post</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+                <textarea class="form-control mx-auto" rows="3" placeholder="Start A Post" required></textarea>
+                <br>
+                <div class="input-group mb-3">
+                    <label class="input-group-text" for="upload">Upload</label>
+                    <input type="file" class="form-control" id="upload">
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-light" type="submit" data-bs-toggle="modal"
+                    data-bs-target="#Success">Post!</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="Logout">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h4 class="modal-title">Log Out</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+                <a>Are you sure to log out?</a>
+            </div>
+
+            <div class="modal-footer">
+                <a href="SignIn.html"><button class="btn btn-light" type="submit">Yes</button></a>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="Switch">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h4 class="modal-title">Switch Account</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+                <a>Your current account will be logged out, are you sure?</a>
+            </div>
+
+            <div class="modal-footer">
+                <a href="SignIn.html"><button class="btn btn-light" type="submit">Yes</button></a>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="Success">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h4 class="modal-title">Done!</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+                <a>You have shared a post successfully!</a>
+            </div>
+
+            <div class="modal-footer">
+                <a href="RestaurantPage.html"><button class="btn btn-light" type="submit">OK!</button></a>
+            </div>
+        </div>
+    </div>
+</div>
+
 </html>
