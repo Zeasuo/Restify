@@ -4,3 +4,8 @@ input.form-control { width: 260px!important; }
     max-height: 170px;
     overflow-y: scroll;
   }
+
+body{
+  background-image: url("bg3.jpeg");
+  background-size: auto;
+}
