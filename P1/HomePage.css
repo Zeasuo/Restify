@@ -1,6 +1,6 @@
 input.form-control { width: 260px!important; }
 
-.dropdown-menu {
+.dropdown-menu#Notification{
     max-height: 170px;
     overflow-y: scroll;
   }
