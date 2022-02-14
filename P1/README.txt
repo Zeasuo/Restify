@@ -5,6 +5,7 @@ References:
     To make a Dropdown:
     https://getbootstrap.com/docs/5.1/components/dropdowns/
     https://stackoverflow.com/questions/53297638/how-to-set-width-on-dropdown-item-in-bootstrap
+    https://www.w3schools.com/bootstrap5/bootstrap_dropdowns.php
     To make Icons:
     https://icons.getbootstrap.com/
     To fix the modal bug:
@@ -16,10 +17,12 @@ References:
     To separate the screen:
     https://getbootstrap.com/docs/4.0/layout/grid/
     https://getbootstrap.com/docs/5.0/layout/gutters/
+    https://getbootstrap.com/docs/4.0/layout/grid/
     To add background:
     https://www.w3schools.com/cssref/css3_pr_background-size.asp
     To make a carousel:
     https://www.w3schools.com/bootstrap5/bootstrap_carousel.php
+    https://getbootstrap.com/docs/5.0/components/carousel/
     To make a modal:
     https://www.w3schools.com/bootstrap5/bootstrap_modal.php
     https://getbootstrap.com/docs/5.0/components/modal/
@@ -32,6 +35,8 @@ References:
     https://getbootstrap.com/docs/5.0/forms/input-group/
     To make a toast:
     https://getbootstrap.com/docs/5.0/components/toasts/
+    https://www.w3schools.com/bootstrap5/bootstrap_toast.php
     To make a sidebar:
     https://dev.to/codeply/bootstrap-5-sidebar-examples-38pb
-    
+    To make a plus icon:
+    https://icons.getbootstrap.com/icons/plus/
