@@ -32,6 +32,8 @@ References:
     https://getbootstrap.com/docs/5.0/forms/input-group/
     To make a toast:
     https://getbootstrap.com/docs/5.0/components/toasts/
+    https://www.w3schools.com/bootstrap5/bootstrap_toast.php
     To make a sidebar:
     https://dev.to/codeply/bootstrap-5-sidebar-examples-38pb
-    
+    To make a plus icon:
+    https://icons.getbootstrap.com/icons/plus/
