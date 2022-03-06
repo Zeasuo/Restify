@@ -2,12 +2,16 @@ from django.conf import settings
 from django.db import models
 
 # Create your models here.
+from accounts.models import User
+
+
 class Restaurant(models.Model):
     restaurant_name = models.CharField(max_length=150)
     address = models.CharField(max_length = 250)
     restaurant_avatar = models.ImageField(upload_to='restaurant_avatar', blank=True, null=True)
     owner = models.OneToOneField(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='restaurant')
     description = models.TextField()
+    postal_code = models.CharField(max_length=6, null=True, blank=True)
 
     def __str__(self):
         return self.restaurant_name
@@ -28,3 +32,15 @@ class Food(models.Model):
 
     def __str__(self):
         return str(self.restaurant) + ': ' + str(self.food_name)
+
+class RestaurantImage(models.Model):
+    image = models.ImageField(upload_to='restaurant_avatar', blank=True, null = True)
+    restaurant = models.ForeignKey(to=Restaurant, on_delete=models.CASCADE, related_name='avatar')
+
+class Followed(models.Model):
+    user = models.ForeignKey(to=User, on_delete=models.CASCADE)
+    restaurants = models.ForeignKey(to=Restaurant, on_delete=models.CASCADE)
+
+class Liked(models.Model):
+    user = models.ForeignKey(to=User, on_delete=models.CASCADE)
+    post = models.ForeignKey(to=Post, on_delete=models.CASCADE)
