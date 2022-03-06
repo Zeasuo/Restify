@@ -23,7 +23,7 @@ class Post(models.Model):
 
 class Comment(models.Model):
     comment = models.TextField()
-    post = models.ForeignKey(to=Post, on_delete=models.CASCADE, related_name='comment')
+    post = models.ForeignKey(to=Restaurant, on_delete=models.CASCADE, related_name='comment')
 
 class Food(models.Model):
     food_name = models.CharField(max_length=100)
