@@ -12,3 +12,5 @@ class CreateRestaurantSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         return super().create({**validated_data, **{'owner': self.context['request'].user}})
+
+

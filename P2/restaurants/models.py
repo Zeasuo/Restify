@@ -6,7 +6,7 @@ from accounts.models import User
 
 
 class Restaurant(models.Model):
-    restaurant_name = models.CharField(max_length=150)
+    restaurant_name = models.CharField(max_length=150, unique = True)
     address = models.CharField(max_length=250)
     owner = models.OneToOneField(to=User, on_delete=models.CASCADE, related_name='restaurant')
     description = models.TextField()
