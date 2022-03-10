@@ -13,6 +13,7 @@ class CreateRestaurant(CreateAPIView):
 
     def post(self, request, *args, **kwargs):
 
+        # https://stackoverflow.com/questions/3090302/how-do-i-get-the-object-if-it-exists-or-none-if-it-does-not-exist-in-django
         try:
             Restaurant.objects.get(owner=self.request.user)
             raise APIException("You already has a restaurant")
