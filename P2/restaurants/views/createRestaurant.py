@@ -12,6 +12,9 @@ class CreateRestaurant(CreateAPIView):
     queryset = Restaurant.objects.all()
 
     def post(self, request, *args, **kwargs):
-        if self.request.user.restaurant:
+
+        try:
+            Restaurant.objects.get(owner=self.request.user)
             raise APIException("You already has a restaurant")
-        return super().post(request, *args, **kwargs)
+        except Restaurant.DoesNotExist:
+            return super().post(request, *args, **kwargs)
