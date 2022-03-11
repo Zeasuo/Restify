@@ -17,7 +17,7 @@ class GetRestaurantAvatar(ListAPIView):
     pagination_class = OnePagesPagination
 
     def get(self, request, *args, **kwargs):
-        avatar = RestaurantImage.objects.filter(restaurant = Restaurant.objects.get(restaurant_name=self.kwargs["restaurant_name"]))
+        avatar = RestaurantImage.objects.filter(restaurant=Restaurant.objects.get(restaurant_name=self.kwargs["restaurant_name"]))
         serializer = GetRestaurantAvatarSerializer(avatar, many=True)
         page = self.paginate_queryset(serializer.data)
         return self.get_paginated_response(page)
