@@ -13,5 +13,5 @@ class EditMenu(RetrieveAPIView, UpdateAPIView):
 
     def get_object(self):
         x = Restaurant.objects.get(owner=self.request.user)
-        foods = [food for food in Food.objects.all()]
+        foods = [food for food in Food.objects.all() if food.restaurant == x]
         return foods
