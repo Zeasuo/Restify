@@ -23,6 +23,8 @@ class Restaurant(models.Model):
 
 class Post(models.Model):
     post_image = models.ImageField(upload_to='post_image', blank=True, null=True)
+    title = models.CharField(max_length=100, blank=True, null=True)
+    content = models.TextField(blank=True, null=True)
     likes = models.IntegerField()
     comment_num = models.IntegerField()
     restaurant = models.ForeignKey(to=Restaurant, on_delete=models.CASCADE, related_name='post')
@@ -46,6 +48,11 @@ class Food(models.Model):
 class RestaurantImage(models.Model):
     image = models.ImageField(upload_to='restaurant_avatar', blank=True, null=True)
     restaurant = models.ForeignKey(to=Restaurant, on_delete=models.CASCADE, related_name='avatar')
+
+
+class PostImage(models.Model):
+    image = models.ImageField(upload_to='post_image', blank=True, null=True)
+    post = models.ForeignKey(to=Post, on_delete=models.CASCADE, related_name='avatar')
 
 
 class Followed(models.Model):
