@@ -49,8 +49,8 @@ class RestaurantImage(models.Model):
     restaurant = models.ForeignKey(to=Restaurant, on_delete=models.CASCADE, related_name='avatar')
 
 
-class PostImage(models.Model):
-    image = models.ImageField(upload_to='post_image', blank=True, null=True)
+class BlogImage(models.Model):
+    image = models.ImageField(upload_to='blog_image', blank=True, null=True)
     post = models.ForeignKey(to=Blog, on_delete=models.CASCADE, related_name='avatar')
 
 

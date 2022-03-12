@@ -39,7 +39,7 @@ class Migration(migrations.Migration):
             name='Post',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('post_image', models.ImageField(blank=True, null=True, upload_to='post_image')),
+                ('blog_image', models.ImageField(blank=True, null=True, upload_to='blog_image')),
                 ('likes', models.IntegerField()),
                 ('comment_num', models.IntegerField()),
                 ('restaurant', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='post', to='restaurants.restaurant')),

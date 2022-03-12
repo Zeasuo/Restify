@@ -25,7 +25,7 @@ class Migration(migrations.Migration):
             name='PostImage',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('image', models.ImageField(blank=True, null=True, upload_to='post_image')),
+                ('image', models.ImageField(blank=True, null=True, upload_to='blog_image')),
                 ('post', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='avatar', to='restaurants.post')),
             ],
         ),
