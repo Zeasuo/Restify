@@ -24,14 +24,8 @@ class Restaurant(models.Model):
 class Blog(models.Model):
     title = models.CharField(max_length=100, blank=True, null=True)
     content = models.TextField(blank=True, null=True)
-    likes = models.IntegerField()
     comment_num = models.IntegerField()
     restaurant = models.ForeignKey(to=Restaurant, on_delete=models.CASCADE, related_name='post')
-
-
-class Comment(models.Model):
-    comment = models.TextField()
-    post = models.ForeignKey(to=Restaurant, on_delete=models.CASCADE, related_name='comment')
 
 
 class Food(models.Model):
@@ -54,11 +48,4 @@ class BlogImage(models.Model):
     post = models.ForeignKey(to=Blog, on_delete=models.CASCADE, related_name='avatar')
 
 
-class Followed(models.Model):
-    user = models.ForeignKey(to=User, on_delete=models.CASCADE)
-    restaurants = models.ForeignKey(to=Restaurant, on_delete=models.CASCADE)
 
-
-class Liked(models.Model):
-    user = models.ForeignKey(to=User, on_delete=models.CASCADE)
-    post = models.ForeignKey(to=Blog, on_delete=models.CASCADE)
