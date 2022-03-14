@@ -5,7 +5,7 @@ from rest_framework import filters
 from rest_framework.generics import ListAPIView
 
 # https://www.django-rest-framework.org/api-guide/filtering/
-from restaurants.models import Restaurant, Food
+from restaurants.models import Restaurant
 from restaurants.serializers.searchRestaurant import SearchRestaurantSerializer
 
 
@@ -20,4 +20,3 @@ class SearchRestaurantView(ListAPIView):
     serializer_class = SearchRestaurantSerializer
     filter_backends = (filters.OrderingFilter, filters.SearchFilter,)
     search_fields = ['restaurant_name', 'address']
-    # ordering = ['-follower_num']
