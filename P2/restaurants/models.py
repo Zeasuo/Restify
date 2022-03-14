@@ -13,6 +13,9 @@ class Restaurant(models.Model):
     description = models.TextField()
     postal_code = models.CharField(max_length=6, null=True, blank=True)
     logo = models.ImageField(upload_to='logo', null=True, blank=True)
+    comment_num = models.IntegerField(default=0)
+    like_num = models.IntegerField(default=0)
+    follower_num = models.IntegerField(default=0)
 
     def __str__(self):
         return self.restaurant_name
@@ -24,8 +27,8 @@ class Restaurant(models.Model):
 class Blog(models.Model):
     title = models.CharField(max_length=100, blank=True, null=True)
     content = models.TextField(blank=True, null=True)
-    comment_num = models.IntegerField()
     restaurant = models.ForeignKey(to=Restaurant, on_delete=models.CASCADE, related_name='post')
+    like_num = models.IntegerField(default=0)
 
 
 class Food(models.Model):
