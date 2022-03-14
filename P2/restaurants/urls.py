@@ -6,8 +6,7 @@ from restaurants.views.editMenu import EditMenu
 from restaurants.views.getMenu import GetMenu
 from restaurants.views.getRestaurant import GetRestaurant
 from restaurants.views.getRestaurantAvatar import GetRestaurantAvatar
-from restaurants.views.searchMenu import SearchMenuView
-from restaurants.views.searchRestaurant import SearchRestaurantView
+from restaurants.views.search import SearchView
 from restaurants.views.updateRestaurant import UpdateRestaurant
 from restaurants.views.addMenu import AddMenu
 
@@ -21,6 +20,5 @@ urlpatterns = [
     path('add_menu/', AddMenu.as_view(), name='add_menu'),
     path('get_menu/<str:restaurant_name>/', GetMenu.as_view(), name='get_menu'),
     path('edit_menu/<str:restaurant_name>/', EditMenu.as_view(), name='edit_menu'),
-    path('searchrestaurant/', SearchRestaurantView.as_view(), name='searchrestaurant'),
-    path('searchmenu/', SearchMenuView.as_view(), name='searchmenu')
+    path('search/', SearchView.as_view(), name='searchrestaurant')
 ]
