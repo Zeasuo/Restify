@@ -37,5 +37,5 @@ class Follow(models.Model):
 class Comment(models.Model):
     user = models.ForeignKey('accounts.User', related_name='comments', on_delete=models.CASCADE)
     restaurant = models.ForeignKey('restaurants.Restaurant', related_name='comments', on_delete=models.CASCADE)
-    content = models.CharField()
+    content = models.CharField(max_length=255)
 
