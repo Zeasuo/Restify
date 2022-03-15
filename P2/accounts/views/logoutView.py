@@ -7,6 +7,8 @@ class LogoutView(GenericAPIView):
     permission_class = [IsAuthenticated,]
 
     def post(self, request):
+        if request.user.is_anonymous:
+            return Response('You need to login before logout')
         request.user.auth_token.delete()
         logout(request)
         return Response('User Logged out successfully')
