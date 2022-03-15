@@ -79,3 +79,6 @@ class Notification(models.Model):
             ("rest", "Restaurant")
         )
     )
+    blog_id = models.IntegerField(default=-1)
+    restaurant_id = models.IntegerField(default=-1)
+    created_at = models.DateTimeField(auto_now_add=True)
