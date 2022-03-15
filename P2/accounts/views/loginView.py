@@ -20,7 +20,7 @@ class LoginView(GenericAPIView):
         token = Token.objects.get_or_create(user=user)
         if token:
             login(request, user)
-            json = {"token": token.key}
+            json = {"token": token[0].key}
             return Response(json, status=status.HTTP_200_OK)
         else:
             message = "Wrong username or password"
