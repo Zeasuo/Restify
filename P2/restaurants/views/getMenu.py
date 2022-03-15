@@ -1,7 +1,7 @@
 from rest_framework.generics import ListAPIView
 from rest_framework.pagination import PageNumberPagination
 
-from restaurants.models import Food, RestaurantImage, Restaurant
+from restaurants.models import Food, Restaurant
 from restaurants.serializers.getMenu import GetMenuSerializer
 
 
@@ -13,7 +13,7 @@ class OnePagesPagination(PageNumberPagination):
 class GetMenu(ListAPIView):
     model = Food
     serializer_class = GetMenuSerializer
-    queryset = Food.objects
+    queryset = Food.objects.all()
     pagination_class = OnePagesPagination
 
     def get(self, request, *args, **kwargs):
