@@ -22,13 +22,10 @@ class FeedView(ListAPIView):
         followed_restaurants = Restaurant.objects.none()
         for follow in follows:
             followed_restaurants |= Restaurant.objects.filter(pk=follow.restaurant.pk)
+        followed_blogs = Blog.objects.none()
         for curr_restaurant in followed_restaurants:
-            self.queryset |= Blog.objects.filter(restaurant=curr_restaurant.pk)
-        return self.queryset.order_by('-created_at')
+            followed_blogs |= Blog.objects.filter(restaurant=curr_restaurant.pk)
+        return followed_blogs.order_by('-created_at')
 
-    def get(self, request, *args, **kwargs):
-        avatar = Blog.objects.filter(restaurant=Restaurant.objects.get(restaurant_name=self.kwargs["restaurant_name"]))
-        serializer = GetBlogSerializer(avatar, many=True)
-        page = self.paginate_queryset(serializer.data)
-        return self.get_paginated_response(page)
+
 
