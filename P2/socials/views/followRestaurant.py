@@ -39,7 +39,7 @@ class UnFollowRestaurantView(DestroyAPIView):
             'restaurant_name'])
 
         try:
-            follow = Follow.objects.get(user=self.request.user,restaurant=curr_restaurant)
+            follow = Follow.objects.get(user=self.request.user, restaurant=curr_restaurant)
         except:
             raise BadRequest("You have not followed this restaurant")
 

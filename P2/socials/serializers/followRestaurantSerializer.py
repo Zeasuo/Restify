@@ -11,3 +11,4 @@ class FollowRestaurantSerializer(serializers.ModelSerializer):
         model = Follow
         fields = ['user', 'restaurant', 'created_at']
 
+
