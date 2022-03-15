@@ -1,5 +1,6 @@
 from django.db import models
 
+from accounts.models import User
 from restaurants.models import Restaurant
 
 
@@ -39,3 +40,17 @@ class Comment(models.Model):
     restaurant = models.ForeignKey('restaurants.Restaurant', related_name='comments', on_delete=models.CASCADE)
     content = models.CharField(max_length=255)
 
+
+class Notification(models.Model):
+    user = models.ForeignKey(to=User, related_name='notification', on_delete=models.CASCADE)
+    # https://stackoverflow.com/questions/48040008/django-restrict-data-that-can-be-given-to-model-field
+    action = models.CharField(
+        max_length=10,
+        choices=(
+            ("like", "Liked"),
+            ("follow", "Followed"),
+            ("comment", "Commented")
+        )
+    )
+    RestaurantTarget = models.ForeignKey(to=Restaurant, default='NOT APPLICABLE', related_name='restauranttarget', on_delete=models.CASCADE)
+    BlogTarget = models.ForeignKey(to=Blog, default='NOT APPLICABLE', related_name='blogtarget', on_delete=models.CASCADE)
