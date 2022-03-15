@@ -1,5 +1,7 @@
+from rest_framework.exceptions import AuthenticationFailed
 from rest_framework.generics import ListAPIView
 from rest_framework.pagination import PageNumberPagination
+from rest_framework.permissions import IsAuthenticated
 
 from restaurants.models import Restaurant
 from socials.models import Blog, Follow
@@ -13,11 +15,14 @@ class OnePagesPagination(PageNumberPagination):
 
 
 class FeedView(ListAPIView):
+    permission_class = [IsAuthenticated]
     model = Blog
     serializer_class = FeedSerializer
     pagination_class = OnePagesPagination
 
     def get_queryset(self):
+        if self.request.user.is_anonymous:
+            raise AuthenticationFailed()
         follows = Follow.objects.filter(user=self.request.user)
         followed_restaurants = Restaurant.objects.none()
         for follow in follows:
