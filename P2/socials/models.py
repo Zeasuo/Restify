@@ -40,7 +40,6 @@ class Comment(models.Model):
     restaurant = models.ForeignKey('restaurants.Restaurant', related_name='comments', on_delete=models.CASCADE)
     content = models.CharField(max_length=255)
 
-
 class Notification(models.Model):
     user = models.ForeignKey(to=User, related_name='notification', on_delete=models.CASCADE)
     # https://stackoverflow.com/questions/48040008/django-restrict-data-that-can-be-given-to-model-field
@@ -50,5 +49,14 @@ class Notification(models.Model):
             ("like", "Liked"),
             ("follow", "Followed"),
             ("comment", "Commented")
+        )
+    )
+    TargetUser = models.ForeignKey(to=User, related_name='getnotification', on_delete=models.CASCADE)
+    # https://stackoverflow.com/questions/48040008/django-restrict-data-that-can-be-given-to-model-field
+    Target = models.CharField(
+        max_length=10,
+        choices=(
+            ("blog", "Blog"),
+            ("rest", "Restaurant")
         )
     )

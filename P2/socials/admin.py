@@ -10,4 +10,3 @@ admin.site.register(BlogLike)
 admin.site.register(Follow)
 admin.site.register(Comment)
 admin.site.register(Notification)
-
