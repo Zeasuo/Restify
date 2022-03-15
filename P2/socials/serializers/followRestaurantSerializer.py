@@ -1,5 +1,7 @@
 from rest_framework import serializers
+from rest_framework.generics import get_object_or_404
 
+from restaurants.models import Restaurant
 from socials.models import Follow
 
 
@@ -7,7 +9,5 @@ class FollowRestaurantSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Follow
-        fields = '__all__'
+        fields = ['user', 'restaurant', 'created_at']
 
-    def create(self, validated_data):
-        return super().create({**validated_data})

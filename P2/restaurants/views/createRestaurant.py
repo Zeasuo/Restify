@@ -1,3 +1,4 @@
+from django.core.exceptions import BadRequest
 from rest_framework.exceptions import APIException
 from rest_framework.generics import CreateAPIView
 from rest_framework.permissions import IsAuthenticated
@@ -16,6 +17,6 @@ class CreateRestaurant(CreateAPIView):
         # https://stackoverflow.com/questions/3090302/how-do-i-get-the-object-if-it-exists-or-none-if-it-does-not-exist-in-django
         try:
             Restaurant.objects.get(owner=self.request.user)
-            raise APIException("You already has a restaurant")
+            raise BadRequest("You already has a restaurant")
         except Restaurant.DoesNotExist:
             return super().post(request, *args, **kwargs)
