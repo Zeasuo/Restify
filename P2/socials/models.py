@@ -52,5 +52,12 @@ class Notification(models.Model):
             ("comment", "Commented")
         )
     )
-    RestaurantTarget = models.ForeignKey(to=Restaurant, default='NOT APPLICABLE', related_name='restauranttarget', on_delete=models.CASCADE)
-    BlogTarget = models.ForeignKey(to=Blog, default='NOT APPLICABLE', related_name='blogtarget', on_delete=models.CASCADE)
+    TargetUser = models.ForeignKey(to=User, related_name='getNotification', on_delete=models.CASCADE)
+    TargetItem = models.CharField(
+        max_length=10,
+        choices=(
+            ("restaurant", "Restaurant"),
+            ("blog", "Blog"),
+            ("comment", "Comment")
+        )
+    )
