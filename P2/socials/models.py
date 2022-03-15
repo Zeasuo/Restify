@@ -52,12 +52,3 @@ class Notification(models.Model):
             ("comment", "Commented")
         )
     )
-    TargetUser = models.ForeignKey(to=User, related_name='getNotification', on_delete=models.CASCADE)
-    TargetItem = models.CharField(
-        max_length=10,
-        choices=(
-            ("restaurant", "Restaurant"),
-            ("blog", "Blog"),
-            ("comment", "Comment")
-        )
-    )
