@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     #'django_filters',
     'accounts',
     'restaurants',
-    'socials'
+    'socials',
+    'drf_yasg',
 ]
 
 MIDDLEWARE = [

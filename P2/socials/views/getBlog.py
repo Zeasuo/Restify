@@ -18,8 +18,8 @@ class GetBlogView(ListAPIView):
     pagination_class = OnePagesPagination
 
     def get(self, request, *args, **kwargs):
-        avatar = Blog.objects.filter(restaurant=Restaurant.objects.get(restaurant_name=self.kwargs["restaurant_name"]))
-        serializer = GetBlogSerializer(avatar, many=True)
+        blogs = Blog.objects.filter(restaurant=Restaurant.objects.get(restaurant_name=self.kwargs["restaurant_name"]))
+        serializer = GetBlogSerializer(blogs, many=True)
         page = self.paginate_queryset(serializer.data)
         return self.get_paginated_response(page)
 
