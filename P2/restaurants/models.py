@@ -32,7 +32,7 @@ class Food(models.Model):
 
 
 class RestaurantImage(models.Model):
-    image = models.ImageField(upload_to='restaurant_avatar', blank=True, null=True)
+    image = models.ImageField(upload_to='restaurant_avatar')
     restaurant = models.ForeignKey(to=Restaurant, on_delete=models.CASCADE, related_name='avatar')
 
 
