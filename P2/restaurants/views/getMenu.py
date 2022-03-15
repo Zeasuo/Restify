@@ -17,7 +17,7 @@ class GetMenu(ListAPIView):
     pagination_class = OnePagesPagination
 
     def get(self, request, *args, **kwargs):
-        avatar = Food.objects.filter(restaurant=Restaurant.objects.get(restaurant_name=self.kwargs["restaurant_name"]))
-        serializer = GetMenuSerializer(avatar, many=True)
+        foods = Food.objects.filter(restaurant=Restaurant.objects.get(restaurant_name=self.kwargs["restaurant_name"]))
+        serializer = GetMenuSerializer(foods, many=True)
         page = self.paginate_queryset(serializer.data)
         return self.get_paginated_response(page)
