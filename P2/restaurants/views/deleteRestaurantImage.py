@@ -14,9 +14,10 @@ class DeleteRestaurantImageView(DestroyAPIView):
 
 
     def delete(self, request, *args, **kwargs):
+        if 'image' not in request.data:
+            return Response('Please provide a image to delete', status.HTTP_400_BAD_REQUEST)
         restaurantImage = get_object_or_404(RestaurantImage, restaurant=self.request.user.restaurant,
                                             image=request.data['image'])
         if restaurantImage:
-
             restaurantImage.delete()
             return Response(status.HTTP_204_NO_CONTENT)
