@@ -6,7 +6,7 @@ from restaurants.serializers.getRestaurantAvatar import GetRestaurantAvatarSeria
 
 
 class OnePagesPagination(PageNumberPagination):
-    page_size = 1
+    page_size = 5
     page_size_query_param = 'page_size'
 
 
