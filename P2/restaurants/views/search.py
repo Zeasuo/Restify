@@ -2,6 +2,12 @@ from django.db.models import Count
 from rest_framework.generics import ListAPIView
 from restaurants.models import Food, Restaurant
 from restaurants.serializers.search import SearchSerializer
+from rest_framework.pagination import PageNumberPagination
+
+
+class OnePagesPagination(PageNumberPagination):
+    page_size = 5
+    page_size_query_param = 'page_size'
 
 
 class SearchView(ListAPIView):
@@ -10,6 +16,7 @@ class SearchView(ListAPIView):
     # https://stackoverflow.com/questions/431628/how-can-i-combine-two-or-more-querysets-in-a-django-view
     # https://stackoverflow.com/questions/61660934/how-to-pass-a-queryset-instance-to-serializer
     serializer_class = SearchSerializer
+    pagination_class = OnePagesPagination
 
     def get_queryset(self):
         search_term = self.request.GET['search']
