@@ -1,3 +1,4 @@
+from django.core.exceptions import BadRequest
 from rest_framework import status
 from rest_framework.exceptions import AuthenticationFailed
 from rest_framework.generics import DestroyAPIView, get_object_or_404
@@ -15,6 +16,8 @@ class DeleteBlogView(DestroyAPIView):
         if self.request.user.is_anonymous:
             raise AuthenticationFailed()
         blog = get_object_or_404(Blog, id=kwargs['blog_id'])
+        if blog and blog.restaurant.owner != request.user:
+            raise BadRequest('You do not have permission to delete this blog!')
         if blog:
             blog.delete()
             return Response(status.HTTP_204_NO_CONTENT)
