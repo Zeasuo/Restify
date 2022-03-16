@@ -20,7 +20,7 @@ class BlogImage(models.Model):
     image = models.ImageField(upload_to='blog_image', blank=True, null=True)
 
     def __str__(self):
-        return 'image ' + self.pk + " of " + self.blog.title
+        return 'image ' + str(self.pk) + " of " + self.blog.title
 
 
 class RestaurantLike(models.Model):
