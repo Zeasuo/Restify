@@ -1,6 +1,6 @@
 from django.core.exceptions import BadRequest
 from rest_framework import status
-from rest_framework.exceptions import APIException
+from rest_framework.exceptions import APIException, AuthenticationFailed
 from rest_framework.generics import CreateAPIView, DestroyAPIView, \
     get_object_or_404
 from rest_framework.permissions import IsAuthenticated
@@ -17,6 +17,8 @@ class FollowRestaurantView(CreateAPIView):
     permission_class = [IsAuthenticated]
 
     def post(self, request, *args, **kwargs):
+        if self.request.user.is_anonymous:
+            raise AuthenticationFailed()
         curr_restaurant = get_object_or_404(Restaurant, restaurant_name=kwargs[
             'restaurant_name'])
         if Follow.objects.filter(user=self.request.user,
@@ -35,6 +37,8 @@ class UnFollowRestaurantView(DestroyAPIView):
     permission_class = [IsAuthenticated]
 
     def delete(self, request, *args, **kwargs):
+        if self.request.user.is_anonymous:
+            raise AuthenticationFailed()
         curr_restaurant = get_object_or_404(Restaurant, restaurant_name=kwargs[
             'restaurant_name'])
 

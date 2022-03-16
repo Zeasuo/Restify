@@ -1,4 +1,5 @@
 from django.core.exceptions import BadRequest
+from rest_framework.exceptions import AuthenticationFailed
 from rest_framework.generics import CreateAPIView
 from rest_framework.permissions import IsAuthenticated
 
@@ -13,6 +14,10 @@ class AddNotificationView(CreateAPIView):
     permission_class = [IsAuthenticated]
 
     def post(self, request, *args, **kwargs):
+        if self.request.user.is_anonymous:
+            raise AuthenticationFailed()
+        if 'action' not in request.data or 'Target' not in request.data:
+            raise BadRequest('Please input action and target')
         if not User.objects.filter(username=kwargs['user_name']).exists():
             raise BadRequest('The target user is not exist')
         elif (request.data['action'] == 'comment' or request.data['action'] == 'follow') and request.data['Target'] == 'blog':

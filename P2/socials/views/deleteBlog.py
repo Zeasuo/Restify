@@ -1,4 +1,5 @@
 from rest_framework import status
+from rest_framework.exceptions import AuthenticationFailed
 from rest_framework.generics import DestroyAPIView, get_object_or_404
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -11,6 +12,8 @@ class DeleteBlogView(DestroyAPIView):
     permission_class = [IsAuthenticated]
 
     def delete(self, request, *args, **kwargs):
+        if self.request.user.is_anonymous:
+            raise AuthenticationFailed()
         blog = get_object_or_404(Blog, id=kwargs['blog_id'])
         if blog:
             blog.delete()
