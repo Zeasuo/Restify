@@ -14,5 +14,4 @@ class DeleteBlogView(DestroyAPIView):
         blog = get_object_or_404(Blog, id=kwargs['blog_id'])
         if blog:
             blog.delete()
-            blog.save()
             return Response(status.HTTP_204_NO_CONTENT)
