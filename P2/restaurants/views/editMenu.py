@@ -1,12 +1,10 @@
 from rest_framework import status
 from rest_framework.exceptions import ValidationError
-from rest_framework.generics import UpdateAPIView, get_object_or_404, \
-    RetrieveAPIView, ListAPIView
-from rest_framework.pagination import PageNumberPagination
+from rest_framework.generics import UpdateAPIView, get_object_or_404
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
-from restaurants.models import Food, Restaurant
+from restaurants.models import Food
 from restaurants.serializers.editMenu import EditMenuSerializer
 
 
@@ -26,13 +24,13 @@ class EditMenu(UpdateAPIView):
         data = request.data
         instances = []
         for temp_dict in data:
-            food_name = temp_dict['food_name']
-            price = temp_dict['price']
-            description = temp_dict['description']
             obj = self.get_object(temp_dict['id'])
-            obj.food_name = food_name
-            obj.price = price
-            obj.description = description
+            if 'food_name' in temp_dict:
+                obj.food_name = temp_dict['food_name']
+            if 'price' in temp_dict:
+                obj.price = temp_dict['price']
+            if 'description' in temp_dict:
+                obj.description = temp_dict['description']
             obj.save()
             instances.append(obj)
         serializer = EditMenuSerializer(instances, many=True)
