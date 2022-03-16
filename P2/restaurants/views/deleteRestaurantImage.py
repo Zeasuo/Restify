@@ -1,5 +1,6 @@
 from django.http import QueryDict
 from rest_framework import status
+from rest_framework.exceptions import AuthenticationFailed
 from rest_framework.generics import DestroyAPIView, get_object_or_404
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -14,6 +15,9 @@ class DeleteRestaurantImageView(DestroyAPIView):
     permission_class = [IsAuthenticated]
 
     def delete(self, request, *args, **kwargs):
+        if self.request.user.is_anonymous:
+            raise AuthenticationFailed()
+
         if 'image' not in request.data:
             return Response('Please provide a image to delete',
                             status.HTTP_400_BAD_REQUEST)

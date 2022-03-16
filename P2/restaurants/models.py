@@ -30,6 +30,9 @@ class Food(models.Model):
     def __str__(self):
         return str(self.restaurant) + ': ' + str(self.food_name)
 
+    class Meta:
+        unique_together = ('food_name', 'restaurant')
+
 
 class RestaurantImage(models.Model):
     image = models.ImageField(upload_to='restaurant_avatar')

@@ -6,7 +6,6 @@ from restaurants.views.deleteRestaurantImage import DeleteRestaurantImageView
 from restaurants.views.editMenu import EditMenu
 from restaurants.views.getMenu import GetMenu
 from restaurants.views.getRestaurant import GetRestaurant
-from restaurants.views.getRestaurantAvatar import GetRestaurantAvatar
 from restaurants.views.getRestaurantImage import GetRestaurantImageView
 from restaurants.views.search import SearchView
 from restaurants.views.updateRestaurant import UpdateRestaurant
@@ -17,12 +16,11 @@ urlpatterns = [
     path('create/', CreateRestaurant.as_view(), name='create_restaurant'),
     path('get/<str:restaurant_name>/', GetRestaurant.as_view(), name='get_restaurant'),
     path('update/', UpdateRestaurant.as_view(), name='update_restaurant'),
-    path('add_avatar/', AddRestaurantAvatar.as_view(), name='add_avatar'),
-    path('<str:restaurant_name>/avatar/', GetRestaurantAvatar.as_view(), name='get_restaurant_avatar'),
+    path('add_image/', AddRestaurantAvatar.as_view(), name='add_image'),
     path('add_menu/', AddMenu.as_view(), name='add_menu'),
     path('get_menu/<str:restaurant_name>/', GetMenu.as_view(), name='get_menu'),
-    path('edit_menu/<str:restaurant_name>/', EditMenu.as_view(), name='edit_menu'),
-    path('search/', SearchView.as_view(), name='searchrestaurant'),
+    path('edit_menu/', EditMenu.as_view(), name='edit_menu'),
+    path('search/', SearchView.as_view(), name='search_restaurant'),
     path('delete_avatar/', DeleteRestaurantImageView.as_view(), name='deleteImage'),
-    path('get_avatar/<str:restaurant_name>/', GetRestaurantImageView.as_view(), name='get_avatar')
+    path('get_image/<str:restaurant_name>/', GetRestaurantImageView.as_view(), name='get_image')
 ]
