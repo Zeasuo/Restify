@@ -4,6 +4,7 @@ from socials.views.addBlog import AddBlog
 from socials.views.addBlogImage import AddBlogImage
 from socials.views.addComment import AddCommentView
 from socials.views.addNotification import AddNotificationView
+from socials.views.deleteBlog import DeleteBlogView
 from socials.views.feed import FeedView
 from socials.views.followRestaurant import FollowRestaurantView, \
     UnFollowRestaurantView
@@ -28,5 +29,6 @@ urlpatterns = [
     path('add_notification/<str:user_name>/', AddNotificationView.as_view(), name='add_notification'),
     path('add_blog_image/', AddBlogImage.as_view(), name='add_blog_image'),
     path('get_notification/', GetNotificationView.as_view(), name='add_notification'),
-    path('feed/', FeedView.as_view(), name='feed')
+    path('feed/', FeedView.as_view(), name='feed'),
+    path('delete_blog/<int:blog_id>/', DeleteBlogView.as_view(), name='delete_blog')
 ]
