@@ -1,0 +1,12 @@
+input.form-control { width: 260px!important; }
+
+.dropdown-menu#Notification{
+    max-height: 170px;
+    overflow-y: scroll;
+  }
+
+body{
+  background-image: url("");
+  background-size: cover;
+  background-attachment: fixed;
+}
