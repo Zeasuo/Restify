@@ -1,53 +1,66 @@
 import { Link, Outlet } from "react-router-dom";
 import Form from 'react-bootstrap/Form'
 import React, { useEffect, useState } from 'react';
-import Button from 'react-bootstrap/Button'
-import Container from 'react-bootstrap/Container';
-import FormControl from "react-bootstrap/FormControl";
 import logo from "../images/Resify-logo-new.png";
-import { Navbar, NavItem, NavDropdown, MenuItem, NavbarBrand } from 'react-bootstrap';
+import { Navbar, NavDropdown, Button, Container, FormControl, Nav} from 'react-bootstrap';
+import { Plus } from 'react-bootstrap-icons';
 
-const Nav = () => {
+//https://react-bootstrap.github.io/components/navbar/
+const RenderNavbar = () => {
     return <>
-        <Navbar bg="light" expand="lg">
+        <Navbar bg="light" expand="lg" fixed="top">
             <Container fluid>
-                <Navbar.Brand href="#">Navbar scroll</Navbar.Brand>
+
+                <img
+                    src={logo}
+                    width="30"
+                    height="30"
+                    className="d-inline-block align-top"
+                />
+                <Navbar.Brand style={{marginLeft: "1%"}}>Restify</Navbar.Brand>
+
+                <Form className="d-flex" style={{marginLeft: "15%", width:"30%"}}>
+                    <FormControl
+                        type="search"
+                        placeholder="Search"
+                        className="me-2"
+                        aria-label="Search"
+                    />
+                    <Button variant="outline-info">Search</Button>
+                </Form>
+
                 <Navbar.Toggle aria-controls="navbarScroll" />
-                <Navbar.Collapse id="navbarScroll">
+                <Navbar.Collapse id="navbarScroll" style={{marginLeft: "8%"}}>
                     <Nav
                         className="me-auto my-2 my-lg-0"
                         style={{ maxHeight: '100px' }}
                         navbarScroll
                     >
-                        <Nav.Link href="#action1">Home</Nav.Link>
-                        <Nav.Link href="#action2">Link</Nav.Link>
-                        <NavDropdown title="Link" id="navbarScrollingDropdown">
-                            <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
-                            <NavDropdown.Item href="#action4">Another action</NavDropdown.Item>
+                        <Nav.Link href="home">Home</Nav.Link>
+                        <Nav.Link><Plus size={25}></Plus></Nav.Link>
+                        <NavDropdown title="Notification" id="notification">
+                            <NavDropdown.Item>Action</NavDropdown.Item>
+                            <NavDropdown.Item>Another action</NavDropdown.Item>
                             <NavDropdown.Divider />
-                            <NavDropdown.Item href="#action5">
+                            <NavDropdown.Item>
                                 Something else here
                             </NavDropdown.Item>
                         </NavDropdown>
-                        <Nav.Link href="#" disabled>
-                            Link
-                        </Nav.Link>
+                        <Nav.Link href="feed">Feed</Nav.Link>
+                        <Nav.Link href="favourite">Favourite</Nav.Link>
+                        <NavDropdown title="Account" id="account">
+                            <NavDropdown.Item>Action</NavDropdown.Item>
+                            <NavDropdown.Item>Another action</NavDropdown.Item>
+                            <NavDropdown.Divider />
+                            <NavDropdown.Item>
+                                Something else here
+                            </NavDropdown.Item>
+                        </NavDropdown>
                     </Nav>
-                    <Form className="d-flex">
-                        <FormControl
-                            type="search"
-                            placeholder="Search"
-                            className="me-2"
-                            aria-label="Search"
-                        />
-                        <Button variant="outline-success">Search</Button>
-                    </Form>
                 </Navbar.Collapse>
             </Container>
         </Navbar>
-
-        <Outlet />
     </>
 }
 
-export default Nav
+export default RenderNavbar
