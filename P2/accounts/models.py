@@ -8,4 +8,4 @@ class User(AbstractUser):
     phone_number = models.CharField(max_length=11, null=True, blank=True)
     likes = models.IntegerField(default=0)
     followers = models.IntegerField(default=0)
-    followings = models.IntegerField(default=0)
+    following = models.IntegerField(default=0)
