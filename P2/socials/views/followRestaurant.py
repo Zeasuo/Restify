@@ -26,11 +26,6 @@ class FollowRestaurantView(CreateAPIView):
             raise BadRequest("You already followed this restaurant")
         return super().post(request, *args, **kwargs)
 
-    def create(self, request, *args, **kwargs):
-        request.data.update({'user': request.user.pk, 'restaurant': get_object_or_404(Restaurant, restaurant_name=kwargs[
-            'restaurant_name']).pk})
-        return super(FollowRestaurantView, self).create(request, *args, **kwargs)
-
 
 class UnFollowRestaurantView(DestroyAPIView):
     serializer_class = FollowRestaurantSerializer

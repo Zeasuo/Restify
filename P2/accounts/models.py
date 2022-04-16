@@ -6,6 +6,19 @@ class User(AbstractUser):
     avatar = models.ImageField(upload_to='user_avatar', null=True, blank=True)
     birthday = models.DateTimeField(null=True, blank=True)
     phone_number = models.CharField(max_length=11, null=True, blank=True)
-    likes = models.IntegerField(default=0)
-    followers = models.IntegerField(default=0)
-    following = models.IntegerField(default=0)
+
+    @property
+    def following(self):
+        return self.followings.all().count()
+
+    @property
+    def number_of_comments(self):
+        return self.comments.all().count()
+
+    @property
+    def restaurant_likes(self):
+        return self.liked_restaurants.all().count()
+
+    @property
+    def blog_likes(self):
+        return self.liked_blogs.all().count()

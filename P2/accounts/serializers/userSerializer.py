@@ -8,10 +8,14 @@ from accounts.models import User
 
 
 class UserSerializer(serializers.ModelSerializer):
+    following = serializers.ReadOnlyField()
+    number_of_comments = serializers.ReadOnlyField()
+    restaurant_likes = serializers.ReadOnlyField()
+    blog_likes = serializers.ReadOnlyField()
+
     class Meta:
         model = User
-        fields = ['username', 'first_name', 'last_name', 'avatar', 'email', 'birthday', 'like', 'followers',
-                  'following']
+        fields = ['username', 'first_name', 'last_name', 'avatar', 'email', 'birthday', 'following', 'number_of_comments', 'restaurant_likes', 'blog_likes']
 
 
 class CreateUserSerializer(serializers.ModelSerializer):
