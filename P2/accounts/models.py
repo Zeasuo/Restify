@@ -22,3 +22,7 @@ class User(AbstractUser):
     @property
     def blog_likes(self):
         return self.liked_blogs.all().count()
+
+    @property
+    def restaurant_name(self):
+        return self.restaurant.restaurant_name
