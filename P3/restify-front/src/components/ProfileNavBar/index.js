@@ -1,20 +1,13 @@
-import { ListGroup } from 'react-bootstrap'
 import Navbar from 'react-bootstrap/Navbar'
 import Container from 'react-bootstrap/Container'
 import { House, Award, Bootstrap, PencilSquare} from 'react-bootstrap-icons';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col'
 
 
 const ProfileNavBar = () => {
-
-    
-
-
     return <>
-        <div className="d-flex flex-column align-items-center align-items-sm-start px-4 pt-5 text-white min-vh-100" style={{marginLeft: "15%"}}> 
+        <div className="align-items-end align-items-sm-end px-4 pt-5 text-white min-vh-100" style={{marginLeft: "50%", marginTop: "10%"}}> 
             <Navbar bg="light">
-                <Container className='fs-4 ' bg="primary">
+                <Container className='fs-4' bg="primary">
                     <Navbar.Brand href='/signUp'> <House className="text-primary"> </House><span className="ms-1 d-none d-sm-inline text-primary"> Home </span> </Navbar.Brand>
                 </Container>
             </Navbar>
