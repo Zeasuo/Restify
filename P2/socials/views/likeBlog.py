@@ -42,5 +42,4 @@ class UnLikeBlogView(DestroyAPIView):
             raise BadRequest("You have not liked this blog")
 
         like.delete()
-        Notification.objects.get(user=request.user, TargetUser=curr_blog.restaurant.owner, action="like", Target="blog", target_id=curr_blog.id).delete()
         return Response(status.HTTP_204_NO_CONTENT)

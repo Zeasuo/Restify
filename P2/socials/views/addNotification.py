@@ -17,29 +17,30 @@ class AddNotificationView(CreateAPIView):
         if self.request.user.is_anonymous:
             raise AuthenticationFailed()
 
-        if not User.objects.filter(username=kwargs['target_user_name']).exists():
-            raise BadRequest('The target user is not exist')
+        if not User.objects.filter(username=request.data['target_user_name']).exists():
+            raise BadRequest('The target user does not exist')
 
-        if 'action' not in request.data or 'Target' not in request.data or 'target_id' not in request.data:
-            raise BadRequest('Something goes wrong!')
+        if 'action' not in request.data or 'Target' not in request.data or 'target_id' not in request.data or 'target_user_name' not in request.data\
+                or request.data['action'] == '' or request.data['Target'] == '' or request.data['target_id'] == '' or request.data['target_user_name'] == '':
+            raise BadRequest('Incomplete data!')
 
         if (request.data['action'] == 'comment' or request.data['action'] == 'follow') and request.data['Target'] == 'blog':
             raise BadRequest('Your action is not appropriate for a blog')
 
         if request.data['Target'] == 'blog':
             try:
-                Blog.objects.get(id=kwargs['target_id'])
+                Blog.objects.get(id=request.data['target_id'])
             except Blog.DoesNotExist:
                 raise BadRequest('The blog does not exist')
 
         elif request.data['Target'] == 'rest':
             try:
-                Restaurant.objects.get(id=kwargs['target_id'])
+                Restaurant.objects.get(id=request.data['target_id'])
             except Blog.DoesNotExist:
                 raise BadRequest('The restaurant does not exist')
 
         try:
-            Notification.objects.get(user=request.user, action=request.data['action'], target_id=request.data['Target'])
+            Notification.objects.get(user=request.user, action=request.data['action'], target_id=request.data['target_id'])
             raise BadRequest("The Notification is duplicate!")
         except Notification.DoesNotExist:
             return self.create(request, *args, **kwargs)

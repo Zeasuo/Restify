@@ -43,5 +43,4 @@ class UnLikeRestaurantView(DestroyAPIView):
             raise BadRequest("You have not liked this restaurant")
 
         like.delete()
-        Notification.objects.get(user=request.user, TargetUser=curr_restaurant.owner, action="like", Target="rest", target_id=curr_restaurant.id).delete()
         return Response(status.HTTP_204_NO_CONTENT)
