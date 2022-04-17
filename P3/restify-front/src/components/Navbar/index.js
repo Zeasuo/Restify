@@ -16,10 +16,11 @@ const RenderNavbar = () => {
                     width="30"
                     height="30"
                     className="d-inline-block align-top"
+                    style={{marginLeft: "5%"}}
                 />
                 <Navbar.Brand style={{marginLeft: "1%"}}>Restify</Navbar.Brand>
 
-                <Form className="d-flex" style={{marginLeft: "15%", width:"30%"}}>
+                <Form className="d-flex" style={{marginLeft: "25%", width:"30%"}}>
                     <FormControl
                         type="search"
                         placeholder="Search"

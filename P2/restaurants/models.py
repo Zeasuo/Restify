@@ -20,6 +20,14 @@ class Restaurant(models.Model):
     def get_name(self):
         return self.restaurant_name
 
+    @property
+    def num_follower(self):
+        return self.followers.all().count()
+
+    @property
+    def num_blog(self):
+        return self.blogs.all().count()
+
 
 class Food(models.Model):
     food_name = models.CharField(max_length=100)
