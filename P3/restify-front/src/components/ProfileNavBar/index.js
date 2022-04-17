@@ -2,17 +2,20 @@ import { ListGroup } from 'react-bootstrap'
 import Navbar from 'react-bootstrap/Navbar'
 import Container from 'react-bootstrap/Container'
 import { House, Award, Bootstrap, PencilSquare} from 'react-bootstrap-icons';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col'
 
 
 const ProfileNavBar = () => {
 
+    
 
 
     return <>
         <div className="d-flex flex-column align-items-center align-items-sm-start px-4 pt-5 text-white min-vh-100" style={{marginLeft: "15%"}}> 
             <Navbar bg="light">
-                <Container className='fs-4 '>
-                    <Navbar.Brand href='/signUp' > <House className="text-primary"> </House><span className="ms-1 d-none d-sm-inline text-primary"> Home </span> </Navbar.Brand>
+                <Container className='fs-4 ' bg="primary">
+                    <Navbar.Brand href='/signUp'> <House className="text-primary"> </House><span className="ms-1 d-none d-sm-inline text-primary"> Home </span> </Navbar.Brand>
                 </Container>
             </Navbar>
 
@@ -40,8 +43,8 @@ const ProfileNavBar = () => {
                 </Container>
             </Navbar>
 
-            <Navbar bg="light" className='fs-4'>
-                <Container>
+            <Navbar bg="light">
+                <Container className='fs-4'>
                     <Navbar.Brand href='/signUp'> <PencilSquare className="text-primary"></PencilSquare> <span className ="ms-1 d-none d-sm-inline text-primary">Edit Restaurant </span></Navbar.Brand>
                 </Container>
             </Navbar>

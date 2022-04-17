@@ -25,4 +25,6 @@ class User(AbstractUser):
 
     @property
     def restaurant_name(self):
-        return self.restaurant.restaurant_name
+        if self.restaurant:
+            return self.restaurant.restaurant_name
+        return "No Restaurant"

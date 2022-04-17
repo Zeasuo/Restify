@@ -10,6 +10,7 @@ const LoginForm = () => {
     const [errorMessages, setErrorMessages] = useState("");
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [token, setToken] = useState();
+    const [username, setUsername] = useState("")
 
     const renderErrorMessage = () => errorMessages && (
         <div className="error" style={{color:'red'}}>{errorMessages}</div>
@@ -29,10 +30,19 @@ const LoginForm = () => {
             })
         })
         .then(response=>response.json())
-        .then(json => json.token?setToken(json.token):setErrorMessages(json))
+        .then(json => {
+            if (json.token){
+                setToken(json.token)
+                setUsername(json.username)
+            }
+            else{
+                setErrorMessages(json)
+            }
+        })
         
         if (token){
             localStorage.setItem('restifyToken', token);
+            localStorage.setItem('username', username.value);
             setIsSubmitted(true);
         }
 
