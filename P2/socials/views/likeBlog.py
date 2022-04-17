@@ -5,9 +5,8 @@ from rest_framework.generics import CreateAPIView, DestroyAPIView, \
     get_object_or_404
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-
 from restaurants.models import Restaurant
-from socials.models import Blog, BlogLike, RestaurantLike
+from socials.models import Blog, BlogLike, Notification, RestaurantLike
 from socials.serializers.likeBlogSerializer import LikeBlogSerializer
 
 
@@ -23,6 +22,7 @@ class LikeBlogView(CreateAPIView):
         if BlogLike.objects.filter(user=self.request.user,
                                          blog=curr_blog).exists():
             raise BadRequest("You already liked this blog")
+        Notification.objects.create(user=request.user, TargetUser=curr_blog.restaurant.owner, action="like", Target="blog", target_id=curr_blog.id)
         return super().post(request, *args, **kwargs)
 
 
@@ -42,5 +42,5 @@ class UnLikeBlogView(DestroyAPIView):
             raise BadRequest("You have not liked this blog")
 
         like.delete()
-
+        Notification.objects.get(user=request.user, TargetUser=curr_blog.restaurant.owner, action="like", Target="blog", target_id=curr_blog.id).delete()
         return Response(status.HTTP_204_NO_CONTENT)

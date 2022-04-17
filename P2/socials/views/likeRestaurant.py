@@ -7,7 +7,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
 from restaurants.models import Restaurant
-from socials.models import RestaurantLike
+from socials.models import Notification, RestaurantLike
 from socials.serializers.likeRestaurantSerializer import \
     LikeRestaurantSerializer
 
@@ -24,6 +24,8 @@ class LikeRestaurantView(CreateAPIView):
         if RestaurantLike.objects.filter(user=self.request.user,
                                  restaurant=curr_restaurant).exists():
             raise BadRequest("You already liked this restaurant")
+
+        Notification.objects.create(user=request.user, TargetUser=curr_restaurant.owner, action="like", Target="rest", target_id=curr_restaurant.id)
         return super().post(request, *args, **kwargs)
 
 
@@ -41,5 +43,5 @@ class UnLikeRestaurantView(DestroyAPIView):
             raise BadRequest("You have not liked this restaurant")
 
         like.delete()
-
+        Notification.objects.get(user=request.user, TargetUser=curr_restaurant.owner, action="like", Target="rest", target_id=curr_restaurant.id).delete()
         return Response(status.HTTP_204_NO_CONTENT)

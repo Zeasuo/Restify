@@ -7,7 +7,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
 from restaurants.models import Restaurant
-from socials.models import Follow
+from socials.models import Follow, Notification
 from socials.serializers.followRestaurantSerializer import \
     FollowRestaurantSerializer
 
@@ -24,6 +24,8 @@ class FollowRestaurantView(CreateAPIView):
         if Follow.objects.filter(user=self.request.user,
                                  restaurant=curr_restaurant).exists():
             raise BadRequest("You already followed this restaurant")
+
+        Notification.objects.create(user=request.user, TargetUser=curr_restaurant.owner, action="follow", Target="rest", target_id=curr_restaurant.id)
         return super().post(request, *args, **kwargs)
 
 
@@ -43,5 +45,5 @@ class UnFollowRestaurantView(DestroyAPIView):
             raise BadRequest("You have not followed this restaurant")
 
         follow.delete()
-
+        Notification.objects.get(user=request.user, TargetUser=curr_restaurant.owner, action="follow", Target="rest", target_id=curr_restaurant.id).delete()
         return Response(status.HTTP_204_NO_CONTENT)

@@ -5,7 +5,7 @@ from rest_framework.permissions import IsAuthenticated
 
 from accounts.models import User
 from restaurants.models import Restaurant
-from socials.models import Blog
+from socials.models import Blog, Notification
 from socials.serializers.addNotification import AddNotificationSerializer
 
 
@@ -16,14 +16,30 @@ class AddNotificationView(CreateAPIView):
     def post(self, request, *args, **kwargs):
         if self.request.user.is_anonymous:
             raise AuthenticationFailed()
-        if 'action' not in request.data or 'Target' not in request.data:
-            raise BadRequest('Please input action and target')
-        if not User.objects.filter(username=kwargs['user_name']).exists():
+
+        if not User.objects.filter(username=kwargs['target_user_name']).exists():
             raise BadRequest('The target user is not exist')
-        elif (request.data['action'] == 'comment' or request.data['action'] == 'follow') and request.data['Target'] == 'blog':
+
+        if 'action' not in request.data or 'Target' not in request.data or 'target_id' not in request.data:
+            raise BadRequest('Something goes wrong!')
+
+        if (request.data['action'] == 'comment' or request.data['action'] == 'follow') and request.data['Target'] == 'blog':
             raise BadRequest('Your action is not appropriate for a blog')
-        elif ('blog_id' not in request.data or not Blog.objects.filter(id=request.data['blog_id']).exists()) and request.data['Target'] == 'blog':
-            raise BadRequest('You need to have a correct object to like/follow/comment')
-        elif ('restaurant_id' not in request.data or not Restaurant.objects.filter(id=request.data['restaurant_id']).exists()) and request.data['Target'] == 'rest':
-            raise BadRequest('You need to have a correct object to like/follow/comment')
-        return self.create(request, *args, **kwargs)
+
+        if request.data['Target'] == 'blog':
+            try:
+                Blog.objects.get(id=kwargs['target_id'])
+            except Blog.DoesNotExist:
+                raise BadRequest('The blog does not exist')
+
+        elif request.data['Target'] == 'rest':
+            try:
+                Restaurant.objects.get(id=kwargs['target_id'])
+            except Blog.DoesNotExist:
+                raise BadRequest('The restaurant does not exist')
+
+        try:
+            Notification.objects.get(user=request.user, action=request.data['action'], target_id=request.data['Target'])
+            raise BadRequest("The Notification is duplicate!")
+        except Notification.DoesNotExist:
+            return self.create(request, *args, **kwargs)
