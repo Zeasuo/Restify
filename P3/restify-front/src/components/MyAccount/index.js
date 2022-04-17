@@ -4,8 +4,26 @@ import Col from 'react-bootstrap/Col'
 import Card from 'react-bootstrap/Card'
 import Image from 'react-bootstrap/Image'
 import ListGroup from 'react-bootstrap/ListGroup'
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
+import { notificationAPIContext } from "../../context/notificationAPIContext";
 
+const Table = () =>{
+    const { notifications } = useContext(notificationAPIContext)
+
+    console.log(notifications)
+    return <Card style={{textAlign: "center", width: "30rem"}}>
+        <ListGroup as="ul">
+            {notifications.map(notification => (
+                <ListGroup.Item as="li">
+                    {notification.user} {notification.action} you
+                </ListGroup.Item>
+            ))}
+        </ListGroup>
+
+    </Card>
+    
+    
+}
 
 const MyAccount = () =>{
     const [firstName, setFirstName] = useState("Joe")
@@ -18,6 +36,8 @@ const MyAccount = () =>{
     const [follower, setFollower] = useState(0)
     const [numPost, setNumPost] = useState(0)
     const [avatar, setAvatar] = useState("https://media.geeksforgeeks.org/wp-content/uploads/20210425000233/test-300x297.png")
+
+    const { setNotifications } = useContext(notificationAPIContext)
 
     const username = localStorage.getItem("username")
 
@@ -54,10 +74,22 @@ const MyAccount = () =>{
                 setFollower(json.num_follower)
                 setNumPost(json.num_blog)
             })
+
+            fetch("http://127.0.0.1:8000/socials/get_notification/", {
+                method: "GET",
+                headers: {
+                    'Authorization': "Token "+ localStorage.getItem("restifyToken"),
+                    'Content-Type': 'application/json',
+                }
+            })
+            .then(response => response.json())
+            .then(json => {
+                setNotifications(json.results)
+            })
         })
     }, [])
 
-    return <> 
+    return (<> 
     <Container fluid>
         <Row className="justify-content-start px-10">
             <h1 style={{marginLeft: '10%'}}>My Account</h1>
@@ -104,11 +136,12 @@ const MyAccount = () =>{
             </Col>
             <Col>
                 <h1 className="display-6"> Newest Notification</h1>
+                <Table />
             </Col>
             </Row>
         </Container>   
     </Container>
-    </>
+    </>)
 }
 
 export default MyAccount;

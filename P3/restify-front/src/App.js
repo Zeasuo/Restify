@@ -1,10 +1,15 @@
 import logo from './logo.svg';
 import './App.css';
 import Router from "./components/Router";
+import { notificationAPIContext } from "./context/notificationAPIContext";
+import {useState} from "react";
 
 function App() {
+  const [notifications, setNotifications] = useState([])
   return (
-    <Router />
+    <notificationAPIContext.Provider value={{notifications, setNotifications}}>
+      <Router />
+    </notificationAPIContext.Provider>
   );
 }
 
