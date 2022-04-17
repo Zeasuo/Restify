@@ -67,7 +67,9 @@ class Notification(models.Model):
         choices=(
             ("like", "Liked"),
             ("follow", "Followed"),
-            ("comment", "Commented")
+            ("comment", "Commented"),
+            ("update", "Updated"),
+            ("make", "Made")
         )
     )
     TargetUser = models.ForeignKey(to=User, related_name='getnotification', on_delete=models.CASCADE)
@@ -76,11 +78,28 @@ class Notification(models.Model):
         max_length=10,
         choices=(
             ("blog", "Blog"),
-            ("rest", "Restaurant")
+            ("rest", "Restaurant"),
+            ("new_blog", "New Blog"),
+            ("menu", "Menu")
         )
     )
     target_id = models.IntegerField(default=-1)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.user.username + " " + self.action + " " + self.TargetUser.username + "'s " + self.Target
+        if self.action == 'like' or self.action == 'comment' or self.action == 'follow':
+            return self.user.username + " " + self.action + " " + self.TargetUser.username + "'s " + self.Target
+        elif self.action == 'make':
+            return self.user.restaurant.restaurant_name + " " + self.action + " a " + self.Target
+        else:
+            return self.user.restaurant.restaurant_name + " " + self.action + " their " + self.Target
+
+    # https://docs.djangoproject.com/en/1.11/ref/models/instances/#django.db.models.Model.get_FOO_display
+    def get_notification(self):
+        if self.action == 'like' or self.action == 'comment' or self.action == 'follow':
+            return self.user.username + " " + self.get_action_display() + " your " + self.get_Target_display() + "!"
+        elif self.action == 'make':
+            return self.user.restaurant.restaurant_name + " " + self.get_action_display() + " a " + self.get_Target_display() + "!"
+        else:
+            return self.user.restaurant.restaurant_name + " " + self.get_action_display() + " their " + self.get_Target_display() + "!"
+

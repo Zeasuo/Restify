@@ -4,6 +4,7 @@ from rest_framework.permissions import IsAuthenticated
 
 from restaurants.models import Restaurant,Food
 from restaurants.serializers.addMenu import AddMenuSerializer
+from socials.models import Follow, Notification
 
 
 class AddMenu(CreateAPIView):
@@ -17,6 +18,12 @@ class AddMenu(CreateAPIView):
         # https://stackoverflow.com/questions/3090302/how-do-i-get-the-object-if-it-exists-or-none-if-it-does-not-exist-in-django
         try:
             Restaurant.objects.get(owner=self.request.user)
+
+            rest = Restaurant.objects.get(owner=self.request.user)
+            follows = Follow.objects.filter(restaurant=rest)
+            for follower in follows:
+                Notification.objects.create(user=request.user, TargetUser=follower.user, action="update", Target="menu", target_id=follower.user.id)
+
             return super().post(request, *args, **kwargs)
         except Restaurant.DoesNotExist:
             raise APIException("You don't have a restaurant yet")
