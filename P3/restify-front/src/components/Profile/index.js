@@ -1,5 +1,5 @@
 import { Container } from "react-bootstrap";
-import MyAccount from "../MyAccount";
+// import MyAccount from "../MyAccount";
 import ProfileNavBar from "../ProfileNavBar";
 import RenderNavbar from "../Navbar";
 const Profile = () =>{
@@ -16,8 +16,8 @@ const Profile = () =>{
                     </ProfileNavBar>
                 </div>
                 <div className="col py-3 md-auto">
-                    <MyAccount>
-                    </MyAccount>
+                    {/*<MyAccount>*/}
+                    {/*</MyAccount>*/}
                 </div>
             </div>
         </Container>
