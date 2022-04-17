@@ -15,5 +15,4 @@ class AddNotificationSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         return super().create({**validated_data, **{'user': self.context['request'].user,
-                                                    'TargetUser': get_object_or_404(User, username=self.context.get('request').parser_context.get('kwargs').get(
-                                                        'user_name'))}})
+                                                    'TargetUser': get_object_or_404(User, username=self.context['request'].data['target_user_name'])}})

@@ -83,4 +83,4 @@ class Notification(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.user.username + self.action + self.TargetUser.username + self.Target
+        return self.user.username + " " + self.action + " " + self.TargetUser.username + "'s " + self.Target
