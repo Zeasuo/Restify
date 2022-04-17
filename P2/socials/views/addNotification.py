@@ -20,7 +20,8 @@ class AddNotificationView(CreateAPIView):
         if not User.objects.filter(username=request.data['target_user_name']).exists():
             raise BadRequest('The target user does not exist')
 
-        if 'action' not in request.data or 'Target' not in request.data or 'target_id' not in request.data or 'target_user_name' not in request.data:
+        if 'action' not in request.data or 'Target' not in request.data or 'target_id' not in request.data or 'target_user_name' not in request.data\
+                or request.data['action'] == '' or request.data['Target'] == '' or request.data['target_id'] == '' or request.data['target_user_name'] == '':
             raise BadRequest('Incomplete data!')
 
         if (request.data['action'] == 'comment' or request.data['action'] == 'follow') and request.data['Target'] == 'blog':
