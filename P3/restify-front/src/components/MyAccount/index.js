@@ -10,12 +10,11 @@ import { notificationAPIContext } from "../../context/notificationAPIContext";
 const Table = () =>{
     const { notifications } = useContext(notificationAPIContext)
 
-    console.log(notifications)
     return <Card style={{textAlign: "center", width: "30rem"}}>
         <ListGroup as="ul">
             {notifications.map(notification => (
-                <ListGroup.Item as="li">
-                    {notification.user} {notification.action} you
+                <ListGroup.Item as="li" key={notification.id}>
+                    {notification.user?notification.user:"An Anonymous"} {notification.action} your {notification.Target === "blog"?"blog":"restaurant"}
                 </ListGroup.Item>
             ))}
         </ListGroup>
@@ -92,7 +91,7 @@ const MyAccount = () =>{
     return (<> 
     <Container fluid>
         <Row className="justify-content-start px-10">
-            <h1 style={{marginLeft: '10%'}}>My Account</h1>
+            <h1 style={{marginLeft: '10%'}}>Home</h1>
         </Row>
         <Row className="justify-content-end px-10">
             <Col md="auto" style={{marginTop: "3%"}}>

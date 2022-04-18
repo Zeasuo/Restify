@@ -105,7 +105,6 @@ const SignUpForm = () => {
     }, [nameState, usernameState, emailState, passwordState, password2State, checkBoxState])
 
     const handleSubmit = (e) =>{
-        console.log("sda");
         e.preventDefault();
         var {firstname, lastname, username, email, birthday, password} = document.forms[0];
         fetch('http://127.0.0.1:8000/accounts/user/register/', {
