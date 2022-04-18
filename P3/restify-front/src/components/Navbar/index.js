@@ -61,6 +61,7 @@ const RenderNavbar = () => {
                 </Navbar.Collapse>
             </Container>
         </Navbar>
+        <Outlet />
     </>
 }
 
