@@ -8,6 +8,7 @@ from rest_framework.response import Response
 
 from restaurants.models import Food, Restaurant
 from restaurants.serializers.editMenu import EditMenuSerializer
+from socials.models import Follow, Notification
 
 
 class EditMenu(UpdateAPIView):
@@ -51,4 +52,10 @@ class EditMenu(UpdateAPIView):
                 raise BadRequest('Inappropriate data format!')
             instances.append(obj)
         serializer = EditMenuSerializer(instances, many=True)
+
+        rest = Restaurant.objects.get(owner=self.request.user)
+        follows = Follow.objects.filter(restaurant=rest)
+        for follower in follows:
+            Notification.objects.create(user=request.user, TargetUser=follower.user, action="update", Target="menu", target_id=follower.user.id)
+
         return Response(serializer.data)

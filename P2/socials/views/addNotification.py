@@ -27,6 +27,12 @@ class AddNotificationView(CreateAPIView):
         if (request.data['action'] == 'comment' or request.data['action'] == 'follow') and request.data['Target'] == 'blog':
             raise BadRequest('Your action is not appropriate for a blog')
 
+        if request.data['action'] == 'update' and request.data['Target'] != 'menu':
+            raise BadRequest('Your action is not appropriate for a menu')
+
+        if request.data['action'] == 'make' and request.data['Target'] != 'new_blog':
+            raise BadRequest('Your action is not appropriate for a new blog')
+
         if request.data['Target'] == 'blog':
             try:
                 Blog.objects.get(id=request.data['target_id'])
@@ -38,6 +44,18 @@ class AddNotificationView(CreateAPIView):
                 Restaurant.objects.get(id=request.data['target_id'])
             except Blog.DoesNotExist:
                 raise BadRequest('The restaurant does not exist')
+
+        elif request.data['Target'] == 'new_blog':
+            try:
+                User.objects.get(id=request.data['target_id'])
+            except User.DoesNotExist:
+                raise BadRequest('The user does not exist')
+
+        elif request.data['Target'] == 'menu':
+            try:
+                User.objects.get(id=request.data['target_id'])
+            except User.DoesNotExist:
+                raise BadRequest('The user does not exist')
 
         try:
             Notification.objects.get(user=request.user, action=request.data['action'], target_id=request.data['target_id'])
