@@ -20,7 +20,7 @@ const RenderNavbar = () => {
                 />
                 <Navbar.Brand style={{marginLeft: "1%"}}>Restify</Navbar.Brand>
 
-                <Form className="d-flex" style={{marginLeft: "25%", width:"30%"}}>
+                <Form className="d-flex" style={{marginLeft: "20%", width:"30%"}}>
                     <FormControl
                         type="search"
                         placeholder="Search"
@@ -43,9 +43,7 @@ const RenderNavbar = () => {
                             <NavDropdown.Item>Action</NavDropdown.Item>
                             <NavDropdown.Item>Another action</NavDropdown.Item>
                             <NavDropdown.Divider />
-                            <NavDropdown.Item>
-                                Something else here
-                            </NavDropdown.Item>
+                            <NavDropdown.Item> See more notifications here...</NavDropdown.Item>
                         </NavDropdown>
                         <Nav.Link href="feed">Feed</Nav.Link>
                         <Nav.Link href="favourite">Favourite</Nav.Link>
@@ -53,9 +51,7 @@ const RenderNavbar = () => {
                             <NavDropdown.Item href="/profile">My Profile</NavDropdown.Item>
                             <NavDropdown.Item href="/profile/edit">Edit Profile</NavDropdown.Item>
                             <NavDropdown.Divider />
-                            <NavDropdown.Item>
-                                Something else here
-                            </NavDropdown.Item>
+                            <NavDropdown.Item>Log Out</NavDropdown.Item>
                         </NavDropdown>
                     </Nav>
                 </Navbar.Collapse>

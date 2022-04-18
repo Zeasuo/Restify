@@ -6,6 +6,7 @@ import logo from "../images/Resify-logo-new.png";
 
 const HomePage = () => {
     return <>
+
     </>
 }
 
