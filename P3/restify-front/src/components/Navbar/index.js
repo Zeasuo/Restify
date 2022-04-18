@@ -50,8 +50,8 @@ const RenderNavbar = () => {
                         <Nav.Link href="feed">Feed</Nav.Link>
                         <Nav.Link href="favourite">Favourite</Nav.Link>
                         <NavDropdown title="Account" id="account">
-                            <NavDropdown.Item>Action</NavDropdown.Item>
-                            <NavDropdown.Item>Another action</NavDropdown.Item>
+                            <NavDropdown.Item href="/profile">My Profile</NavDropdown.Item>
+                            <NavDropdown.Item href="/profile/edit">Edit Profile</NavDropdown.Item>
                             <NavDropdown.Divider />
                             <NavDropdown.Item>
                                 Something else here

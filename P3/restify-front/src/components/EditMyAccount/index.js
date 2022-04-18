@@ -14,7 +14,6 @@ const EditMyAccount = () =>{
     const [emailState, setEmailState]  =useState(true);
     const [phone_number_State, setPhoneNumberState]  =useState(true);
     const [buttonState, setButtonState] = useState(false)
-    const [isSubmitted, setIsSubmitted] = useState(false);
     const [user, setUser] = useState({})
     const [avatar, setAvatar] = useState("")
     
@@ -50,11 +49,16 @@ const EditMyAccount = () =>{
 
     const validatePhoneNumber = (phone_number) =>{
         var message = "Phone Number is invalid"
-        var reg = /^([0-9]{3}\-)([0-9]{3}\-)([0-9]{4})$/
+        const reg = /^[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-/\s.]?[0-9]{4}$/;
+        console.log(phone_number)
         if (phone_number.length >= 1){
             if (reg.test(phone_number) === false){
                 setPhoneNumberState(false);
                 setPhoneNumberNotification(message);
+            }
+            else{
+                setPhoneNumberState(true);
+                setPhoneNumberNotification("");
             }
         }
         else{
@@ -163,7 +167,7 @@ const EditMyAccount = () =>{
 
                 <div className="phone_number_notification" style={{color:"red"}}>{phone_number_notification}</div>
                 <Form.Group className="input-group mb-4" controlId="phone_number">
-                    <Form.Control type="text" placeholder="phone_number" defaultValue={user.phone_number} onChange={(e)=>validatePhoneNumber(e.target.value)}/>
+                    <Form.Control type="text" placeholder="phone_number(123-456-7890)" defaultValue={user.phone_number} onChange={(e)=>validatePhoneNumber(e.target.value)}/>
                 </Form.Group>
 
                 <Form.Group className="input-group mb-4" controlId="birthday">
