@@ -2,6 +2,7 @@ import { Container } from "react-bootstrap";
 import EditMyAccount from "../EditMyAccount";
 import ProfileNavBar from "../ProfileNavBar";
 import RenderNavbar from "../Navbar";
+import React from 'react';
 
 
 const EditProfile = () =>{
