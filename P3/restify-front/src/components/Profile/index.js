@@ -2,6 +2,7 @@ import { Container } from "react-bootstrap";
 import MyAccount from "../MyAccount";
 import ProfileNavBar from "../ProfileNavBar";
 import RenderNavbar from "../Navbar";
+import React from 'react'
 const Profile = () =>{
     return <>
         <Container style={{marginLeft: "58px"}}>

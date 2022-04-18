@@ -5,6 +5,7 @@ import Profile from "../Profile";
 import RenderNavbar from "../Navbar";
 import HomePage from "../Homepage";
 import EditProfile from "../EditProfile";
+import React from 'react'
 
 const Router = () => {
     return (

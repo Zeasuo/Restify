@@ -1,6 +1,7 @@
 import Navbar from 'react-bootstrap/Navbar'
 import Container from 'react-bootstrap/Container'
 import { House, Award, Bootstrap, PencilSquare} from 'react-bootstrap-icons';
+import React from 'react'
 
 
 const ProfileNavBar = ({id}) => {    

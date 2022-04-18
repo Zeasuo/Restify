@@ -4,7 +4,6 @@ import { Container, Row, Col, Tooltip } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button'
 import Image from 'react-bootstrap/Image'
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
-import { json } from 'body-parser';
 
 const EditMyAccount = () =>{
     const [name_notification, setNameNotification] = useState("")
@@ -92,48 +91,45 @@ const EditMyAccount = () =>{
 
     const handleSubmit = (e) =>{
         e.preventDefault();
-        var {firstname, lastname, email, phone_number, birthday, avatar} = document.forms[1];
+        var {firstname, lastname, email, phone_number, birthday} = document.forms[1];
+        const formData = new FormData()
+        formData.append("first_name", firstname.value)
+        formData.append("last_name", lastname.value)
+        formData.append("email", email.value)
+        formData.append("birthday", birthday.value)
+        formData.append("phone_number", phone_number.value)
         fetch('http://127.0.0.1:8000/accounts/user/update/', {
             method: 'PATCH',
             headers: {
                 'Authorization': "Token "+ localStorage.getItem("restifyToken"),
-                'Content-Type': 'application/json',
             },
-            body: JSON.stringify({
-                "first_name": firstname.value,
-                "last_name": lastname.value,
-                "email": email.value,
-                "birthday": birthday.value,
-                "phone_number": phone_number.value,
-            })
+            body: formData
         })
     }
 
     const handleChange = (e) =>{
         if (e.target.value){
             setAvatar(URL.createObjectURL(e.target.files[0]))
+            const formData = new FormData()
+            formData.append("avatar", e.target.files[0])
             fetch('http://127.0.0.1:8000/accounts/user/update/', {
                 method: 'PATCH',
                 headers: {
                     'Authorization': "Token "+ localStorage.getItem("restifyToken"),
-                    'Content-Type': 'application/json'
-                    
                 },
-                body: JSON.stringify({
-                    "avatar": avatar
-                })
+                body: formData
             })
         }
     }
 
     return <>
         <h1 style={{marginLeft:"10%"}}>Edit Profile</h1>
-        <Form className='form-inline'>
+        <Form className='form-inline' onSubmit={(e)=>handleSubmit(e)}>
             <div className="submit_notification" style={{color:"red"}}>{submit_notification}</div>
             <div className = "bg-white p-3" style={{margin:"3% 20% 10% 5%"}}>
                 <Container>
                     <Form.Group className="input-group mb-4" >
-                            <Form.Control name="avatar" type="file" hidden id="avatar" onChange={(e)=>handleChange(e)}></Form.Control>
+                            <Form.Control name="avatar" type="file" hidden id="avatar" accept='image/*' onChange={(e)=>handleChange(e)}></Form.Control>
                         <OverlayTrigger 
                             placement='auto'
                             overlay={
