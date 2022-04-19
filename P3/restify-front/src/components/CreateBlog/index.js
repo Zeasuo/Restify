@@ -1,23 +1,26 @@
 import { Container } from "react-bootstrap";
 import React, {useEffect, useState} from 'react';
 
+// https://react-bootstrap.github.io/forms/overview/
 
 const CreateBlog = () =>{
-    const [blog, setblog] = useState([])
-
-    var currentUser = localStorage.getItem("currentUser");
-
-    // const getNotification = (n) => {
-    //     if (n.action == 'like' || n.action == 'comment' || n.action == 'follow')
-    //         return n.user.username + " " + n.get_action_display() + " your " + n.get_Target_display() + "!"
-    //     else if (n.action == 'make')
-    //         return n.user.restaurant.restaurant_name + " " + n.get_action_display() + " a " + n.get_Target_display() + "!"
-    //     else
-    //         return n.user.restaurant.restaurant_name + " " + n.get_action_display() + " their " + n.get_Target_display() + "!"
-    // }
-
     return <>
+        <Form>
+            <Form.Group className="mb-3">
+                <Form.Label>Title</Form.Label>
+                <Form.Control type="text" placeholder="Enter your blog tile here." />
+            </Form.Group>
 
+            <Form.Group className="mb-3">
+                <Form.Label>Content</Form.Label>
+                <Form.Control type="text" placeholder="Enter your blog content here." />
+            </Form.Group>
+
+            <Form.Group className="mb-3">
+                <Form.Check type="checkbox" label="Your blog's title and content must be polite." />
+            </Form.Group>
+            <Button variant="primary" type="submit">Submit</Button>
+        </Form>
     </>
 
 }
