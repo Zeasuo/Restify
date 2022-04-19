@@ -14,6 +14,9 @@ class Blog(models.Model):
     def __str__(self):
         return self.title + ' - ' + self.restaurant.restaurant_name
 
+    @property
+    def logo(self):
+        return self.restaurant.logo
 
 class BlogImage(models.Model):
     blog = models.ForeignKey(to=Blog, on_delete=models.CASCADE, related_name='avatar')
