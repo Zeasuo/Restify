@@ -6,6 +6,7 @@ import RenderNavbar from "../Navbar";
 import HomePage from "../Homepage";
 import EditProfile from "../EditProfile";
 import React from 'react'
+import FeedPage from "../FeedPage";
 
 const Router = () => {
     return (
@@ -14,10 +15,11 @@ const Router = () => {
                 <Route path="/">
                     <Route path="signIn" element={<LoginForm />} />
                     <Route path="signUp" element={<SignUpForm />} />
-                    <Route path="profile">
+                    <Route path="profile" >
                         <Route index element={<Profile />} />
                         <Route path="edit" element={<EditProfile />} />
                     </Route>
+                    <Route path='feed' element={<FeedPage />} />
                 </Route>
                 <Route path="/" element={<RenderNavbar />}>
                     <Route path="home" element={<HomePage />} />
