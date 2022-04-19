@@ -4,13 +4,17 @@ import React, { useEffect, useState } from 'react';
 import logo from "../images/Resify-logo-new.png";
 import { Navbar, NavDropdown, Button, Container, FormControl, Nav} from 'react-bootstrap';
 import { Plus } from 'react-bootstrap-icons';
+import Notification from "../Notification";
 
-//https://react-bootstrap.github.io/components/navbar/
+// https://react-bootstrap.github.io/components/navbar/
+// https://stackoverflow.com/questions/51235582/how-to-add-req-user-to-fetch-request
+
 const RenderNavbar = () => {
+
+
     return <>
         <Navbar bg="light" expand="lg" fixed="top">
             <Container fluid>
-
                 <img
                     src={logo}
                     width="30"
@@ -39,12 +43,7 @@ const RenderNavbar = () => {
                     >
                         <Nav.Link href="home">Home</Nav.Link>
                         <Nav.Link><Plus size={25}></Plus></Nav.Link>
-                        <NavDropdown title="Notification" id="notification">
-                            <NavDropdown.Item>Action</NavDropdown.Item>
-                            <NavDropdown.Item>Another action</NavDropdown.Item>
-                            <NavDropdown.Divider />
-                            <NavDropdown.Item> See more notifications here...</NavDropdown.Item>
-                        </NavDropdown>
+                        <Nav.Link href="/notifications">Notifications</Nav.Link>
                         <Nav.Link href="feed">Feed</Nav.Link>
                         <Nav.Link href="favourite">Favourite</Nav.Link>
                         <NavDropdown title="Account" id="account">
