@@ -68,6 +68,8 @@ class Comment(models.Model):
 
 class Notification(models.Model):
     user = models.ForeignKey(to=User, related_name='notification', on_delete=models.CASCADE)
+    username = models.CharField(default="Impossible", max_length=200)
+    rest_name = models.CharField(default="Not Applicable", max_length=200)
     # https://stackoverflow.com/questions/48040008/django-restrict-data-that-can-be-given-to-model-field
     action = models.CharField(
         max_length=10,
@@ -102,11 +104,11 @@ class Notification(models.Model):
             return self.user.restaurant.restaurant_name + " " + self.action + " their " + self.Target
 
     # https://docs.djangoproject.com/en/1.11/ref/models/instances/#django.db.models.Model.get_FOO_display
-    def get_notification(self):
-        if self.action == 'like' or self.action == 'comment' or self.action == 'follow':
-            return self.user.username + " " + self.get_action_display() + " your " + self.get_Target_display() + "!"
-        elif self.action == 'make':
-            return self.user.restaurant.restaurant_name + " " + self.get_action_display() + " a " + self.get_Target_display() + "!"
-        else:
-            return self.user.restaurant.restaurant_name + " " + self.get_action_display() + " their " + self.get_Target_display() + "!"
+    # def get_notification(self):
+    #     if self.action == 'like' or self.action == 'comment' or self.action == 'follow':
+    #         return self.user.username + " " + self.get_action_display() + " your " + self.get_Target_display() + "!"
+    #     elif self.action == 'make':
+    #         return self.user.restaurant.restaurant_name + " " + self.get_action_display() + " a " + self.get_Target_display() + "!"
+    #     else:
+    #         return self.user.restaurant.restaurant_name + " " + self.get_action_display() + " their " + self.get_Target_display() + "!"
 
