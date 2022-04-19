@@ -5,6 +5,7 @@ import Profile from "../Profile";
 import RenderNavbar from "../Navbar";
 import HomePage from "../Homepage";
 import EditProfile from "../EditProfile";
+import CreateBlog from "../CreateBlog";
 import React from 'react'
 import FeedPage from "../FeedPage";
 
@@ -23,7 +24,9 @@ const Router = () => {
                 </Route>
                 <Route path="/" element={<RenderNavbar />}>
                     <Route path="home" element={<HomePage />} />
+                    <Route path="createblog" element={<CreateBlog />} />
                 </Route>
+
             </Routes>
         </BrowserRouter>
     )
