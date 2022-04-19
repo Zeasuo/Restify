@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, Grid, TextField, Button } from '@material-ui/core'
+import { Container, Grid, TextField, Button,TextareaAutosize} from '@material-ui/core'
 
 function Description({nextStep, prevStep, handleChange, state}) {
   // for continue event listener
@@ -20,18 +20,19 @@ function Description({nextStep, prevStep, handleChange, state}) {
           <Grid container spacing={1} 
             alignItems="center"
             justifyContent="center"
-            style={{ minHeight: '100vh' }}
+            style={{ minHeight: '40vh' }}
+            xs={12}
             >
-              <Grid>
-                <TextField
-                    placeholder="MultiLine with rows: 2 and rowsMax: 4"
+              
+                <TextareaAutosize
+                    placeholder="Enter description"
+                    maxRows={20}
                     multiline
-                    rows={2}
-                    maxRows={4}
-                    />
-              </Grid>
+                    style={{ width: "100%" }}
+                />
+             
           </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={1}>
               <Button 
                 onClick={ Previous }
                 type="submit"
@@ -43,7 +44,7 @@ function Description({nextStep, prevStep, handleChange, state}) {
                 Previous
               </Button>
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={1}>
               <Button 
                 onClick={ Continue }
                 type="submit"

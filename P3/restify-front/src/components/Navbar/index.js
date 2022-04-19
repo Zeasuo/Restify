@@ -13,7 +13,7 @@ const RenderNavbar = () => {
 
 
     return <>
-        <Navbar bg="light" expand="lg" fixed="top">
+        <Navbar bg="light" expand="lg">
             <Container fluid>
                 <img
                     src={logo}
