@@ -10,7 +10,19 @@ import Notification from "../Notification";
 // https://stackoverflow.com/questions/51235582/how-to-add-req-user-to-fetch-request
 
 const RenderNavbar = () => {
+    const [input, setInput] = useState("")
 
+    const SearchInput = (e) => {
+        e.preventDefault()
+        fetch('http://127.0.0.1:8000/restaurants/search/?search=' + input, {
+            method: 'GET'
+        })
+            .then((response) => {
+                if (response.ok) {
+                }
+                throw new Error('Something went wrong');
+            })
+    }
 
     return <>
         <Navbar bg="light" expand="lg" sticky="top">
@@ -30,8 +42,10 @@ const RenderNavbar = () => {
                         placeholder="Search"
                         className="me-2"
                         aria-label="Search"
+                        value = {input}
+                        onChange={(e) => setInput(e.target.value)}
                     />
-                    <Button variant="outline-info">Search</Button>
+                    <Button variant="outline-info" onClick={event => SearchInput(event)}>Search</Button>
                 </Form>
 
                 <Navbar.Toggle aria-controls="navbarScroll" />
