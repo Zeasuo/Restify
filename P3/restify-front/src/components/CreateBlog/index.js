@@ -53,6 +53,7 @@ const CreateBlog = () =>{
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
+                //request.user problem
                 "title": title,
                 "content": content
             })
