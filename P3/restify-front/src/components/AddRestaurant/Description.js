@@ -6,7 +6,6 @@ import {
     Button,
     TextareaAutosize,
 } from "@material-ui/core";
-import FileUploadComponent from "../FileUploads/FileUpload";
 
 function Description({ nextStep, prevStep, handleChange, state }) {
     // for continue event listener
@@ -23,7 +22,6 @@ function Description({ nextStep, prevStep, handleChange, state }) {
     return (
         <Container component="main">
             <div>
-                <FileUploadComponent />
                 <Typography component="h1" variant="h5">
                     Now, tell us about your restaurant
                 </Typography>

@@ -11,7 +11,7 @@ const AddRestaurant = () => {
     const [state, setState] = useState({
         step: 1,
         name: '',
-        location: '',
+        address: '',
         postalCode: '',
         description: '',
         logo: '',
