@@ -18,6 +18,10 @@ class Blog(models.Model):
     def logo(self):
         return self.restaurant.logo
 
+    @property
+    def num_likes(self):
+        return self.blog_likes.all().count()
+
 class BlogImage(models.Model):
     blog = models.ForeignKey(to=Blog, on_delete=models.CASCADE, related_name='avatar')
     image = models.ImageField(upload_to='blog_image', blank=True, null=True)
