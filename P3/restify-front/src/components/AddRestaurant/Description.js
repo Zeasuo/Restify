@@ -26,7 +26,7 @@ function Description({nextStep, prevStep, handleChange, state}) {
               
                 <TextareaAutosize
                     placeholder="Enter description"
-                    maxRows={20}
+                    maxRows={200}
                     multiline
                     style={{ width: "100%" }}
                 />
