@@ -23,7 +23,9 @@ const Router = () => {
                     </Route>
                     <Route path='feed' element={<FeedPage />} />
                     <Route path="restaurant" element={<RenderNavbar />}>
-                        <Route path="register" element={<AddRestaurant />} />
+                        <Route path="register" element={<AddRestaurant />}>
+                            <Route path="details" element={<AddRestaurantDetails />} />
+                        </Route>
                     </Route>
                 </Route>
                 <Route path="/home" element={<RenderNavbar />}>
