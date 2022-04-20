@@ -17,6 +17,9 @@ class Restaurant(models.Model):
     def get_name(self):
         return self.restaurant_name
 
+    def get_logo(self):
+        return self.logo
+
     @property
     def num_follower(self):
         return self.followers.all().count()
