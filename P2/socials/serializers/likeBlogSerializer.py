@@ -8,6 +8,7 @@ from socials.models import Blog, BlogLike, Follow, RestaurantLike
 class LikeBlogSerializer(serializers.ModelSerializer):
     user = serializers.CharField(read_only=True)
     blog = serializers.CharField(read_only=True)
+    num_likes = serializers.IntegerField(source="blog.num_likes", read_only=True)
 
     class Meta:
         model = BlogLike
