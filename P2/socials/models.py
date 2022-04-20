@@ -22,6 +22,14 @@ class Blog(models.Model):
     def num_likes(self):
         return self.blog_likes.all().count()
 
+    @property
+    def liked_users(self):
+        users = []
+        for blog_like in self.blog_likes.all():
+            users.append(blog_like.user.username)
+        return users
+
+
 class BlogImage(models.Model):
     blog = models.ForeignKey(to=Blog, on_delete=models.CASCADE, related_name='avatar')
     image = models.ImageField(upload_to='blog_image', blank=True, null=True)
