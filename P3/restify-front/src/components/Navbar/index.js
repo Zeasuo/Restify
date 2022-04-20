@@ -9,6 +9,7 @@ import {Modal, ModalDialog, ModalHeader, ModalFooter, ModalBody} from "react-boo
 // https://react-bootstrap.github.io/components/navbar/
 // https://stackoverflow.com/questions/51235582/how-to-add-req-user-to-fetch-request
 // https://stackoverflow.com/questions/50664632/remove-an-item-from-local-storage-in-reactjs
+// https://react-bootstrap.github.io/components/modal/
 
 const RenderNavbar = () => {
     const [input, setInput] = useState("")
@@ -26,7 +27,7 @@ const RenderNavbar = () => {
             })
                 .then((response) => response.json())
                 .then(json => {
-                    localStorage.setItem("searchInput", json.results)
+                    localStorage.setItem("searchResults", json.results)
                     navigate("../socials/searchResult")
                 })
         }
