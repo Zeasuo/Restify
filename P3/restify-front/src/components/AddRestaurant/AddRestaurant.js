@@ -3,8 +3,9 @@ import { useState } from "react";
 
 import { Container, Grid, TextField, Button, Paper } from "@material-ui/core";
 // import Image from '../images/details.jpg';
+import { Navigate } from 'react-router-dom';
 
-const Details = ({ nextStep, handleChange, state }) => {
+const AddRestaurant = () => {
     const [nameState, setName] = useState("");
     const [addressState, setAddress] = useState("");
     const [postalCodeState, setPostalCode] = useState("");
@@ -12,11 +13,9 @@ const Details = ({ nextStep, handleChange, state }) => {
     const [addressNotification, setAddressNotification] = useState(true);
     const [postalCodeNotification, setPostalCodeNotification] = useState(true);
     // for continue event listener
-    const Continue = (e) => {
+    const Submit = (e) => {
         e.preventDefault();
         if (nameState && addressState && postalCodeState) {
-            var {restaurant_name, address, postal_code} =
-                document.forms[1];
             const formData = new FormData();
             formData.append("restaurant_name", nameState);
             formData.append("address", addressState);
@@ -32,7 +31,7 @@ const Details = ({ nextStep, handleChange, state }) => {
                     console.log(response)
                 }
                 else {
-                    nextStep();
+                    return( <Navigate to="/"/>)
                 }
             });
             
@@ -157,7 +156,7 @@ const Details = ({ nextStep, handleChange, state }) => {
                                 style={{ marginTop: "4em" }}
                             />
                             <Button
-                                onClick={Continue}
+                                onClick={Submit}
                                 type="submit"
                                 size="large"
                                 variant="contained"
@@ -179,4 +178,4 @@ const Details = ({ nextStep, handleChange, state }) => {
     );
 };
 
-export default Details;
+export default AddRestaurant;

@@ -1,13 +1,11 @@
 import React from 'react'
 import Button from 'react-bootstrap/Button'
 import { useState } from 'react';
-import Details from './Details';
 import Description from './Description';
-import Confirmation from './Confirmation';
-import Success from './Success';
+
 
 // followed this blog: https://blog.devgenius.io/create-a-multi-step-form-with-reactjs-322aa97a2968#0779
-const AddRestaurant = () => {
+const AddRestaurantDetail = () => {
     const [state, setState] = useState({
         step: 1,
         name: '',
@@ -44,39 +42,20 @@ const AddRestaurant = () => {
     const renderStep = () => {
         switch(state.step) {
             case 1:
-                return <Details
-                    nextStep={nextStep}
-                    handleChange={handleChange}
-                    state={state}
-                />
-            case 2:
-                return <Confirmation
-                    nextStep={nextStep}
-                    prevStep={prevStep}
-                    handleChange={handleChange}
-                    state={state}
-                />
-            case 3:
                 return <Description
                     nextStep={nextStep}
                     prevStep={prevStep}
                     handleChange={handleChange}
                     state={state}
                 />
-            case 4:
+            case 2:
                 return <logo
                     nextStep={nextStep}
                     prevStep={prevStep}
                     handleChange={handleChange}
                     state={state}
                 />
-            case 5:
-                return <Success
-                    nextStep={nextStep}
-                    prevStep={prevStep}
-                    handleChange={handleChange}
-                    state={state}
-                />
+           
             default:
                 return null
         }
@@ -89,5 +68,5 @@ const AddRestaurant = () => {
     )
 }
 
-export default AddRestaurant
+export default AddRestaurantDetail
 
