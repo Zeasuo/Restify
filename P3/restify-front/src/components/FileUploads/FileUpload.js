@@ -3,6 +3,7 @@ import 'react-dropzone-uploader/dist/styles.css'
 import Dropzone from 'react-dropzone-uploader'
 import { getDroppedOrSelectedFiles } from 'html5-file-selector'
 
+// https://react-dropzone-uploader.js.org/docs/examples
 const FileUploadComponent = (onSubmit) => {
     const fileParams = ({ meta }) => {
         return { url: 'https://httpbin.org/post' }

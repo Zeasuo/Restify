@@ -33,7 +33,10 @@ const Router = () => {
                 </Route>
                 <Route path="/home" element={<RenderNavbar />}>
                     <Route index element={<HomePage />} />
-                    <Route path="createblog" element={<CreateBlog />} />
+                </Route>
+
+                <Route path="socials" element={<RenderNavbar />}>
+                    <Route path="createBlog" element={<CreateBlog />} />
                 </Route>
             </Routes>
         </BrowserRouter>

@@ -51,9 +51,9 @@ const CreateBlog = () =>{
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                "Authorization": "Token " + localStorage.getItem("restifyToken"),
             },
             body: JSON.stringify({
-                //request.user problem
                 "title": title,
                 "content": content
             })
@@ -62,7 +62,9 @@ const CreateBlog = () =>{
                 if (response.ok) {
                     setSubmitNotification("You have made a blog successfully! Congrats!");
                 }
-                throw new Error('Something went wrong');
+                else{
+                    setSubmitNotification("You need to have a restaurant before making a post!");
+                }
             })
     }
 
