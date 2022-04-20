@@ -4,41 +4,64 @@ import { Container, Row, Col, Tooltip, ListGroup } from 'react-bootstrap';
 import { feedAPIContext } from "../../context/feedAPIContext";
 import Image from 'react-bootstrap/Image'
 import ToggleButton from 'react-bootstrap/ToggleButton'
-import { Heart } from "react-bootstrap-icons";
+import { Heart, ArrowLeftSquare, ArrowRightSquare } from "react-bootstrap-icons";
+import SimpleImageSlider from "react-simple-image-slider"
+import "./style.css"
 
-const ImageSlide = (blogID) =>{
+const ImageSlide = ({ blogID }) =>{
+    const [images, setImages] = useState([])
+    
 
+    useEffect(()=>{
+        fetch("http://localhost:8000/socials/get_blog_image/"+blogID+"/", {
+            method:"GET",
+            headers:{
+                'Content-Type': 'application/json',
+            }
+        })
+        .then(response => response.json())
+        .then(json =>{
+            json.map(image=>{
+                var url = image.image
+                console.log(url)
+                setImages(images=>[...images, {url}])
+            })
+        })
+
+        console.log(images)
+    }, [])
+
+
+
+    return <Container className="align-items-center">
+        {images.length>0?<SimpleImageSlider 
+            width={500} 
+            height={250}
+            images = {images}
+            showNavs = {true}
+            showBullets = {true}
+            navStyle = {2}
+            style={{marginLeft:"125px"}}>
+        </SimpleImageSlider>:<div/>}
+    </Container>
 }
 
 const Table = () =>{
     const { blogs } = useContext(feedAPIContext)
 
-    /** 
-    const getBlogImage = (blogID) =>{
-        const images = []
-        fetch("http://localhost:8000/get_blog_image/"+blogID+"/", {
-            method: "GET",
-            headers: {
-                'Content-Type': 'application/json',
-            }
-        })
-        .then(response => response.json())
-        .then(json=>{
-            images = json
-        })
-    }
-    */
-
-    return <Row style= {{marginTop: "8%"}}>
-        <Col className="col-12 col-sm-6 col-md-8">
+    return <Row style= {{marginTop: "8%"}} className="align-items-center">
+        <Col className="col-12 col-sm-6 col-md-8 ">
             {blogs.map(blog=>(
-                <Card style={{width:"95%", marginTop: "3%", marginLeft: "5%"}} key={blog.id}>
+                <Card style={{width:"95%", marginTop: "3%", marginLeft: "25%"}} key={blog.id}>
                     <Card.Header key={blog.id + " header"}>
                         <Image src={blog.logo} width={"100"} height="100"></Image>
                         <span style={{marginLeft:"1%", fontSize:"25px"}}>{blog.restaurant}</span>
-                        <h3 style={{marginLeft: "50%"}}>{blog.id}</h3>
+                        <h3 style={{marginLeft:"40%"}}>{blog.title}</h3>
                     </Card.Header>
                     <ListGroup as="ul" >
+                        <ListGroup.Item key={blog.id+ " images"}>
+                            <ImageSlide blogID={blog.id}></ImageSlide>
+                        </ListGroup.Item>
                         <ListGroup.Item key={blog.id +" content"}>
                         <h6>{blog.content}</h6>
                         </ListGroup.Item>
@@ -59,17 +82,37 @@ const Feed = () => {
     const [start, setStart] = useState(1)
     const [loading, setLoading] = useState(false)
 
-    const { blogs, setBlogs } = useContext(feedAPIContext)
+    const { setBlogs } = useContext(feedAPIContext)
 
     const loader = useRef(null);
 
+    const getBlog = () =>{
+        fetch("http://localhost:8000/socials/feed/?page="+start, {
+            method: "GET",
+            headers: {
+                'Authorization': "Token "+localStorage.getItem("restifyToken"),
+                'Content-Type': 'application/json',
+            }
+        })
+        .then(response => response.json())
+        .then(json =>{
+            setBlogs(blogs=>[...blogs, ...json.results])
+            if (!json.next){
+                setHasMore(false)
+            }
+        })
+    }
+
+
+    useEffect(()=>{
+        getBlog()
+    }, [start])
+
     const handleObserver = useCallback((entries) => {
         const target = entries[0];
+        
         if (target.isIntersecting && hasMore == true && loading==false){
-            setLoading(true)
-            setStart((prev) => prev + 1);
-            console.log(start)
-            getBlog()
+            setStart(start+1)
         }
         setTimeout(()=>{
             setHasMore(false)
@@ -85,36 +128,13 @@ const Feed = () => {
         const observer = new IntersectionObserver(handleObserver, option);
         if (loader.current) observer.observe(loader.current);
       }, [handleObserver]);
-
     
 
-    const getBlog = () =>{
-        fetch("http://localhost:8000/socials/feed/?page="+start, {
-            method: "GET",
-            headers: {
-                'Authorization': "Token "+localStorage.getItem("restifyToken"),
-                'Content-Type': 'application/json',
-            }
-        })
-        .then(response => response.json())
-        .then(json =>{
-            setBlogs(blogs=>[...blogs, ...json.results])
-            setStart(start+1)
-            console.log(blogs)
-            if (!json.next){
-                setHasMore(false)
-            }
-        })
-    }
-
-
-    useEffect(()=>{
-        getBlog()
-    }, [])
-    
     return <>
-        <Table />
-        <div ref={loader} />
+        <Container className="align-items-center">
+            <Table />
+            <div ref={loader} />
+        </Container>
     </>
 }
 
