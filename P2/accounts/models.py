@@ -27,7 +27,7 @@ class User(AbstractUser):
     def restaurant_name(self):
         if self.restaurant:
             return self.restaurant.restaurant_name
-        return "No Restaurant"
+        return ""
 
     def __str__(self):
         return self.username

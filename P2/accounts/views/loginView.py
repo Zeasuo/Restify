@@ -27,5 +27,5 @@ class LoginView(GenericAPIView):
         token = Token.objects.get_or_create(user=user)
         if token:
             login(request, user)
-            json = {"token": token[0].key, "username": username}
+            json = {"token": token[0].key, "username": username, "restaurant": user.restaurant_name}
             return Response(json, status=status.HTTP_200_OK)
