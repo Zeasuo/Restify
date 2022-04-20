@@ -2,7 +2,7 @@ from rest_framework.exceptions import APIException, AuthenticationFailed
 from rest_framework.generics import CreateAPIView
 from rest_framework.permissions import IsAuthenticated
 
-from restaurants.models import Restaurant,Food
+from restaurants.models import Restaurant, Food
 from restaurants.serializers.addMenu import AddMenuSerializer
 from socials.models import Follow, Notification
 
@@ -22,9 +22,12 @@ class AddMenu(CreateAPIView):
             rest = Restaurant.objects.get(owner=self.request.user)
             follows = Follow.objects.filter(restaurant=rest)
             for follower in follows:
-                Notification.objects.create(user=request.user, TargetUser=follower.user, action="update", Target="menu", target_id=follower.user.id)
+                Notification.objects.create(user=self.request.user,
+                                            name=self.request.user.restaurant.restaurant_name,
+                                            TargetUser=follower.user,
+                                            action="update", Target="menu",
+                                            target_id=follower.user.id)
 
             return super().post(request, *args, **kwargs)
         except Restaurant.DoesNotExist:
             raise APIException("You don't have a restaurant yet")
-

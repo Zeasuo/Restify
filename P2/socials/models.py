@@ -68,8 +68,7 @@ class Comment(models.Model):
 
 class Notification(models.Model):
     user = models.ForeignKey(to=User, related_name='notification', on_delete=models.CASCADE)
-    username = models.CharField(default="Impossible", max_length=200)
-    rest_name = models.CharField(default="Not Applicable", max_length=200)
+    name = models.CharField(default="Impossible", max_length=200)
     # https://stackoverflow.com/questions/48040008/django-restrict-data-that-can-be-given-to-model-field
     action = models.CharField(
         max_length=10,

@@ -25,7 +25,7 @@ class FollowRestaurantView(CreateAPIView):
                                  restaurant=curr_restaurant).exists():
             raise BadRequest("You already followed this restaurant")
 
-        Notification.objects.create(user=request.user, TargetUser=curr_restaurant.owner, action="follow", Target="rest", target_id=curr_restaurant.id)
+        Notification.objects.create(user=self.request.user, name=self.request.user.username, TargetUser=curr_restaurant.owner, action="follow", Target="rest", target_id=curr_restaurant.id)
         return super().post(request, *args, **kwargs)
 
 

@@ -56,6 +56,6 @@ class EditMenu(UpdateAPIView):
         rest = Restaurant.objects.get(owner=self.request.user)
         follows = Follow.objects.filter(restaurant=rest)
         for follower in follows:
-            Notification.objects.create(user=request.user, TargetUser=follower.user, action="update", Target="menu", target_id=follower.user.id)
+            Notification.objects.create(user=self.request.user, name=self.request.user.restaurant.restaurant_name, TargetUser=follower.user, action="update", Target="menu", target_id=follower.user.id)
 
         return Response(serializer.data)

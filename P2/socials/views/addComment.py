@@ -15,5 +15,5 @@ class AddCommentView(CreateAPIView):
         if self.request.user.is_anonymous:
             raise AuthenticationFailed()
         restaurant = get_object_or_404(Restaurant, restaurant_name=kwargs['restaurant_name'])
-        Notification.objects.create(user=request.user, TargetUser=restaurant.owner, action="comment", Target="rest", target_id=restaurant.id)
+        Notification.objects.create(user=self.request.user, name=self.request.user.username, TargetUser=restaurant.owner, action="comment", Target="rest", target_id=restaurant.id)
         return super().post(request, *args, **kwargs)

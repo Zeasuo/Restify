@@ -5,8 +5,7 @@ from rest_framework.generics import CreateAPIView, DestroyAPIView, \
     get_object_or_404
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-from restaurants.models import Restaurant
-from socials.models import Blog, BlogLike, Notification, RestaurantLike
+from socials.models import Blog, BlogLike, Notification
 from socials.serializers.likeBlogSerializer import LikeBlogSerializer
 
 
@@ -20,9 +19,12 @@ class LikeBlogView(CreateAPIView):
         curr_blog = get_object_or_404(Blog, id=kwargs[
             'blog_id'])
         if BlogLike.objects.filter(user=self.request.user,
-                                         blog=curr_blog).exists():
+                                   blog=curr_blog).exists():
             raise BadRequest("You already liked this blog")
-        Notification.objects.create(user=request.user, TargetUser=curr_blog.restaurant.owner, action="like", Target="blog", target_id=curr_blog.id)
+        Notification.objects.create(user=self.request.user, name=self.request.user.username,
+                                    TargetUser=curr_blog.restaurant.owner,
+                                    action="like", Target="blog",
+                                    target_id=curr_blog.id)
         return super().post(request, *args, **kwargs)
 
 

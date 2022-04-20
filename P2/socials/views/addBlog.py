@@ -22,7 +22,7 @@ class AddBlog(CreateAPIView):
             rest = Restaurant.objects.get(owner=self.request.user)
             follows = Follow.objects.filter(restaurant=rest)
             for follower in follows:
-                Notification.objects.create(user=request.user, TargetUser=follower.user, action="make", Target="new_blog", target_id=follower.user.id)
+                Notification.objects.create(user=self.request.user, name=self.request.user.restaurant.restaurant_name, TargetUser=follower.user, action="make", Target="new_blog", target_id=follower.user.id)
             return super().post(request, *args, **kwargs)
         except Restaurant.DoesNotExist:
             raise BadRequest('You don\'t have a restaurant yet!')
