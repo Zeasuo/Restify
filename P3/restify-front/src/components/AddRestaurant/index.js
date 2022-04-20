@@ -11,7 +11,7 @@ const AddRestaurant = () => {
     const [state, setState] = useState({
         step: 1,
         name: '',
-        location: '',
+        address: '',
         postalCode: '',
         description: '',
         logo: '',
@@ -50,20 +50,27 @@ const AddRestaurant = () => {
                     state={state}
                 />
             case 2:
-                return <Description
-                    nextStep={nextStep}
-                    prevStep={prevStep}
-                    handleChange={handleChange}
-                    state={state}
-                />
-            case 3:
                 return <Confirmation
                     nextStep={nextStep}
                     prevStep={prevStep}
                     handleChange={handleChange}
                     state={state}
                 />
+            case 3:
+                return <Description
+                    nextStep={nextStep}
+                    prevStep={prevStep}
+                    handleChange={handleChange}
+                    state={state}
+                />
             case 4:
+                return <logo
+                    nextStep={nextStep}
+                    prevStep={prevStep}
+                    handleChange={handleChange}
+                    state={state}
+                />
+            case 5:
                 return <Success
                     nextStep={nextStep}
                     prevStep={prevStep}

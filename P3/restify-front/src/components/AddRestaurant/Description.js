@@ -1,64 +1,82 @@
-import React from 'react'
-import { Container, Grid, TextField, Button } from '@material-ui/core'
+import React from "react";
+import {
+    Container,
+    Grid,
+    Typography,
+    Button,
+    TextareaAutosize,
+} from "@material-ui/core";
 
-function Description({nextStep, prevStep, handleChange, state}) {
-  // for continue event listener
-  const Continue = e => {
-    e.preventDefault();
-    nextStep();
-  }
+function Description({ nextStep, prevStep, handleChange, state }) {
+    // for continue event listener
+    const Continue = (e) => {
+        e.preventDefault();
+        nextStep();
+    };
 
-  const Previous = e => {
-    e.preventDefault();
-    prevStep();
-  }
+    const Previous = (e) => {
+        e.preventDefault();
+        prevStep();
+    };
 
-  return (
-    <Container  component="main">
-      <div>
-        <form>
-          <Grid container spacing={1} 
-            alignItems="center"
-            justifyContent="center"
-            style={{ minHeight: '100vh' }}
-            >
-              <Grid>
-                <TextField
-                    placeholder="MultiLine with rows: 2 and rowsMax: 4"
-                    multiline
-                    rows={2}
-                    maxRows={4}
-                    />
-              </Grid>
-          </Grid>
-              <Grid item xs={12} sm={6}>
-              <Button 
-                onClick={ Previous }
-                type="submit"
-                fullWidth
-                variant="contained"
-                color="primary"
-                style={{marginTop: '0'}}
-              >
-                Previous
-              </Button>
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <Button 
-                onClick={ Continue }
-                type="submit"
-                fullWidth
-                variant="contained"
-                color="primary"
-                style={{marginTop: '5em'}}
-              >
-                Next
-              </Button>
-            </Grid> 
-        </form>
-      </div>
-    </Container>
-  )
+    return (
+        <Container component="main">
+            <div>
+                <Typography component="h1" variant="h5">
+                    Now, tell us about your restaurant
+                </Typography>
+                <form>
+                    <Grid
+                        container
+                        spacing={1}
+                        alignItems="center"
+                        justifyContent="center"
+                        xs={11}
+                    >
+                        <TextareaAutosize
+                            placeholder=""
+                            minRows={20}
+                            maxRows={20}
+                            multiline
+                            onChange={handleChange('description')}
+                            style={{ width: "100%" }}
+                        />
+                    </Grid>
+
+                    <Grid container direction="row" alignItems="center">
+                        <Grid item sx={2}>
+                            <Button
+                                onClick={Previous}
+                                type="submit"
+                                width="10%"
+                                variant="contained"
+                                color="primary"
+                                style={{
+                                    marginTop: "4em",
+                                    marginRight: "32em",
+                                }}
+                            >
+                                Previous
+                            </Button>
+                        </Grid>
+
+                        <Grid item>
+                            <Button
+                                onClick={Continue}
+                                type="submit"
+                                width="10%"
+                                variant="contained"
+                                color="primary"
+                                style={{ marginTop: "4em", marginLeft: "32em" }}
+                            >
+                                Next
+                            </Button>
+                        </Grid>
+                    </Grid>
+                </form>
+            </div>
+        </Container>
+    );
 }
 
-export default Description
+export default Description;

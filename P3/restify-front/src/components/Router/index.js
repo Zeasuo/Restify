@@ -8,6 +8,7 @@ import EditProfile from "../EditProfile";
 import CreateBlog from "../CreateBlog";
 import React from 'react'
 import FeedPage from "../FeedPage";
+import AddRestaurant from '../AddRestaurant/index';
 
 const Router = () => {
     return (
@@ -21,6 +22,9 @@ const Router = () => {
                         <Route path="edit" element={<EditProfile />} />
                     </Route>
                     <Route path='feed' element={<FeedPage />} />
+                    <Route path="restaurant" element={<RenderNavbar />}>
+                        <Route path="register" element={<AddRestaurant />} />
+                    </Route>
                 </Route>
                 <Route path="/home" element={<RenderNavbar />}>
                     <Route index element={<HomePage />} />
