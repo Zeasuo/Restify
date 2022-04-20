@@ -1,6 +1,7 @@
 import { Container } from "react-bootstrap";
 import React, {useEffect, useState} from 'react';
 import { Form, Button} from 'react-bootstrap';
+import {useNavigate} from "react-router-dom";
 
 // https://react-bootstrap.github.io/forms/overview/
 // https://stackoverflow.com/questions/51913522/reactjs-multiple-lines-of-input-using-form
@@ -15,6 +16,7 @@ const CreateBlog = () =>{
     const [check, setCheck] = useState(false)
     const [checkall, setCheckall] = useState(true)
     const [submitnotification, setSubmitNotification] = useState("")
+    const navigate = useNavigate();
 
     // https://stackoverflow.com/questions/5599934/regular-expression-that-allows-spaces-in-a-string-but-not-only-blank-spaces
     const Checktitle = (title) => {
@@ -62,45 +64,54 @@ const CreateBlog = () =>{
                 if (response.ok) {
                     setSubmitNotification("You have made a blog successfully! Congrats!");
                 }
-                else{
+                else if (response.status === 400) {
                     setSubmitNotification("You need to have a restaurant before making a post!");
+                } else {
+                    alert("Error: " + response.status);
+                    setSubmitNotification("Something goes wrong!");
                 }
             })
     }
 
     useEffect(()=>{
-        if (titlecheck && contentcheck && check){
-            setCheckall(false);
+        if (localStorage.getItem("restifyToken")){
+            if (titlecheck && contentcheck && check){
+                setCheckall(false);
+            }
+            else{
+                setCheckall(true);
+            }
         }
         else{
-            setCheckall(true);
+            navigate("/notLogIn");
         }
     }, [titlecheck && contentcheck && check])
 
     return <>
         <Form style={{marginLeft: "30%", marginTop: "5%"}} onSubmit={submit}>
-            <div style={{color:"red"}}>{titlenotification}</div>
+            <h3>Create A Blog!</h3>
+            <div style={{color: "red"}}>{titlenotification}</div>
             <Form.Group className="mb-3">
                 <Form.Control type="text"
-                              style={{width:"50%"}}
+                              style={{width: "50%"}}
                               placeholder="Title" onChange={(e) => Checktitle(e.target.value)}/>
             </Form.Group>
 
-            <div style={{color:"red"}}>{contentnotification}</div>
+            <div style={{color: "red"}}>{contentnotification}</div>
             <Form.Group className="mb-3">
                 <Form.Control as="textarea" rows="5"
-                              style={{width:"50%"}}
+                              style={{width: "50%"}}
                               placeholder="Text" onChange={(e) => Checkcontent(e.target.value)}/>
             </Form.Group>
 
             <Form.Group className="mb-3">
-                <Form.Check type="checkbox" label="Your blog's title and content must be polite." onClick={(e)=>setCheck(e.target.checked)}/>
+                <Form.Check type="checkbox" label="Your blog's title and content must be polite."
+                            onClick={(e) => setCheck(e.target.checked)}/>
             </Form.Group>
             <Button variant="primary" type="submit" disabled={checkall}>Submit</Button>
-            <div style={{color:"red"}}>{submitnotification}</div>
+            <div style={{color: "red"}}>{submitnotification}</div>
         </Form>
     </>
-
 }
 
 export default CreateBlog

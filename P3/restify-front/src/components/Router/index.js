@@ -10,6 +10,7 @@ import React from 'react'
 import FeedPage from "../FeedPage";
 import AddRestaurant from "../AddRestaurant/AddRestaurant";
 import Description from "../AddRestaurant/Description";
+import NotLogInPage from "../NotLogInPage";
 
 const Router = () => {
     return (
@@ -29,7 +30,9 @@ const Router = () => {
                     <Route path="restaurant" element={<RenderNavbar />}>
                         <Route path="register" element={<AddRestaurant />}/>
                         <Route path="followup" element={<Description />} />
-                    </Route> 
+                    </Route>
+
+                    <Route path="notLogIn" element={<NotLogInPage/>} />
                 </Route>
                 <Route path="/home" element={<RenderNavbar />}>
                     <Route index element={<HomePage />} />

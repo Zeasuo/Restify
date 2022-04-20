@@ -1,16 +1,16 @@
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import Form from 'react-bootstrap/Form'
 import React, { useEffect, useState } from 'react';
 import logo from "../images/Resify-logo-new.png";
 import { Navbar, NavDropdown, Button, Container, FormControl, Nav} from 'react-bootstrap';
 import { Plus } from 'react-bootstrap-icons';
-import Notification from "../Notification";
 
 // https://react-bootstrap.github.io/components/navbar/
 // https://stackoverflow.com/questions/51235582/how-to-add-req-user-to-fetch-request
 
 const RenderNavbar = () => {
     const [input, setInput] = useState("")
+    const navigate = useNavigate();
 
     const SearchInput = (e) => {
         e.preventDefault()
@@ -20,8 +20,14 @@ const RenderNavbar = () => {
             .then((response) => {
                 if (response.ok) {
                 }
-                throw new Error('Something went wrong');
             })
+    }
+
+    const LogOut = (e) => {
+        e.preventDefault()
+        localStorage.removeItem('restifyToken')
+        localStorage.removeItem('username')
+        navigate("/signIn");
     }
 
     return <>
@@ -64,7 +70,7 @@ const RenderNavbar = () => {
                             <NavDropdown.Item href="/profile">My Profile</NavDropdown.Item>
                             <NavDropdown.Item href="/profile/edit">Edit Profile</NavDropdown.Item>
                             <NavDropdown.Divider />
-                            <NavDropdown.Item>Log Out</NavDropdown.Item>
+                            <NavDropdown.Item onClick={event => LogOut(event)}>Log Out</NavDropdown.Item>
                         </NavDropdown>
                     </Nav>
                 </Navbar.Collapse>
