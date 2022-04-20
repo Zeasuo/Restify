@@ -9,7 +9,7 @@ import CreateBlog from "../CreateBlog";
 import React from 'react'
 import FeedPage from "../FeedPage";
 import AddRestaurant from "../AddRestaurant/AddRestaurant";
-import AddRestaurantDetail from "../AddRestaurant";
+import Description from "../AddRestaurant/Description";
 
 const Router = () => {
     return (
@@ -18,22 +18,23 @@ const Router = () => {
                 <Route path="/">
                     <Route path="signIn" element={<LoginForm />} />
                     <Route path="signUp" element={<SignUpForm />} />
+
                     <Route path="profile" >
                         <Route index element={<Profile />} />
                         <Route path="edit" element={<EditProfile />} />
                     </Route>
+
                     <Route path='feed' element={<FeedPage />} />
+
                     <Route path="restaurant" element={<RenderNavbar />}>
-                        <Route path="register" element={<AddRestaurant />}>
-                            <Route path="detail" element={<AddRestaurantDetail />} />
-                        </Route>
-                    </Route>
+                        <Route path="register" element={<AddRestaurant />}/>
+                        <Route path="followup" element={<Description />} />
+                    </Route> 
                 </Route>
                 <Route path="/home" element={<RenderNavbar />}>
                     <Route index element={<HomePage />} />
                     <Route path="createblog" element={<CreateBlog />} />
                 </Route>
-
             </Routes>
         </BrowserRouter>
     )

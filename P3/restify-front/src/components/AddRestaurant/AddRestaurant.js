@@ -3,7 +3,7 @@ import { useState } from "react";
 
 import { Container, Grid, TextField, Button, Paper } from "@material-ui/core";
 // import Image from '../images/details.jpg';
-import { Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const AddRestaurant = () => {
     const [nameState, setName] = useState("");
@@ -12,6 +12,11 @@ const AddRestaurant = () => {
     const [nameNotification, setNameNotification] = useState(true);
     const [addressNotification, setAddressNotification] = useState(true);
     const [postalCodeNotification, setPostalCodeNotification] = useState(true);
+    const navigate = useNavigate();
+    const routeChange = () =>{ 
+        let path = "/restaurant/followup" 
+        navigate(path);
+      }
     // for continue event listener
     const Submit = (e) => {
         e.preventDefault();
@@ -28,10 +33,11 @@ const AddRestaurant = () => {
                 body: formData,
             }).then((response) => {
                 if (!response.ok) {
+                    setNameNotification(false);
                     console.log(response)
                 }
                 else {
-                    return( <Navigate to="/"/>)
+                    routeChange();
                 }
             });
             
@@ -65,7 +71,7 @@ const AddRestaurant = () => {
             if (response.ok) {
                 setName("");
                 setNameNotification(false);
-            } else if (response.status == 404) {
+            } else if (response.status === 404) {
                 setName(restaurantName);
                 setNameNotification(true);
             } else {
