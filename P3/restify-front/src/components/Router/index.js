@@ -11,6 +11,7 @@ import FeedPage from "../FeedPage";
 import AddRestaurant from "../AddRestaurant/AddRestaurant";
 import Description from "../AddRestaurant/Description";
 import NotLogInPage from "../NotLogInPage";
+import SearchResult from "../SearchResultPage";
 
 const Router = () => {
     return (
@@ -40,6 +41,7 @@ const Router = () => {
 
                 <Route path="socials" element={<RenderNavbar />}>
                     <Route path="createBlog" element={<CreateBlog />} />
+                    <Route path="searchResult" element={<SearchResult />} />
                 </Route>
             </Routes>
         </BrowserRouter>

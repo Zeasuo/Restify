@@ -5,6 +5,7 @@ import {useNavigate} from "react-router-dom";
 
 // https://react-bootstrap.github.io/forms/overview/
 // https://stackoverflow.com/questions/51913522/reactjs-multiple-lines-of-input-using-form
+// https://reactgo.com/check-local-storage-key-exists-js/#:~:text=To%20check%20if%20a%20key,and%20returns%20the%20key's%20value.
 
 const CreateBlog = () =>{
     const [title, setTitle] = useState("")
