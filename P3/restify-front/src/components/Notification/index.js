@@ -1,14 +1,16 @@
-import Form from 'react-bootstrap/Form'
-import React, {useEffect, useState} from 'react';
-import { Container, Row, Col, Tooltip } from 'react-bootstrap';
-import Button from 'react-bootstrap/Button'
-import Image from 'react-bootstrap/Image'
+import React, {useContext, useEffect, useState} from 'react';
+import {ListGroup, ListGroupItem, Button} from 'react-bootstrap';
+import {notificationAPIContext} from "../../context/notificationAPIContext";
 
+// https://react-bootstrap.github.io/components/list-group/
 const Notification = () =>{
-    const [notifications, setNotifications] = useState([])
+    const { notifications } = useContext(notificationAPIContext)
+    const { setNotifications } = useContext(notificationAPIContext)
+    const [query, setQuery] = useState(1)
+    const [totalPages, setTotalPages] = useState(1)
 
     useEffect(()=>{
-        fetch("http://127.0.0.1:8000/socials/get_notification", {
+        fetch(`http://127.0.0.1:8000/socials/get_notification?page=${query}`, {
             method: "GET",
             headers: {
                 'Content-Type': 'application/json',
@@ -17,21 +19,34 @@ const Notification = () =>{
         })
             .then(response => response.json())
             .then(json=> setNotifications(json.results))
-    }, [notifications])
+    }, [query])
 
-    // const getNotification = (n) => {
-    //     if (n.action == 'like' || n.action == 'comment' || n.action == 'follow')
-    //         return n.user.username + " " + n.get_action_display() + " your " + n.get_Target_display() + "!"
-    //     else if (n.action == 'make')
-    //         return n.user.restaurant.restaurant_name + " " + n.get_action_display() + " a " + n.get_Target_display() + "!"
-    //     else
-    //         return n.user.restaurant.restaurant_name + " " + n.get_action_display() + " their " + n.get_Target_display() + "!"
-    // }
+    const Button = ({ value, update, isOperator }) => {
+        const style = !isOperator ? {backgroundColor: 'lightgray', color: 'black'} : {backgroundColor: 'orange', color: 'white'}
+        return <button
+            style={{...style, fontSize: '2em'}}
+            onClick={() => update(value)}
+        >
+            {value}
+        </button>
+    }
 
     return <>
+        <ListGroup>
+            {notifications.map(notification => (
+                <ListGroupItem key={notification.id}>
+                    {notification.action==="like" ?
+                        `${notification.name} Liked your ${notification.Target}` : notification.action==="comment" ?
+                            `${notification.name} Commented your ${notification.Target}`: notification.action==="follow" ?
+                                `${notification.name} followed your ${notification.Target}` : notification.action==="make" ?
+                                    `${notification.name} made a ${notification.Target}` : `${notification.name}  updated their ${notification.Target}`}
+                </ListGroupItem>
+            ))}
+        </ListGroup>
 
+        {query > 1 ? <Button value="prev" update={() => setQuery(query-1)} /> : <></>}
+        {query < totalPages ? <Button value="next" update={() => setQuery(query+1)}/> : <></>}
     </>
 }
-
 
 export default Notification

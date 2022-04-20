@@ -13,6 +13,7 @@ import Description from "../AddRestaurant/Description";
 import NotLogInPage from "../NotLogInPage";
 import SearchResult from "../SearchResultPage";
 import Restaurant from "../Restaurant";
+import Notification from "../Notification";
 
 const Router = () => {
     return (
@@ -44,6 +45,7 @@ const Router = () => {
                 <Route path="socials" element={<RenderNavbar />}>
                     <Route path="createBlog" element={<CreateBlog />} />
                     <Route path="searchResult" element={<SearchResult />} />
+                    <Route path="notifications" element={<Notification />} />
                 </Route>
             </Routes>
         </BrowserRouter>
