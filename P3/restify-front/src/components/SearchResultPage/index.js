@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import {useNavigate} from "react-router-dom";
 import {Card, Pagination} from 'react-bootstrap';
 import {Grid, Input, TextField, Container, Button, FormControl} from "@material-ui/core";
 import {MDBContainer} from "mdb-react-ui-kit";
@@ -8,8 +7,6 @@ import {MDBContainer} from "mdb-react-ui-kit";
 // https://react-bootstrap.github.io/components/pagination/
 
 const Search = () =>{
-    const navigate = useNavigate();
-    var data = localStorage.getItem("searchResults")
     const [notification, setNotification] = useState("")
     const [input, setInput] = useState("")
     const [result, setResult] = useState([])
@@ -32,9 +29,15 @@ const Search = () =>{
                         if (data.next === null){
                             setNext(false)
                         }
+                        else{
+                            setNext(true)
+                        }
 
                         if (data.previous === null){
                             setPrev(false)
+                        }
+                        else{
+                            setPrev(true)
                         }
 
                         if (data.count === 0){
@@ -89,14 +92,14 @@ const Search = () =>{
 
                 <div>
                     {result.map(r => (
-                        <Card style={{ width: '50%', marginBottom: "3%", marginTop: "3%", marginRight: "auto", marginLeft: "auto"}}>
+                        <Card key={r.id} style={{ width: '50%', marginBottom: "3%", marginTop: "3%", marginRight: "auto", marginLeft: "auto"}}>
                             <Card.Img variant="top" src={r.logo} />
                             <Card.Body>
                                 <Card.Title>Name: {r.restaurant_name} </Card.Title>
                                 <Card.Text> Description: {r.description} </Card.Text>
                                 <Card.Text> Address: {r.address} {r.postal_code}</Card.Text>
                                 <Card.Text> Phone Number: {r.phone_number} </Card.Text>
-                                <Button variant="primary" href={"../restaurant/" + r.restaurant_name}>Click to see more information!</Button>
+                                <Button href={"../restaurant/" + r.restaurant_name}>Click to see more information!</Button>
                             </Card.Body>
                         </Card>
                     ))}
