@@ -15,7 +15,7 @@ const MenuBreakfast = ({ breakfast, items }) => {
     <>
       {breakfast &&
         items
-          .filter((item) => item.category === "breakfast")
+          .filter((item) => item.category === "Breakfast")
           .map((item, i) => (
             <motion.div
               className="menu-items"

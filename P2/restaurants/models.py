@@ -47,6 +47,10 @@ class Food(models.Model):
     def __str__(self):
         return str(self.restaurant) + ': ' + str(self.food_name)
 
+    @property
+    def get_id(self):
+        return self.pk
+
     class Meta:
         unique_together = ('food_name', 'restaurant')
 

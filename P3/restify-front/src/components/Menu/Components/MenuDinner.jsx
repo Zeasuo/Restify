@@ -1,8 +1,8 @@
 import { motion } from "framer-motion";
-import imgShakesMenu from "../../images/undraw_refreshing.svg";
+import imgDinnerMenu from "../../images/undraw_refreshing.svg";
 import React from 'react'
 
-const MenuShakes = ({ shakes, items }) => {
+const MenuDinner = ({ dinner, items }) => {
   const itemContainer = {
     hidden: { y: 20, opacity: 0 },
     visible: {
@@ -12,9 +12,9 @@ const MenuShakes = ({ shakes, items }) => {
   };
   return (
     <>
-      {shakes &&
+      {dinner &&
         items
-          .filter((item) => item.category === "shakes")
+          .filter((item) => item.category === "Dinner")
           .map((item, i) => (
             <motion.div
               className="menu-items"
@@ -22,7 +22,7 @@ const MenuShakes = ({ shakes, items }) => {
               variants={itemContainer}
               transition={{ delay: i * 0.2 }}
             >
-              <img src={imgShakesMenu} alt="food burger" />
+              <img src={imgDinnerMenu} alt="food burger" />
               <motion.div className="item-content">
                 <motion.div className="item-title-box">
                   <motion.h5 className="item-title">{item.title}</motion.h5>
@@ -36,4 +36,4 @@ const MenuShakes = ({ shakes, items }) => {
   );
 };
 
-export default MenuShakes;
+export default MenuDinner;

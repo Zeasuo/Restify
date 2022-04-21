@@ -7,9 +7,9 @@ import React from 'react'
 import AllItems from "./MenuAll";
 import Breakfast from "./MenuBreakfast";
 import Lunch from "./MenuLunch";
-import Shakes from "./MenuShakes";
+import Dinner from "./MenuDinner";
 
-const MenuItems = ({ items, all, breakfast, lunch, shakes }) => {
+const MenuItems = ({ items, all, breakfast, lunch, dinner }) => {
   const container = {
     hidden: { opacity: 0 },
     visible: {
@@ -106,7 +106,7 @@ const MenuItems = ({ items, all, breakfast, lunch, shakes }) => {
       <AllItems all={all} items={items} />
       <Breakfast breakfast={breakfast} items={items} />
       <Lunch lunch={lunch} items={items} />
-      <Shakes shakes={shakes} items={items} />
+      <Dinner dinner={dinner} items={items} />
     </motion.div>
   );
 };

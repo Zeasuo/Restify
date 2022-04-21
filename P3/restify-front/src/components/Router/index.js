@@ -16,6 +16,7 @@ import Restaurant from "../Restaurant/RestaurantPage";
 import Notification from "../Notification";
 import BlogPage from "../BlogPage";
 import Menu from "../Restaurant/MenuPage";
+import RestaurantSideBar from '../Restaurant/RestaurantSideBar';
 
 /**
  *
@@ -37,7 +38,8 @@ const Router = () => {
                     <Route exact path="restaurant" element={<RenderNavbar />}>
                         <Route path="register" element={<AddRestaurant />}/>
                         <Route path="followup" element={<Description />} />
-                        <Route exact path=":restaurantName" element={<Restaurant />}>
+                        <Route exact path=":restaurantName">
+                            <Route index element={<Restaurant />} />
                             <Route path="menu" element={<Menu />}/>
                             <Route path="gallery" />
                             <Route path="edit" />

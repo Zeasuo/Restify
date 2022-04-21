@@ -3,7 +3,9 @@ import Menu from '../Menu'
 
 const MenuPage = () => {
   return (
-    <Menu />
+      <>
+        <Menu />
+      </>
   )
 }
 

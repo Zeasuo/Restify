@@ -3,7 +3,7 @@
 import React from 'react'
 import { css, jsx } from "@emotion/react";
 
-const Buttons = ({ setAll, setBreakfast, setLunch, setShakes }) => {
+const Buttons = ({ setAll, setBreakfast, setLunch, setDinner }) => {
   const breakpoints = [576, 768, 992, 1200];
 
   const mq = breakpoints.map((bp) => `@media (max-width: ${bp}px)`);
@@ -64,7 +64,7 @@ const Buttons = ({ setAll, setBreakfast, setLunch, setShakes }) => {
           setAll(true);
           setBreakfast(false);
           setLunch(false);
-          setShakes(false);
+          setDinner(false);
         }}
       >
         <span>All</span>
@@ -75,7 +75,7 @@ const Buttons = ({ setAll, setBreakfast, setLunch, setShakes }) => {
           setBreakfast(true);
           setAll(false);
           setLunch(false);
-          setShakes(false);
+          setDinner(false);
         }}
       >
         <span>Breakfast</span>
@@ -86,7 +86,7 @@ const Buttons = ({ setAll, setBreakfast, setLunch, setShakes }) => {
           setLunch(true);
           setAll(false);
           setBreakfast(false);
-          setShakes(false);
+          setDinner(false);
         }}
       >
         <span>Lunch</span>
@@ -94,13 +94,13 @@ const Buttons = ({ setAll, setBreakfast, setLunch, setShakes }) => {
 
       <button
         onClick={() => {
-          setShakes(true);
+          setDinner(true);
           setAll(false);
           setBreakfast(false);
           setLunch(false);
         }}
       >
-        <span>Shakes</span>
+        <span>Dinner</span>
       </button>
     </div>
   );
