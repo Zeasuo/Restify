@@ -1,4 +1,15 @@
-import {Form, Row, Col, ListGroup, ListGroupItem, Pagination, Carousel, OverlayTrigger, Tooltip} from 'react-bootstrap'
+import {
+    Form,
+    Row,
+    Col,
+    ListGroup,
+    ListGroupItem,
+    Pagination,
+    Carousel,
+    OverlayTrigger,
+    Tooltip,
+    Card, CardGroup
+} from 'react-bootstrap'
 import React, {useEffect, useState} from 'react';
 import Button from 'react-bootstrap/Button'
 import {Link, Outlet} from "react-router-dom";
@@ -11,22 +22,60 @@ import {Container} from "@material-ui/core";
 // https://react-bootstrap.github.io/components/overlays/
 
 const HomePage = () => {
+
+    // useEffect(() => {
+    //     fetch(`http://127.0.0.1:8000/restaurants/search/?search=${input}&page=${page}`, {
+    //         method: "GET",
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //             "Authorization": "Token " + localStorage.getItem("restifyToken"),
+    //         }
+    //     })
+    //         .then((response) => {
+    //             if (response.ok){
+    //                 response.json().then((data) =>{
+    //                     setResult(data.results)
+    //                     if (data.next === null){
+    //                         setNext(false)
+    //                     }
+    //                     else{
+    //                         setNext(true)
+    //                     }
+    //
+    //                     if (data.previous === null){
+    //                         setPrev(false)
+    //                     }
+    //                     else{
+    //                         setPrev(true)
+    //                     }
+    //
+    //                     if (data.count === 0){
+    //                         setNotification("Nothing found! Try something else!")
+    //                     }
+    //                     else{
+    //                         setNotification("")
+    //                     }
+    //                 })
+    //             }})
+    // }, [page, next, prev, input, notification])
+
+
     return <>
 
         <MDBContainer fluid style={{height: "100%", backgroundColor: "#e9ebed"}}>
-            <Container className="justify-content-center" style={{paddingTop: "3%", paddingBottom: "10%", width: "60%"}}>
+            <Container className="justify-content-center" style={{paddingTop: "3%", paddingBottom: "5%", width: "60%"}}>
                 <OverlayTrigger
                     key='bottom'
                     placement='bottom'
                     overlay={
                         <Tooltip>
-                            <div>Hello! How's going!</div>
+                            <div>Hey! How's going!</div>
                         </Tooltip>
                     }
                 >
                     <h1 style={{textAlign:"center", fontSize:"500%", marginBottom:"4%"}}>Restify</h1>
                 </OverlayTrigger>
-                <Carousel fade style={{width:"50%", marginLeft:"auto", marginRight:"auto"}}>
+                <Carousel fade style={{width:"60%", marginLeft:"auto", marginRight:"auto"}}>
                     <Carousel.Item>
                         <img
                             className="d-block w-100"
@@ -34,8 +83,8 @@ const HomePage = () => {
                             alt="Something goes wrong here..."
                         />
                         <Carousel.Caption>
-                            <h3>First slide label</h3>
-                            <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                            <h3></h3>
+                            <p></p>
                         </Carousel.Caption>
                     </Carousel.Item>
                     <Carousel.Item>
@@ -63,6 +112,51 @@ const HomePage = () => {
                         </Carousel.Caption>
                     </Carousel.Item>
                 </Carousel>
+            </Container>
+
+            <Container className="justify-content-center" style={{paddingBottom: "5%"}}>
+                <CardGroup>
+                    <Card>
+                        <Card.Img variant="top" src="holder.js/100px160" />
+                        <Card.Body>
+                            <Card.Title>Card title</Card.Title>
+                            <Card.Text>
+                                This is a wider card with supporting text below as a natural lead-in to
+                                additional content. This content is a little bit longer.
+                            </Card.Text>
+                        </Card.Body>
+                        <Card.Footer>
+                            <small className="text-muted">Last updated 3 mins ago</small>
+                        </Card.Footer>
+                    </Card>
+                    <Card>
+                        <Card.Img variant="top" src="holder.js/100px160" />
+                        <Card.Body>
+                            <Card.Title>Card title</Card.Title>
+                            <Card.Text>
+                                This card has supporting text below as a natural lead-in to additional
+                                content.{' '}
+                            </Card.Text>
+                        </Card.Body>
+                        <Card.Footer>
+                            <small className="text-muted">Last updated 3 mins ago</small>
+                        </Card.Footer>
+                    </Card>
+                    <Card>
+                        <Card.Img variant="top" src="holder.js/100px160" />
+                        <Card.Body>
+                            <Card.Title>Card title</Card.Title>
+                            <Card.Text>
+                                This is a wider card with supporting text below as a natural lead-in to
+                                additional content. This card has even longer content than the first to
+                                show that equal height action.
+                            </Card.Text>
+                        </Card.Body>
+                        <Card.Footer>
+                            <small className="text-muted">Last updated 3 mins ago</small>
+                        </Card.Footer>
+                    </Card>
+                </CardGroup>
             </Container>
         </MDBContainer>
     </>

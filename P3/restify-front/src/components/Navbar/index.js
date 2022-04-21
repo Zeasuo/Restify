@@ -31,7 +31,7 @@ const RenderNavbar = () => {
                 />
 
                 <Navbar.Toggle aria-controls="navbarScroll" />
-                <Navbar.Collapse id="navbarScroll" style={{marginLeft: "52%"}}>
+                <Navbar.Collapse id="navbarScroll" style={{marginLeft: "62%"}}>
                     <Nav
                         className="me-auto my-2 my-lg-0"
                         style={{ maxHeight: '100px' }}
