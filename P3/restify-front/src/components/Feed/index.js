@@ -3,10 +3,11 @@ import Card from 'react-bootstrap/Card'
 import { Container, Row, Col, Tooltip, ListGroup } from 'react-bootstrap';
 import { feedAPIContext } from "../../context/feedAPIContext";
 import Image from 'react-bootstrap/Image'
-import ToggleButton from 'react-bootstrap/ToggleButton'
-import { Heart, ArrowLeftSquare, ArrowRightSquare } from "react-bootstrap-icons";
+import Button from 'react-bootstrap/Button'
+import { Heart, HeartFill} from "react-bootstrap-icons";
 import SimpleImageSlider from "react-simple-image-slider"
 import "./style.css"
+import LikedBtn from "../LikeBtn";
 
 const ImageSlide = ({ blogID }) =>{
     const [images, setImages] = useState([])
@@ -23,12 +24,10 @@ const ImageSlide = ({ blogID }) =>{
         .then(json =>{
             json.map(image=>{
                 var url = image.image
-                console.log(url)
                 setImages(images=>[...images, {url}])
             })
         })
 
-        console.log(images)
     }, [])
 
 
@@ -52,7 +51,7 @@ const Table = () =>{
     return <Row style= {{marginTop: "8%"}} className="align-items-center">
         <Col className="col-12 col-sm-6 col-md-8 ">
             {blogs.map(blog=>(
-                <Card style={{width:"95%", marginTop: "3%", marginLeft: "25%"}} key={blog.id}>
+                <Card style={{width:"95%", marginTop: "3%", marginLeft: "25%"}} key={blog.id} id={blog.id}>
                     <Card.Header key={blog.id + " header"}>
                         <Image src={blog.logo} width={"100"} height="100"></Image>
                         <span style={{marginLeft:"1%", fontSize:"25px"}}>{blog.restaurant}</span>
@@ -67,9 +66,8 @@ const Table = () =>{
                         </ListGroup.Item>
                     </ListGroup>
                     <Card.Footer>
-                        <ToggleButton >
-                        <Heart></Heart> {blog.num_likes} likes
-                        </ToggleButton>
+                        <LikedBtn blogID={blog.id} numLikes={blog.num_likes} initState={blog.liked_users.indexOf(localStorage.getItem("username")) > -1?true:false}>
+                        </LikedBtn>
                     </Card.Footer>
                 </Card>
             ))}
@@ -115,7 +113,7 @@ const Feed = () => {
             setStart(start+1)
         }
         setTimeout(()=>{
-            setHasMore(false)
+            setLoading(false)
         }, 50)
     }, []);
 
