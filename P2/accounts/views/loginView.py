@@ -28,6 +28,6 @@ class LoginView(GenericAPIView):
         if token:
             login(request, user)
 
-            restaurant_name = "" if not hasattr(user, 'restaurant') else user.restaurant
+            restaurant_name = "" if not hasattr(user, 'restaurant') else user.restaurant.restaurant_name
             json = {"token": token[0].key, "username": username, "restaurant": restaurant_name}
             return Response(json, status=status.HTTP_200_OK)
