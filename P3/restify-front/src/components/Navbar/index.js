@@ -1,11 +1,8 @@
 import { Link, Outlet, useNavigate } from "react-router-dom";
-import Form from 'react-bootstrap/Form'
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import logo from "../images/Resify-logo-new.png";
-import { Navbar, NavDropdown, Button, Container, FormControl, Nav} from 'react-bootstrap';
+import { Navbar, NavDropdown, Container, Nav} from 'react-bootstrap';
 import { Plus, Search } from 'react-bootstrap-icons';
-import {Modal, ModalDialog, ModalHeader, ModalFooter, ModalBody} from "react-bootstrap";
-import CreateBlog from "../CreateBlog";
 
 // https://react-bootstrap.github.io/components/navbar/
 // https://stackoverflow.com/questions/51235582/how-to-add-req-user-to-fetch-request
@@ -13,29 +10,7 @@ import CreateBlog from "../CreateBlog";
 // https://react-bootstrap.github.io/components/modal/
 
 const RenderNavbar = () => {
-    const [input, setInput] = useState("")
     const navigate = useNavigate();
-    const [show, setShow] = useState(false);
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
-
-    const SearchInput = (e) => {
-        e.preventDefault()
-        var regex = /^(?=.*\S).{1,100}$/
-        if(regex.test(input)){
-            fetch('http://127.0.0.1:8000/restaurants/search/?search=' + input, {
-                method: 'GET'
-            })
-                .then((response) => response.json())
-                .then(json => {
-                    localStorage.setItem("searchResults", json.results)
-                    navigate("../socials/searchResult")
-                })
-        }
-        else{
-            handleShow()
-        }
-    }
 
     const LogOut = (e) => {
         e.preventDefault()
@@ -80,19 +55,6 @@ const RenderNavbar = () => {
                 </Navbar.Collapse>
             </Container>
         </Navbar>
-
-        <Modal show={show} onHide={handleClose}>
-            <Modal.Header closeButton>
-                <Modal.Title>Oops!</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>Your search input cannot be empty or only spaces!</Modal.Body>
-            <Modal.Footer>
-                <Button variant="secondary" onClick={handleClose}>
-                    OK!
-                </Button>
-            </Modal.Footer>
-        </Modal>
-
         <Outlet />
     </>
 }
