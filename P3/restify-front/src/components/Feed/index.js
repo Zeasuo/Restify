@@ -105,10 +105,10 @@ const Feed = () => {
 
 
     useEffect(()=>{
-        if (hasMore == true && loading==false){
+        if (loading==false && hasMore==true){
             getBlog()
         }
-    }, [start])
+    }, [start, loading])
 
     const handleObserver = useCallback((entries) => {
         const target = entries[0];
