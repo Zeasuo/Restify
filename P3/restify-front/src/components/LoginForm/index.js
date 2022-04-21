@@ -11,6 +11,7 @@ const LoginForm = () => {
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [token, setToken] = useState();
     const [username, setUsername] = useState("")
+    const [restaurant, setRestaurant] = useState("")
 
     const renderErrorMessage = () => errorMessages && (
         <div className="error" style={{color:'red'}}>{errorMessages}</div>
@@ -34,6 +35,7 @@ const LoginForm = () => {
             if (json.token){
                 setToken(json.token)
                 setUsername(json.username)
+                setRestaurant(json.restaurant)
             }
             else{
                 setErrorMessages(json)
@@ -43,6 +45,7 @@ const LoginForm = () => {
         if (token){
             localStorage.setItem('restifyToken', token);
             localStorage.setItem('username', username.value);
+            localStorage.setItem('restaurant', restaurant.value)
             setIsSubmitted(true);
         }
 

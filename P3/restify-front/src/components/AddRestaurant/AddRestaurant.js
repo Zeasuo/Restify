@@ -1,46 +1,55 @@
 import React from "react";
 import { useState } from "react";
 
-import { Container, Grid, TextField, Button, Paper } from "@material-ui/core";
+import { Container, Grid, TextField, Button, Input } from "@material-ui/core";
 // import Image from '../images/details.jpg';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 const AddRestaurant = () => {
     const [nameState, setName] = useState("");
     const [addressState, setAddress] = useState("");
     const [postalCodeState, setPostalCode] = useState("");
+    const [phoneNumber, setPhoneNumber] = useState("");
     const [nameNotification, setNameNotification] = useState(true);
     const [addressNotification, setAddressNotification] = useState(true);
     const [postalCodeNotification, setPostalCodeNotification] = useState(true);
+    const [phoneNumberNotification, setPhoneNumberNotification] = useState(true);
     const navigate = useNavigate();
-    const routeChange = () =>{ 
-        let path = "/restaurant/followup" 
-        navigate(path);
-      }
+    const routeChange = () => {
+        let path = "/restaurant/followup";
+        navigate(path, {
+            state: {
+                name: nameState,
+                address: addressState,
+                postalCode: postalCodeState,
+                phoneNumber: phoneNumber,
+            },
+        });
+    };
     // for continue event listener
     const Submit = (e) => {
         e.preventDefault();
-        if (nameState && addressState && postalCodeState) {
+        if (nameState && addressState && postalCodeState && phoneNumber) {
             const formData = new FormData();
             formData.append("restaurant_name", nameState);
             formData.append("address", addressState);
             formData.append("postal_code", postalCodeState);
+            formData.append("phone_number", phoneNumber);
             fetch("http://127.0.0.1:8000/restaurants/create/", {
                 method: "POST",
                 headers: {
-                    "Authorization": "Token " + localStorage.getItem("restifyToken"),
+                    Authorization:
+                        "Token " + localStorage.getItem("restifyToken"),
                 },
                 body: formData,
             }).then((response) => {
                 if (!response.ok) {
                     setNameNotification(false);
-                    console.log(response)
-                }
-                else {
+                    console.log(response);
+                } else {
                     routeChange();
                 }
             });
-            
         } else {
             if (!nameState) {
                 setNameNotification(false);
@@ -51,35 +60,38 @@ const AddRestaurant = () => {
             if (!postalCodeState) {
                 setPostalCodeNotification(false);
             }
+            if (!phoneNumber) {
+                setPhoneNumberNotification(false);
+            }
         }
     };
 
-    //   const styles = {
-    //     paperContainer: {
-    //         backgroundImage: `url(${Image})`
-    //         }
-    //     };
-
     const validate_name = (restaurantName) => {
-        // check if name already exists from database
-        fetch("http://127.0.0.1:8000/restaurants/get/" + restaurantName + "/", {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-            },
-        }).then((response) => {
-            if (response.ok) {
-                setName("");
-                setNameNotification(false);
-            } else if (response.status === 404) {
-                setName(restaurantName);
-                setNameNotification(true);
-            } else {
-                alert("Error: " + response.status);
-                setName("");
-                setNameNotification(false);
-            }
-        });
+        if (restaurantName.length < 1) {
+            setName("");
+            setNameNotification(false);
+        }  
+        else{
+            // check if name already exists from database
+            fetch("http://127.0.0.1:8000/restaurants/get/" + restaurantName + "/", {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            }).then((response) => {
+                if (response.ok) {
+                    setName("");
+                    setNameNotification(false);
+                } else if (response.status === 404) {
+                    setName(restaurantName);
+                    setNameNotification(true);
+                } else {
+                    alert("Error: " + response.status);
+                    setName("");
+                    setNameNotification(false);
+                }
+            });
+        }
     };
 
     const validate_address = (address) => {
@@ -99,6 +111,16 @@ const AddRestaurant = () => {
         } else {
             setPostalCode("");
             setPostalCodeNotification(false);
+        }
+    };
+
+    const validate_phone_number = (phoneNumber) => {
+        if (phoneNumber.length > 0) {
+            setPhoneNumber(phoneNumber);
+            setPhoneNumberNotification(true);
+        } else {
+            setPhoneNumber("");
+            setPhoneNumberNotification(false);
         }
     };
 
@@ -161,6 +183,25 @@ const AddRestaurant = () => {
                                 }
                                 style={{ marginTop: "4em" }}
                             />
+
+                            <Input
+                                type="number"
+                                error={!phoneNumberNotification}
+                                placeholder="Phone number"
+                                label= "Phone number"
+                                onBlur={(e) =>
+                                    validate_phone_number(e.target.value)
+                                }
+                                autoComplete="phoneNumber"
+                                fullWidth
+                                helperText={
+                                    !phoneNumberNotification
+                                        ? "Phone number cannot be empty"
+                                        : ""
+                                }
+                                style={{ marginTop: "4em" }}
+                            />
+
                             <Button
                                 onClick={Submit}
                                 type="submit"

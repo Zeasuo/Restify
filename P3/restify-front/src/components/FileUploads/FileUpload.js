@@ -4,16 +4,19 @@ import Dropzone from 'react-dropzone-uploader'
 import { getDroppedOrSelectedFiles } from 'html5-file-selector'
 
 // https://react-dropzone-uploader.js.org/docs/examples
-const FileUploadComponent = (onSubmit) => {
+const FileUploadComponent = (props) => {
     const fileParams = ({ meta }) => {
         return { url: 'https://httpbin.org/post' }
     }
     const onFileChange = ({ meta, file }, status) => { 
-        console.log(status, meta, file) 
+        if (status === 'done') {
+            props.setState(state => [...state, file])
+        }
+        else if (status === 'removed') {
+            props.setState(state => state.filter(f => f.name !== file.name))
+        }
     }
-    // const onSubmit = (files, allFiles) => {
-    //     allFiles.forEach(f => f.remove())
-    // }
+   
     const getFilesFromEvent = e => {
         return new Promise(resolve => {
             getDroppedOrSelectedFiles(e).then(chosenFiles => {
@@ -42,16 +45,14 @@ const FileUploadComponent = (onSubmit) => {
     }
     return (
         <Dropzone
-            onSubmit={onSubmit}
             onChangeStatus={onFileChange}
             InputComponent={selectFileInput}
             getUploadParams={fileParams}
             getFilesFromEvent={getFilesFromEvent}
             accept="image/*,audio/*,video/*"
-            maxFiles={5}
+            maxFiles={props.allowed}
             inputContent="Drop A File"
             styles={{
-                dropzone: { width: 600, height: 400 },
                 dropzoneActive: { borderColor: 'green' },
             }}            
         />

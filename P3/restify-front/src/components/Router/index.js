@@ -12,6 +12,8 @@ import AddRestaurant from "../AddRestaurant/AddRestaurant";
 import Description from "../AddRestaurant/Description";
 import NotLogInPage from "../NotLogInPage";
 import SearchResult from "../SearchResultPage";
+import Restaurant from "../Restaurant";
+import Notification from "../Notification";
 
 const Router = () => {
     return (
@@ -28,9 +30,10 @@ const Router = () => {
 
                     <Route path='feed' element={<FeedPage />} />
 
-                    <Route path="restaurant" element={<RenderNavbar />}>
+                    <Route exact path="restaurant" element={<RenderNavbar />}>
                         <Route path="register" element={<AddRestaurant />}/>
                         <Route path="followup" element={<Description />} />
+                        <Route path=":restaurantName" element={<Restaurant />} />
                     </Route>
 
                     <Route path="notLogIn" element={<NotLogInPage/>} />
@@ -42,6 +45,7 @@ const Router = () => {
                 <Route path="socials" element={<RenderNavbar />}>
                     <Route path="createBlog" element={<CreateBlog />} />
                     <Route path="searchResult" element={<SearchResult />} />
+                    <Route path="notifications" element={<Notification />} />
                 </Route>
             </Routes>
         </BrowserRouter>
