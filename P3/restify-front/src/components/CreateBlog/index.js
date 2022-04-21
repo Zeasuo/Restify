@@ -21,6 +21,7 @@ const CreateBlog = () =>{
     const [check, setCheck] = useState(false)
     const [checkall, setCheckall] = useState(true)
     const [submitnotification, setSubmitNotification] = useState("")
+    const [uploadnotification, setUploadNotification] = useState("")
     const [images, setImages] = useState([])
     const navigate = useNavigate();
 
@@ -69,6 +70,29 @@ const CreateBlog = () =>{
             .then((response) => {
                 if (response.ok) {
                     setSubmitNotification("You have made a blog successfully! Congrats!");
+                    response.json().then((data) => {
+                        const formData = new FormData();
+                        formData.append("blog", data.id);
+
+                        for(let img of images){
+                            formData.append("image", img);
+                            fetch('http://127.0.0.1:8000/socials/add_blog_image/', {
+                                method: 'POST',
+                                headers: {
+                                    'Authorization': "Token "+ localStorage.getItem("restifyToken"),
+                                },
+                                body: formData,
+                            }).then((response) => {
+                                    if (!response.ok) {
+                                        setSubmitNotification("Something wrong with uploading images")
+                                    } else {
+                                        setUploadNotification("You have uploaded images successfully")
+                                        //TODO navigate to blog page
+                                    }
+                                }
+                            );
+                        }
+                    })
                 }
                 else if (response.status === 400) {
                     setSubmitNotification("You need to have a restaurant before making a post!");
@@ -77,7 +101,6 @@ const CreateBlog = () =>{
                     setSubmitNotification("Something goes wrong!");
                 }
             })
-            .then(json=> console.log(json))
     }
 
     useEffect(()=>{
@@ -165,6 +188,7 @@ const CreateBlog = () =>{
                         Submit
                     </Button>
                     <div style={{color: "red"}}>{submitnotification}</div>
+                    <div style={{color: "red"}}>{uploadnotification}</div>
                 </Form>
             </Container>
         </MDBContainer>
