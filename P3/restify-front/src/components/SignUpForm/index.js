@@ -209,7 +209,7 @@ const SignUpForm = () => {
                     <div className="col-md-3">
                         <img src = {logo} id = "logo-image"></img>
                     </div>
-                    <h1 className='font-weight-bold mt-4' style={{fontFamily: "Libre Baskerville, serif", fontFamily: "Roboto, sans-serif"}}>
+                    <h1 className='font-weight-bold mt-4' style={{ fontFamily: "Roboto, sans-serif"}}>
                         <span className='row'>The go-to place for</span>
                         <span className='row'>restaurant owners and foodies</span>
                     </h1>

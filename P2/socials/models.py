@@ -109,13 +109,3 @@ class Notification(models.Model):
             return self.user.restaurant.restaurant_name + " " + self.action + " a " + self.Target
         else:
             return self.user.restaurant.restaurant_name + " " + self.action + " their " + self.Target
-
-    # https://docs.djangoproject.com/en/1.11/ref/models/instances/#django.db.models.Model.get_FOO_display
-    # def get_notification(self):
-    #     if self.action == 'like' or self.action == 'comment' or self.action == 'follow':
-    #         return self.user.username + " " + self.get_action_display() + " your " + self.get_Target_display() + "!"
-    #     elif self.action == 'make':
-    #         return self.user.restaurant.restaurant_name + " " + self.get_action_display() + " a " + self.get_Target_display() + "!"
-    #     else:
-    #         return self.user.restaurant.restaurant_name + " " + self.get_action_display() + " their " + self.get_Target_display() + "!"
-

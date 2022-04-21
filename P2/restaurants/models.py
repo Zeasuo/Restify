@@ -10,6 +10,7 @@ class Restaurant(models.Model):
     description = models.TextField(null=True, blank=True)
     postal_code = models.CharField(max_length=6, null=True, blank=True)
     logo = models.ImageField(upload_to='logo', null=True, blank=True)
+    update_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.restaurant_name
@@ -34,6 +35,14 @@ class Food(models.Model):
     price = models.FloatField()
     restaurant = models.ForeignKey(to=Restaurant, on_delete=models.CASCADE, related_name='food')
     description = models.TextField(blank=True, null=True)
+    category = models.CharField(
+        max_length=10,
+        choices=(
+            ("Breakfast", "Breakfast"),
+            ("Lunch", "Lunch"),
+            ("Dinner", "Dinner")
+        )
+    )
 
     def __str__(self):
         return str(self.restaurant) + ': ' + str(self.food_name)
@@ -45,9 +54,3 @@ class Food(models.Model):
 class RestaurantImage(models.Model):
     image = models.ImageField(upload_to='restaurant_avatar')
     restaurant = models.ForeignKey(to=Restaurant, on_delete=models.CASCADE, related_name='avatar')
-
-
-
-
-
-

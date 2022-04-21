@@ -9,4 +9,4 @@ class GetMenuSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Food
-        fields = ['food_name', 'price', 'restaurant', 'description']
+        fields = '__all__'
