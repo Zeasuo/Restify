@@ -14,7 +14,6 @@ const Search = () =>{
     const [input, setInput] = useState("")
     const [result, setResult] = useState([])
     const [page, setPage] = useState(1)
-    const [pagenotification, setPageNotification] = useState("")
     const [next, setNext] = useState(true)
     const [prev, setPrev] = useState(true)
 
@@ -40,6 +39,9 @@ const Search = () =>{
 
                         if (data.count === 0){
                             setNotification("Nothing found! Try something else!")
+                        }
+                        else{
+                            setNotification("")
                         }
                     })
                 }})
