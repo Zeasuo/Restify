@@ -1,9 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import {Link, Outlet, useLocation, useNavigate} from "react-router-dom";
+import { Pagination } from 'react-bootstrap';
 import {Grid, Input, TextField, Container, Button, FormControl} from "@material-ui/core";
 import {MDBContainer} from "mdb-react-ui-kit";
 
 // https://reactnavigation.org/docs/params/
+// https://react-bootstrap.github.io/components/pagination/
 
 const Search = () =>{
     const navigate = useNavigate();
@@ -57,7 +59,12 @@ const Search = () =>{
                     fullWidth
                 />
                 <h5 style={{textAlign: "center", marginBottom: "3%", marginTop: "3%"}}><b>{title}</b></h5>
-
+                <Pagination style={{marginBottom: "3%", marginTop: "3%"}}>
+                    <Pagination.First />
+                    <Pagination.Prev />
+                    <Pagination.Next />
+                    <Pagination.Last />
+                </Pagination>
             </Container>
         </MDBContainer>
     </>
