@@ -1,7 +1,11 @@
-import { Container } from "react-bootstrap";
+//import { Container } from "react-bootstrap";
 import React, {useEffect, useState} from 'react';
-import { Form, Button} from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 import {useNavigate} from "react-router-dom";
+import {Grid, Input, TextField, Container, Button} from "@material-ui/core";
+import FileUploadComponent from "../FileUploads/FileUpload";
+import { MDBContainer } from 'mdb-react-ui-kit';
+import {useLocation} from 'react-router-dom';
 
 // https://react-bootstrap.github.io/forms/overview/
 // https://stackoverflow.com/questions/51913522/reactjs-multiple-lines-of-input-using-form
@@ -17,6 +21,7 @@ const CreateBlog = () =>{
     const [check, setCheck] = useState(false)
     const [checkall, setCheckall] = useState(true)
     const [submitnotification, setSubmitNotification] = useState("")
+    const [images, setImages] = useState([])
     const navigate = useNavigate();
 
     // https://stackoverflow.com/questions/5599934/regular-expression-that-allows-spaces-in-a-string-but-not-only-blank-spaces
@@ -72,6 +77,7 @@ const CreateBlog = () =>{
                     setSubmitNotification("Something goes wrong!");
                 }
             })
+            .then(json=> console.log(json))
     }
 
     useEffect(()=>{
@@ -89,29 +95,79 @@ const CreateBlog = () =>{
     }, [titlecheck && contentcheck && check])
 
     return <>
-        <Form style={{marginLeft: "30%", marginTop: "5%"}} onSubmit={submit}>
-            <h3>Create A Blog!</h3>
-            <div style={{color: "red"}}>{titlenotification}</div>
-            <Form.Group className="mb-3">
-                <Form.Control type="text"
-                              style={{width: "50%"}}
-                              placeholder="Title" onChange={(e) => Checktitle(e.target.value)}/>
-            </Form.Group>
+        <MDBContainer
+            fluid
+            style={{height: "100%", backgroundColor: "#e9ebed"}}
+        >
 
-            <div style={{color: "red"}}>{contentnotification}</div>
-            <Form.Group className="mb-3">
-                <Form.Control as="textarea" rows="5"
-                              style={{width: "50%"}}
-                              placeholder="Text" onChange={(e) => Checkcontent(e.target.value)}/>
-            </Form.Group>
+            <Container
+                className="justify-content-center"
+                style={{paddingTop: "3%", paddingBottom: "10%", width: "60%"}}
+            >
+                <h1
+                    style={{textAlign: "center", marginBottom: "5%"}}
+                ><b>Create A Blog!</b></h1>
 
-            <Form.Group className="mb-3">
-                <Form.Check type="checkbox" label="Your blog's title and content must be polite."
-                            onClick={(e) => setCheck(e.target.checked)}/>
-            </Form.Group>
-            <Button variant="primary" type="submit" disabled={checkall}>Submit</Button>
-            <div style={{color: "red"}}>{submitnotification}</div>
-        </Form>
+                <Form
+                    className="bg-white shadow-lg p-5 rounded" onSubmit={submit}
+                >
+                    <h5
+                        style={{textAlign: "center", marginBottom: "5%"}}
+                    >What is your blog's title?</h5>
+                    <div style={{color: "red"}}>{titlenotification}</div>
+                    <Form.Group
+                        xs={5}
+                        className="mb-3"
+                    >
+                        <Form.Control
+                            as="textarea"
+                            rows={1}
+                            placeholder="Title"
+                            onChange={(e) => Checktitle(e.target.value)}
+                        />
+                    </Form.Group>
+
+                    <h5
+                        style={{textAlign: "center", marginBottom: "5%"}}
+                    >What is your blog's content?</h5>
+                    <div style={{color: "red"}}>{contentnotification}</div>
+                    <Form.Group
+                        xs={5}
+                        className="mb-3"
+                    >
+                        <Form.Control
+                            as="textarea"
+                            rows={10}
+                            placeholder="Title"
+                            onChange={(e) => Checkcontent(e.target.value)}
+                        />
+                    </Form.Group>
+
+                    <h5
+                        style={{textAlign: "center", marginBottom: "5%", marginTop: "5%"}}
+                    >Add some images to your blogs (optional)!</h5>
+                    <FileUploadComponent allowed={5} setState={setImages}/>
+
+                    <Form.Check type="checkbox" label="Your blog's title and content must be polite."
+                                onClick={(e) => setCheck(e.target.checked)}/>
+                    <Button
+                        type="submit"
+                        size="large"
+                        variant="contained"
+                        color="primary"
+                        style={{
+                            marginTop: "4em",
+                            position: "relative",
+                            left: "85%",
+                        }}
+                        disabled={checkall}
+                    >
+                        Submit
+                    </Button>
+                    <div style={{color: "red"}}>{submitnotification}</div>
+                </Form>
+            </Container>
+        </MDBContainer>
     </>
 }
 
