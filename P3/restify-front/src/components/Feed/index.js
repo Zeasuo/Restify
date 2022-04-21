@@ -3,8 +3,6 @@ import Card from 'react-bootstrap/Card'
 import { Container, Row, Col, Tooltip, ListGroup } from 'react-bootstrap';
 import { feedAPIContext } from "../../context/feedAPIContext";
 import Image from 'react-bootstrap/Image'
-import Button from 'react-bootstrap/Button'
-import { Heart, HeartFill} from "react-bootstrap-icons";
 import SimpleImageSlider from "react-simple-image-slider"
 import "./style.css"
 import LikedBtn from "../LikeBtn";
@@ -85,6 +83,7 @@ const Feed = () => {
     const loader = useRef(null);
 
     const getBlog = () =>{
+        setLoading(true)
         fetch("http://localhost:8000/socials/feed/?page="+start, {
             method: "GET",
             headers: {
@@ -99,11 +98,16 @@ const Feed = () => {
                 setHasMore(false)
             }
         })
+        setTimeout(()=>{
+            setLoading(false)
+        }, 50)
     }
 
 
     useEffect(()=>{
-        getBlog()
+        if (hasMore == true && loading==false){
+            getBlog()
+        }
     }, [start])
 
     const handleObserver = useCallback((entries) => {
@@ -112,9 +116,7 @@ const Feed = () => {
         if (target.isIntersecting && hasMore == true && loading==false){
             setStart(start+1)
         }
-        setTimeout(()=>{
-            setLoading(false)
-        }, 50)
+        
     }, []);
 
     useEffect(() => {
