@@ -1,8 +1,8 @@
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import React from 'react';
 import logo from "../images/Resify-logo-new.png";
-import { Navbar, NavDropdown, Container, Nav} from 'react-bootstrap';
-import { Plus, Search } from 'react-bootstrap-icons';
+import {Navbar, NavDropdown, Container, Nav, Tooltip, OverlayTrigger} from 'react-bootstrap';
+import { Plus, Search, House, Bell, Book, Heart, People} from 'react-bootstrap-icons';
 
 // https://react-bootstrap.github.io/components/navbar/
 // https://stackoverflow.com/questions/51235582/how-to-add-req-user-to-fetch-request
@@ -24,12 +24,11 @@ const RenderNavbar = () => {
             <Container fluid>
                 <img
                     src={logo}
-                    width="30"
-                    height="30"
+                    width="50"
+                    height="50"
                     className="d-inline-block align-top"
                     style={{marginLeft: "5%"}}
                 />
-                <Navbar.Brand style={{marginLeft: "1%"}}>Restify</Navbar.Brand>
 
                 <Navbar.Toggle aria-controls="navbarScroll" />
                 <Navbar.Collapse id="navbarScroll" style={{marginLeft: "52%"}}>
@@ -38,12 +37,30 @@ const RenderNavbar = () => {
                         style={{ maxHeight: '100px' }}
                         navbarScroll
                     >
-                        <Nav.Link><Search size={25}></Search></Nav.Link>
-                        <Nav.Link href="../../home">Home</Nav.Link>
-                        <Nav.Link href="../../socials/createBlog"><Plus size={25}></Plus></Nav.Link>
-                        <Nav.Link href="../../notifications">Notifications</Nav.Link>
-                        <Nav.Link href="../../socials/feed">Feed</Nav.Link>
-                        <Nav.Link href="favourite">Favourite</Nav.Link>
+                        <OverlayTrigger key='bottom' placement='bottom' overlay={<Tooltip><div>Search</div></Tooltip>}>
+                            <Nav.Link><Search size={25}></Search></Nav.Link>
+                        </OverlayTrigger>
+
+                        <OverlayTrigger key='bottom' placement='bottom' overlay={<Tooltip><div>Home Page</div></Tooltip>}>
+                            <Nav.Link href="../../home"><House size={25}></House></Nav.Link>
+                        </OverlayTrigger>
+
+                        <OverlayTrigger key='bottom' placement='bottom' overlay={<Tooltip><div>Create A Blog</div></Tooltip>}>
+                            <Nav.Link href="../../socials/createBlog"><Plus size={25}></Plus></Nav.Link>
+                        </OverlayTrigger>
+
+                        <OverlayTrigger key='bottom' placement='bottom' overlay={<Tooltip><div>Notifications</div></Tooltip>}>
+                            <Nav.Link href="../../notifications"><Bell size={25}></Bell></Nav.Link>
+                        </OverlayTrigger>
+
+                        <OverlayTrigger key='bottom' placement='bottom' overlay={<Tooltip><div>Feed</div></Tooltip>}>
+                            <Nav.Link href="../../socials/feed"><Book size={25}></Book></Nav.Link>
+                        </OverlayTrigger>
+
+                        <OverlayTrigger key='bottom' placement='bottom' overlay={<Tooltip><div>Favourite</div></Tooltip>}>
+                            <Nav.Link href=""><Heart size={25}></Heart></Nav.Link>
+                        </OverlayTrigger>
+
                         <NavDropdown title="Account" id="account">
                             <NavDropdown.Item href="../../profile">My Profile</NavDropdown.Item>
                             <NavDropdown.Item href="../../profile/edit">Edit Profile</NavDropdown.Item>
@@ -51,7 +68,7 @@ const RenderNavbar = () => {
                             <NavDropdown.Item onClick={event => LogOut(event)}>Log Out</NavDropdown.Item>
                         </NavDropdown>
                     </Nav>
-                    <h5><b>Welcome! {localStorage.getItem("username")}</b></h5>
+                    <h5 style={{marginTop:"1%"}}><b>Welcome, {localStorage.getItem("username")}</b></h5>
                 </Navbar.Collapse>
             </Container>
         </Navbar>
