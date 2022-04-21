@@ -22,46 +22,32 @@ import {Container} from "@material-ui/core";
 // https://react-bootstrap.github.io/components/overlays/
 
 const HomePage = () => {
+    const [rest, setRest] = useState([])
+    const [blog, setBlog] = useState([])
+    const [notification, setNotification] = useState("")
+    const [notification1, setNotification1] = useState("")
 
-    // useEffect(() => {
-    //     fetch(`http://127.0.0.1:8000/restaurants/search/?search=${input}&page=${page}`, {
-    //         method: "GET",
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //             "Authorization": "Token " + localStorage.getItem("restifyToken"),
-    //         }
-    //     })
-    //         .then((response) => {
-    //             if (response.ok){
-    //                 response.json().then((data) =>{
-    //                     setResult(data.results)
-    //                     if (data.next === null){
-    //                         setNext(false)
-    //                     }
-    //                     else{
-    //                         setNext(true)
-    //                     }
-    //
-    //                     if (data.previous === null){
-    //                         setPrev(false)
-    //                     }
-    //                     else{
-    //                         setPrev(true)
-    //                     }
-    //
-    //                     if (data.count === 0){
-    //                         setNotification("Nothing found! Try something else!")
-    //                     }
-    //                     else{
-    //                         setNotification("")
-    //                     }
-    //                 })
-    //             }})
-    // }, [page, next, prev, input, notification])
+    useEffect(() => {
+        fetch("http://127.0.0.1:8000/restaurants/get_random_blogs/", {
+            method: "GET",
+            headers: {
+                'Content-Type': 'application/json',
+                "Authorization": "Token " + localStorage.getItem("restifyToken"),
+            }
+        })
+            .then((response) => {
+                if (response.ok){
+                    response.json().then((data) =>{
+                        setRest(data.results)
+                        if (data.count === 0){
+                            setNotification("Waiting for more restaurants...")
+                        }
+                        else{
+                            setNotification("")
+                        }})}})},[])
 
 
     return <>
-
         <MDBContainer fluid style={{height: "100%", backgroundColor: "#e9ebed"}}>
             <Container className="justify-content-center" style={{paddingTop: "3%", paddingBottom: "5%", width: "60%"}}>
                 <OverlayTrigger
@@ -114,48 +100,25 @@ const HomePage = () => {
                 </Carousel>
             </Container>
 
+            <h4> Recommend restaurants for you: </h4>
+
             <Container className="justify-content-center" style={{paddingBottom: "5%"}}>
                 <CardGroup>
-                    <Card>
-                        <Card.Img variant="top" src="holder.js/100px160" />
-                        <Card.Body>
-                            <Card.Title>Card title</Card.Title>
-                            <Card.Text>
-                                This is a wider card with supporting text below as a natural lead-in to
-                                additional content. This content is a little bit longer.
-                            </Card.Text>
-                        </Card.Body>
-                        <Card.Footer>
-                            <small className="text-muted">Last updated 3 mins ago</small>
-                        </Card.Footer>
-                    </Card>
-                    <Card>
-                        <Card.Img variant="top" src="holder.js/100px160" />
-                        <Card.Body>
-                            <Card.Title>Card title</Card.Title>
-                            <Card.Text>
-                                This card has supporting text below as a natural lead-in to additional
-                                content.{' '}
-                            </Card.Text>
-                        </Card.Body>
-                        <Card.Footer>
-                            <small className="text-muted">Last updated 3 mins ago</small>
-                        </Card.Footer>
-                    </Card>
-                    <Card>
-                        <Card.Img variant="top" src="holder.js/100px160" />
-                        <Card.Body>
-                            <Card.Title>Card title</Card.Title>
-                            <Card.Text>
-                                This is a wider card with supporting text below as a natural lead-in to
-                                additional content. This card has even longer content than the first to
-                                show that equal height action.
-                            </Card.Text>
-                        </Card.Body>
-                        <Card.Footer>
-                            <small className="text-muted">Last updated 3 mins ago</small>
-                        </Card.Footer>
-                    </Card>
+                    {rest.map(r =>(
+                        <Card key={r.id}>
+                            <Card.Img variant="top" src={r.logo} />
+                            <Card.Body>
+                                <Card.Title>Name: {r.restaurant_name} </Card.Title>
+                                <Card.Text> Description: {r.description} </Card.Text>
+                                <Card.Text> Address: {r.address} {r.postal_code}</Card.Text>
+                                <Card.Text> Phone Number: {r.phone_number} </Card.Text>
+                                <Button href={"../restaurant/" + r.restaurant_name}>Click to see more information!</Button>
+                            </Card.Body>
+                            <Card.Footer>
+                                <small className="text-muted">Last updated {r.update_at} mins ago</small>
+                            </Card.Footer>
+                        </Card>
+                    ))}
                 </CardGroup>
             </Container>
         </MDBContainer>
