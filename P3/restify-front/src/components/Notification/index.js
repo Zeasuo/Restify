@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {ListGroup, ListGroupItem, Button, Pagination} from 'react-bootstrap';
+import {ListGroup, ListGroupItem, Pagination} from 'react-bootstrap';
 import {notificationAPIContext} from "../../context/notificationAPIContext";
-import {colors, Container, TextField} from "@material-ui/core";
+import {Container} from "@material-ui/core";
 import {MDBContainer} from "mdb-react-ui-kit";
 
 // https://react-bootstrap.github.io/components/list-group/
@@ -29,9 +29,15 @@ const Notification = () =>{
                         if (data.next === null){
                             setNext(false)
                         }
+                        else{
+                            setNext(true)
+                        }
 
                         if (data.previous === null){
                             setPrev(false)
+                        }
+                        else {
+                            setPrev(true)
                         }
                     })
                 }
