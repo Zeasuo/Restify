@@ -14,21 +14,24 @@ import NotLogInPage from "../NotLogInPage";
 import Search from "../SearchResultPage";
 import Restaurant from "../Restaurant";
 import Notification from "../Notification";
+import BlogPage from "../BlogPage";
 
+/**
+ *
+ */
 const Router = () => {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/">
+                <Route path="/" >
                     <Route path="signIn" element={<LoginForm />} />
                     <Route path="signUp" element={<SignUpForm />} />
 
-                    <Route path="profile" >
+                    <Route path="profile" element={<RenderNavbar />}>
                         <Route index element={<Profile />} />
                         <Route path="edit" element={<EditProfile />} />
                     </Route>
 
-                    <Route path='feed' element={<FeedPage />} />
 
                     <Route exact path="restaurant" element={<RenderNavbar />}>
                         <Route path="register" element={<AddRestaurant />}/>
@@ -46,6 +49,9 @@ const Router = () => {
                     <Route path="createBlog" element={<CreateBlog />} />
                     <Route path="search" element={<Search />} />
                     <Route path="notifications" element={<Notification />} />
+                    <Route path='feed' element={<FeedPage />} />
+                    <Route path='restaurant_blog/:restaurant_name' element={<BlogPage />} />
+                    
                 </Route>
             </Routes>
         </BrowserRouter>

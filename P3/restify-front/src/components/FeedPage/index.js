@@ -8,10 +8,6 @@ const FeedPage = () =>{
     
 
     return <>
-        <Container style={{marginLeft: "58px"}}>
-            <RenderNavbar>
-            </RenderNavbar>
-        </Container>
         <Feed>
         </Feed>
     </>

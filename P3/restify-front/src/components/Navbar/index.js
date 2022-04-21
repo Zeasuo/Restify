@@ -40,9 +40,11 @@ const RenderNavbar = () => {
                     >
                         <Nav.Link><Search size={25}></Search></Nav.Link>
                         <Nav.Link href="../../home">Home</Nav.Link>
+                        <Nav.Link><Plus size={25}></Plus></Nav.Link>
+                        <Nav.Link href="/notifications">Notifications</Nav.Link>
+                        <Nav.Link href="/socials/feed">Feed</Nav.Link>
                         <Nav.Link href="../../socials/createBlog"><Plus size={25}></Plus></Nav.Link>
                         <Nav.Link href="../../notifications">Notifications</Nav.Link>
-                        <Nav.Link href="feed">Feed</Nav.Link>
                         <Nav.Link href="favourite">Favourite</Nav.Link>
                         <NavDropdown title="Account" id="account">
                             <NavDropdown.Item href="/profile">My Profile</NavDropdown.Item>
