@@ -33,7 +33,7 @@ const ProfileNavBar = ({id}) => {
 
             <Navbar bg="light" id = 'Add Restaurant'>
                 <Container className='fs-4'>
-                    <Navbar.Brand href='/signUp'> <PencilSquare className="text-primary"></PencilSquare> <span className ="ms-1 d-none d-sm-inline text-primary"> Add Restaurant </span></Navbar.Brand>
+                    <Navbar.Brand href='/restaurant/register'> <PencilSquare className="text-primary"></PencilSquare> <span className ="ms-1 d-none d-sm-inline text-primary"> Add Restaurant </span></Navbar.Brand>
                 </Container>
             </Navbar>
 
