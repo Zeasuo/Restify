@@ -1,6 +1,8 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {ListGroup, ListGroupItem, Button} from 'react-bootstrap';
 import {notificationAPIContext} from "../../context/notificationAPIContext";
+import {Container, TextField} from "@material-ui/core";
+import {MDBContainer} from "mdb-react-ui-kit";
 
 // https://react-bootstrap.github.io/components/list-group/
 const Notification = () =>{
@@ -32,20 +34,22 @@ const Notification = () =>{
     }
 
     return <>
-        <ListGroup>
-            {notifications.map(notification => (
-                <ListGroupItem key={notification.id}>
-                    {notification.action==="like" ?
-                        `${notification.name} Liked your ${notification.Target}` : notification.action==="comment" ?
-                            `${notification.name} Commented your ${notification.Target}`: notification.action==="follow" ?
-                                `${notification.name} followed your ${notification.Target}` : notification.action==="make" ?
-                                    `${notification.name} made a ${notification.Target}` : `${notification.name}  updated their ${notification.Target}`}
-                </ListGroupItem>
-            ))}
-        </ListGroup>
-
-        {query > 1 ? <Button value="prev" update={() => setQuery(query-1)} /> : <></>}
-        {query < totalPages ? <Button value="next" update={() => setQuery(query+1)}/> : <></>}
+        <MDBContainer fluid style={{height: "100%", backgroundColor: "#e9ebed"}}>
+            <Container className="justify-content-center" style={{paddingTop: "3%", paddingBottom: "10%", width: "60%"}}>
+                <h5 style={{textAlign: "center", marginBottom: "3%", marginTop: "3%"}}><b>Your Notifications:</b></h5>
+                <ListGroup>
+                    {notifications.map(notification => (
+                        <ListGroupItem key={notification.id} style={{textAlign: "center"}}>
+                            {notification.action==="like" ?
+                                `${notification.name} Liked your ${notification.Target} at ${notification.created_at}` : notification.action==="comment" ?
+                                    `${notification.name} Commented your ${notification.Target} at ${notification.created_at}`: notification.action==="follow" ?
+                                        `${notification.name} followed your ${notification.Target} at ${notification.created_at}` : notification.action==="make" ?
+                                            `${notification.name} made a ${notification.Target} at ${notification.created_at}` : `${notification.name}  updated their ${notification.Target} at ${notification.created_at}`}
+                        </ListGroupItem>
+                    ))}
+                </ListGroup>
+            </Container>
+        </MDBContainer>
     </>
 }
 

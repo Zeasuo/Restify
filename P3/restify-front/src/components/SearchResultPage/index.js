@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {Link, Outlet, useLocation, useNavigate} from "react-router-dom";
-import {Grid, Input, TextField, Container, Button} from "@material-ui/core";
+import {Grid, Input, TextField, Container, Button, FormControl} from "@material-ui/core";
 import {MDBContainer} from "mdb-react-ui-kit";
 
 // https://reactnavigation.org/docs/params/
@@ -9,6 +9,7 @@ const Search = () =>{
     const navigate = useNavigate();
     var data = localStorage.getItem("searchResults")
     const [notification, setNotification] = useState("")
+    const [title, setTitle] = useState("All Restaurants:")
 
     // const SearchInput = (e) => {
     //     e.preventDefault()
@@ -41,18 +42,21 @@ const Search = () =>{
     }, [notification])
 
     return <>
-        <MDBContainer
-            fluid
-            style={{height: "100%", backgroundColor: "#e9ebed"}}
-        >
-
-            <Container
-                className="justify-content-center"
-                style={{paddingTop: "3%", paddingBottom: "10%", width: "60%"}}
-            >
-                <h5
-                    style={{textAlign: "center", marginBottom: "5%"}}
-                ><b></b></h5>
+        <MDBContainer fluid style={{height: "100%", backgroundColor: "#e9ebed"}}>
+            <Container className="justify-content-center" style={{paddingTop: "3%", paddingBottom: "10%", width: "60%"}}>
+                <TextField
+                    //error={!nameNotification}
+                    placeholder="Your search input"
+                    label="Your search input"
+                    //onBlur={(e) => validate_name(e.target.value)}
+                    // helperText={
+                    //     !nameNotification
+                    //         ? "A restaurant with this name already exists"
+                    //         : ""
+                    // }
+                    fullWidth
+                />
+                <h5 style={{textAlign: "center", marginBottom: "3%", marginTop: "3%"}}><b>{title}</b></h5>
 
             </Container>
         </MDBContainer>
