@@ -6,7 +6,7 @@ import React from 'react'
 const Profile = () =>{
     return <>
         
-        <Container fluid style={{marginTop: "58px"}} className="pt-3">
+        <Container fluid>
             <div className = "row flex-nowrap">
                 <div className="col-3 px-sm-2 px-0 bg-light md-auto">
                     <ProfileNavBar>

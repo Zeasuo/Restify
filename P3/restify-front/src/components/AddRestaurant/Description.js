@@ -20,7 +20,7 @@ function Description() {
 
     const navigate = useNavigate();
     const routeChange = () => {
-        let path = "/restaurant/{location.state.name}";
+        let path = "/restaurant/"+location.state.name+"/";
         navigate(path);
     };
 
@@ -109,7 +109,7 @@ function Description() {
 
                     <h2 
                    style={{textAlign: "center", marginBottom: "5%", marginTop: "5%"}}
-                   ><b>Pick a logo for your restaurant</b></h2>
+                   ><b>Pick a logo for {location.state.name}</b></h2>
                     <FileUploadComponent allowed={1} setState={setLogo}/>
 
                     <h2 
