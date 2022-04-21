@@ -14,7 +14,6 @@ const Notification = () =>{
     const [prev, setPrev] = useState(true)
 
     useEffect(()=>{
-        console.log(page)
         fetch(`http://127.0.0.1:8000/socials/get_notification?page=${page}`, {
             method: "GET",
             headers: {
@@ -28,12 +27,10 @@ const Notification = () =>{
                     response.json().then((data) =>{
                         setNotifications(data.results)
                         if (data.next === null){
-                            console.log(data.next)
                             setNext(false)
                         }
 
                         if (data.previous === null){
-                            console.log(data.prev)
                             setPrev(false)
                         }
                     })
@@ -86,7 +83,7 @@ const Notification = () =>{
                 </ListGroup>
 
                 <div style={{color: "red"}}>{pagenotification}</div>
-                <Pagination style={{marginBottom: "3%", marginTop: "3%"}}>
+                <Pagination style={{ marginBottom: "3%", marginTop: "3%", marginRight: "auto", marginLeft: "auto"}}>
                     <PrevPagination/>
                     <NextPagination/>
                 </Pagination>

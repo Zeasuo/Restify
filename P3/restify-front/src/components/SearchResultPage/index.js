@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
-import {Link, Outlet, useLocation, useNavigate} from "react-router-dom";
-import { Pagination } from 'react-bootstrap';
+import {useNavigate} from "react-router-dom";
+import {Card, Pagination} from 'react-bootstrap';
 import {Grid, Input, TextField, Container, Button, FormControl} from "@material-ui/core";
 import {MDBContainer} from "mdb-react-ui-kit";
 
@@ -11,59 +11,98 @@ const Search = () =>{
     const navigate = useNavigate();
     var data = localStorage.getItem("searchResults")
     const [notification, setNotification] = useState("")
-    const [title, setTitle] = useState("All Restaurants:")
-
-    // const SearchInput = (e) => {
-    //     e.preventDefault()
-    //     var regex = /^(?=.*\S).{1,100}$/
-    //     if(regex.test(input)){
-    //         fetch('http://127.0.0.1:8000/restaurants/search/?search=' + input, {
-    //             method: 'GET'
-    //         })
-    //             .then((response) => response.json())
-    //             .then(json => {
-    //                 localStorage.setItem("searchResults", json.results)
-    //                 navigate("../socials/searchResult")
-    //             })
-    //     }
-    //     else{
-    //         handleShow()
-    //     }
-    // }
+    const [input, setInput] = useState("")
+    const [result, setResult] = useState([])
+    const [page, setPage] = useState(1)
+    const [pagenotification, setPageNotification] = useState("")
+    const [next, setNext] = useState(true)
+    const [prev, setPrev] = useState(true)
 
     useEffect(() => {
-        if (!('searchResults' in localStorage)){
-            setNotification("You should not be here!");
+        fetch(`http://127.0.0.1:8000/restaurants/search/?search=${input}&page=${page}`, {
+            method: "GET",
+            headers: {
+                'Content-Type': 'application/json',
+                "Authorization": "Token " + localStorage.getItem("restifyToken"),
+            }
+        })
+            .then((response) => {
+                if (response.ok){
+                    response.json().then((data) =>{
+                        setResult(data.results)
+                        if (data.next === null){
+                            setNext(false)
+                        }
+
+                        if (data.previous === null){
+                            setPrev(false)
+                        }
+
+                        if (data.count === 0){
+                            setNotification("Nothing found! Try something else!")
+                        }
+                    })
+                }})
+    }, [page, next, prev, input, notification])
+
+    const NextPagination = () => {
+        if (next){
+            return <>
+                <Pagination.Next onClick={()=>setPage(page + 1)}/>
+            </>
         }
-        else if (data === ''){
-            setNotification("No results. (You can search through restaurants by their name, foods, or address)")
+        else {
+            return <>
+                <Pagination.Next disabled/>
+            </>
         }
-        else{
-            setNotification("Search Results:")
+    }
+
+    const PrevPagination = () => {
+        if (prev){
+            return <>
+                <Pagination.Prev onClick={()=>setPage(page - 1)}/>
+            </>
         }
-    }, [notification])
+        else {
+            return <>
+                <Pagination.Prev disabled/>
+            </>
+        }
+    }
 
     return <>
         <MDBContainer fluid style={{height: "100%", backgroundColor: "#e9ebed"}}>
             <Container className="justify-content-center" style={{paddingTop: "3%", paddingBottom: "10%", width: "60%"}}>
                 <TextField
-                    //error={!nameNotification}
                     placeholder="Your search input"
                     label="Your search input"
-                    //onBlur={(e) => validate_name(e.target.value)}
-                    // helperText={
-                    //     !nameNotification
-                    //         ? "A restaurant with this name already exists"
-                    //         : ""
-                    // }
+                    onChange={(e) => setInput(e.target.value)}
                     fullWidth
                 />
-                <h5 style={{textAlign: "center", marginBottom: "3%", marginTop: "3%"}}><b>{title}</b></h5>
-                <Pagination style={{marginBottom: "3%", marginTop: "3%"}}>
-                    <Pagination.First />
-                    <Pagination.Prev />
-                    <Pagination.Next />
-                    <Pagination.Last />
+                <h4 style={{textAlign: "center", marginTop: "3%"}}><b>Your Search Results:</b></h4>
+                <div style={{textAlign: "center"}}>All restaurants are loaded at first!</div>
+                <div style={{textAlign: "center"}}>You can search through them by their name, foods, or address</div>
+                <h6 style={{textAlign: "center", marginBottom: "3%", marginTop: "3%"}}>{notification}</h6>
+
+                <div>
+                    {result.map(r => (
+                        <Card style={{ width: '50%', marginBottom: "3%", marginTop: "3%", marginRight: "auto", marginLeft: "auto"}}>
+                            <Card.Img variant="top" src={r.logo} />
+                            <Card.Body>
+                                <Card.Title>Name: {r.restaurant_name} </Card.Title>
+                                <Card.Text> Description: {r.description} </Card.Text>
+                                <Card.Text> Address: {r.address} {r.postal_code}</Card.Text>
+                                <Card.Text> Phone Number: {r.phone_number} </Card.Text>
+                                <Button variant="primary" href={"../restaurant/" + r.restaurant_name}>Click to see more information!</Button>
+                            </Card.Body>
+                        </Card>
+                    ))}
+                </div>
+
+                <Pagination style={{ marginBottom: "3%", marginTop: "3%", marginRight: "auto", marginLeft: "auto"}}>
+                    <PrevPagination />
+                    <NextPagination />
                 </Pagination>
             </Container>
         </MDBContainer>
