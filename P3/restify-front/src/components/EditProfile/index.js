@@ -9,11 +9,6 @@ const EditProfile = () =>{
     
 
     return <>
-        <Container style={{marginLeft: "58px"}}>
-            <RenderNavbar>
-            </RenderNavbar>
-        </Container>
-        
         <Container fluid style={{marginTop: "58px"}} className="pt-3">
             <div className = "row flex-nowrap">
                 <div className="col-3 px-sm-2 px-0 bg-light md-auto">

@@ -5,10 +5,6 @@ import RenderNavbar from "../Navbar";
 import React from 'react'
 const Profile = () =>{
     return <>
-        <Container style={{marginLeft: "58px"}}>
-            <RenderNavbar>
-            </RenderNavbar>
-        </Container>
         
         <Container fluid style={{marginTop: "58px"}} className="pt-3">
             <div className = "row flex-nowrap">
