@@ -3,8 +3,9 @@ import Form from 'react-bootstrap/Form'
 import React, { useEffect, useState } from 'react';
 import logo from "../images/Resify-logo-new.png";
 import { Navbar, NavDropdown, Button, Container, FormControl, Nav} from 'react-bootstrap';
-import { Plus } from 'react-bootstrap-icons';
+import { Plus, Search } from 'react-bootstrap-icons';
 import {Modal, ModalDialog, ModalHeader, ModalFooter, ModalBody} from "react-bootstrap";
+import CreateBlog from "../CreateBlog";
 
 // https://react-bootstrap.github.io/components/navbar/
 // https://stackoverflow.com/questions/51235582/how-to-add-req-user-to-fetch-request
@@ -55,28 +56,17 @@ const RenderNavbar = () => {
                 />
                 <Navbar.Brand style={{marginLeft: "1%"}}>Restify</Navbar.Brand>
 
-                <Form className="d-flex" style={{marginLeft: "20%", width:"30%"}}>
-                    <FormControl
-                        type="search"
-                        placeholder="Search"
-                        className="me-2"
-                        aria-label="Search"
-                        value = {input}
-                        onChange={(e) => setInput(e.target.value)}
-                    />
-                    <Button variant="outline-info" onClick={event => SearchInput(event)}>Search</Button>
-                </Form>
-
                 <Navbar.Toggle aria-controls="navbarScroll" />
-                <Navbar.Collapse id="navbarScroll" style={{marginLeft: "8%"}}>
+                <Navbar.Collapse id="navbarScroll" style={{marginLeft: "52%"}}>
                     <Nav
                         className="me-auto my-2 my-lg-0"
                         style={{ maxHeight: '100px' }}
                         navbarScroll
                     >
+                        <Nav.Link><Search size={25}></Search></Nav.Link>
                         <Nav.Link href="../../home">Home</Nav.Link>
-                        <Nav.Link><Plus size={25}></Plus></Nav.Link>
-                        <Nav.Link href="/notifications">Notifications</Nav.Link>
+                        <Nav.Link href="../../socials/createBlog"><Plus size={25}></Plus></Nav.Link>
+                        <Nav.Link href="../../notifications">Notifications</Nav.Link>
                         <Nav.Link href="feed">Feed</Nav.Link>
                         <Nav.Link href="favourite">Favourite</Nav.Link>
                         <NavDropdown title="Account" id="account">
@@ -86,6 +76,7 @@ const RenderNavbar = () => {
                             <NavDropdown.Item onClick={event => LogOut(event)}>Log Out</NavDropdown.Item>
                         </NavDropdown>
                     </Nav>
+                    <h5><b>Welcome! {localStorage.getItem("username")}</b></h5>
                 </Navbar.Collapse>
             </Container>
         </Navbar>
