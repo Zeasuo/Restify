@@ -6,10 +6,11 @@ from socials.models import Blog
 
 
 class AddBlogSerializer(serializers.ModelSerializer):
+    id = serializers.CharField(read_only=True)
 
     class Meta:
         model = Blog
-        fields = ['title', 'content']
+        fields = ['id', 'title', 'content']
 
     def create(self, validated_data):
         return super().create({**validated_data,
