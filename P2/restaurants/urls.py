@@ -10,6 +10,7 @@ from restaurants.views.getRestaurantImage import GetRestaurantImageView
 from restaurants.views.search import SearchView
 from restaurants.views.updateRestaurant import UpdateRestaurant
 from restaurants.views.addMenu import AddMenu
+from restaurants.views.getRandomRestaurants import GetRandomRestaurants
 
 app_name = 'restaurants'
 urlpatterns = [
@@ -22,5 +23,6 @@ urlpatterns = [
     path('edit_menu/', EditMenu.as_view(), name='edit_menu'),
     path('search/', SearchView.as_view(), name='search_restaurant'),
     path('delete_avatar/', DeleteRestaurantImageView.as_view(), name='deleteImage'),
-    path('get_image/<str:restaurant_name>/', GetRestaurantImageView.as_view(), name='get_image')
+    path('get_image/<str:restaurant_name>/', GetRestaurantImageView.as_view(), name='get_image'),
+    path('get_random_rests/', GetRandomRestaurants.as_view(), name='get_random_rests')
 ]
