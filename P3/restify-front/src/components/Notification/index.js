@@ -1,40 +1,76 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {ListGroup, ListGroupItem, Button} from 'react-bootstrap';
+import {ListGroup, ListGroupItem, Button, Pagination} from 'react-bootstrap';
 import {notificationAPIContext} from "../../context/notificationAPIContext";
-import {Container, TextField} from "@material-ui/core";
+import {colors, Container, TextField} from "@material-ui/core";
 import {MDBContainer} from "mdb-react-ui-kit";
 
 // https://react-bootstrap.github.io/components/list-group/
 const Notification = () =>{
     const { notifications } = useContext(notificationAPIContext)
     const { setNotifications } = useContext(notificationAPIContext)
-    const [query, setQuery] = useState(1)
-    const [totalPages, setTotalPages] = useState(1)
+    const [page, setPage] = useState(1)
+    const [pagenotification, setPageNotification] = useState("")
+    const [next, setNext] = useState(true)
+    const [prev, setPrev] = useState(true)
 
     useEffect(()=>{
-        fetch(`http://127.0.0.1:8000/socials/get_notification?page=${query}`, {
+        console.log(page)
+        fetch(`http://127.0.0.1:8000/socials/get_notification?page=${page}`, {
             method: "GET",
             headers: {
                 'Content-Type': 'application/json',
                 "Authorization": "Token " + localStorage.getItem("restifyToken"),
             }
         })
-            .then(response => response.json())
-            .then(json=> setNotifications(json.results))
-    }, [query])
+            .then((response) => {
+                if (response.ok){
+                    setPageNotification("")
+                    response.json().then((data) =>{
+                        setNotifications(data.results)
+                        if (data.next === null){
+                            console.log(data.next)
+                            setNext(false)
+                        }
 
-    const Button = ({ value, update, isOperator }) => {
-        const style = !isOperator ? {backgroundColor: 'lightgray', color: 'black'} : {backgroundColor: 'orange', color: 'white'}
-        return <button
-            style={{...style, fontSize: '2em'}}
-            onClick={() => update(value)}
-        >
-            {value}
-        </button>
+                        if (data.previous === null){
+                            console.log(data.prev)
+                            setPrev(false)
+                        }
+                    })
+                }
+                else if (response.status === 404){
+                    setPageNotification("No more pages")
+                }})
+    }, [page, next, prev])
+
+    const NextPagination = () => {
+        if (next){
+            return <>
+                <Pagination.Next onClick={()=>setPage(page + 1)}/>
+            </>
+        }
+        else {
+            return <>
+                <Pagination.Next disabled/>
+            </>
+        }
+    }
+
+    const PrevPagination = () => {
+        if (prev){
+            return <>
+                <Pagination.Prev onClick={()=>setPage(page - 1)}/>
+            </>
+        }
+        else {
+            return <>
+                <Pagination.Prev disabled/>
+            </>
+        }
     }
 
     return <>
-        <MDBContainer fluid style={{height: "100%", backgroundColor: "#e9ebed"}}>
+    <MDBContainer fluid style={{height: "100%", backgroundColor: "#e9ebed"}}>
             <Container className="justify-content-center" style={{paddingTop: "3%", paddingBottom: "10%", width: "60%"}}>
                 <h5 style={{textAlign: "center", marginBottom: "3%", marginTop: "3%"}}><b>Your Notifications:</b></h5>
                 <ListGroup>
@@ -48,6 +84,13 @@ const Notification = () =>{
                         </ListGroupItem>
                     ))}
                 </ListGroup>
+
+                <div style={{color: "red"}}>{pagenotification}</div>
+                <Pagination style={{marginBottom: "3%", marginTop: "3%"}}>
+                    <PrevPagination/>
+                    <NextPagination/>
+                </Pagination>
+
             </Container>
         </MDBContainer>
     </>
