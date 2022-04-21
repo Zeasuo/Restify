@@ -93,7 +93,9 @@ const Feed = () => {
         })
         .then(response => response.json())
         .then(json =>{
-            setBlogs(blogs=>[...blogs, ...json.results])
+            if (json.results) {
+                setBlogs(blogs => [...blogs, ...json.results])
+            }
             if (!json.next){
                 setHasMore(false)
             }

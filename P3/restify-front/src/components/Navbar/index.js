@@ -58,7 +58,7 @@ const RenderNavbar = () => {
                         </OverlayTrigger>
 
                         <OverlayTrigger key='bottom' placement='bottom' overlay={<Tooltip><div>Favourite</div></Tooltip>}>
-                            <Nav.Link href=""><Heart size={25}></Heart></Nav.Link>
+                            <Nav.Link href="../../"><Heart size={25}></Heart></Nav.Link>
                         </OverlayTrigger>
 
                         <NavDropdown title="Account" id="account">
