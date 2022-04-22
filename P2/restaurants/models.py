@@ -40,6 +40,13 @@ class Restaurant(models.Model):
             users.append(rest_like.user.username)
         return users
 
+    @property
+    def followed_users(self):
+        users = []
+        for rest_follow in self.followers.all():
+            users.append(rest_follow.user.username)
+        return users
+
 
 class Food(models.Model):
     food_name = models.CharField(max_length=100)
