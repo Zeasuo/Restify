@@ -16,11 +16,9 @@ import Restaurant from "../Restaurant/RestaurantPage";
 import Notification from "../Notification";
 import BlogPage from "../BlogPage";
 import Menu from "../Restaurant/MenuPage";
-import RestaurantSideBar from '../Restaurant/RestaurantSideBar';
+import FavouritePage from "../Favourite";
 
-/**
- *
- */
+
 const Router = () => {
     return (
         <BrowserRouter>
@@ -58,7 +56,8 @@ const Router = () => {
                     <Route path="createBlog" element={<CreateBlog />} />
                     <Route path="search" element={<Search />} />
                     <Route path="notifications" element={<Notification />} />
-                    <Route path='feed' element={<FeedPage />} />
+                    <Route path="feed" element={<FeedPage />} />
+                    <Route path="favourite" element={<FavouritePage />} />
                 </Route>
             </Routes>
         </BrowserRouter>
