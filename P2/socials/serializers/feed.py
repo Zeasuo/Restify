@@ -8,6 +8,7 @@ class FeedSerializer(serializers.ModelSerializer):
                                        read_only=True)
     logo = serializers.ImageField(source='restaurant.get_logo')
     num_likes = serializers.IntegerField()
+    liked_users = serializers.ReadOnlyField()
 
     class Meta:
         model = Blog
