@@ -1,15 +1,4 @@
-import {
-    Form,
-    Row,
-    Col,
-    ListGroup,
-    ListGroupItem,
-    Pagination,
-    Carousel,
-    OverlayTrigger,
-    Tooltip,
-    Card, CardGroup
-} from 'react-bootstrap'
+import {Row, Col, ListGroup, Card} from 'react-bootstrap'
 import React, {useEffect, useState} from 'react';
 import Button from 'react-bootstrap/Button'
 import {Link, Outlet} from "react-router-dom";
@@ -124,7 +113,7 @@ const HomePage = () => {
                                         <Card.Text> Description: {r.description} </Card.Text>
                                         <Card.Text> Address: {r.address} {r.postal_code}</Card.Text>
                                         <Card.Text> Phone Number: {r.phone_number} </Card.Text>
-                                        <Button href={"../restaurant/" + r.restaurant_name}>Click to see more information!</Button>
+                                        <Button href={"../restaurant/" + r.restaurant_name} variant="light">Click to see more information!</Button>
                                     </Card.Body>
                                 </Card>
                             </>
@@ -142,7 +131,7 @@ const HomePage = () => {
                                         <Card.Text> Description: {r.description} </Card.Text>
                                         <Card.Text> Address: {r.address} {r.postal_code}</Card.Text>
                                         <Card.Text> Phone Number: {r.phone_number} </Card.Text>
-                                        <Button href={"../restaurant/" + r.restaurant_name}>Click to see more information!</Button>
+                                        <Button href={"../restaurant/" + r.restaurant_name} variant="light">Click to see more information!</Button>
                                     </Card.Body>
                                 </Card>
                             </>

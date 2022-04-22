@@ -6,7 +6,6 @@ import {Link, Outlet} from "react-router-dom";
 import logo from "../images/Resify-logo-new.png";
 
 const LoginForm = () => {
-    //TODO Need to add Ajax request for submit button.
     const [errorMessages, setErrorMessages] = useState("");
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [token, setToken] = useState();
