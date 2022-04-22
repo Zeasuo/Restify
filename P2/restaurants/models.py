@@ -26,6 +26,10 @@ class Restaurant(models.Model):
         return self.followers.all().count()
 
     @property
+    def num_like(self):
+        return self.restaurant_likes.all().count()
+
+    @property
     def num_blog(self):
         return self.blogs.all().count()
 
