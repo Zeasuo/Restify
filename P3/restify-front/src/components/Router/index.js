@@ -18,7 +18,9 @@ import BlogPage from "../BlogPage";
 import Menu from "../Restaurant/MenuPage";
 import FavouritePage from "../Favourite";
 import MyBlogPage from "../MyBlogPage";
-import EditMenu from "../Restaurant/EditMenu/EditMenu";
+import BadRequestPage from "../BadRequestPage";
+import NotFoundPage from "../NotFoundPage";
+
 
 const Router = () => {
     return (
@@ -50,6 +52,9 @@ const Router = () => {
                     </Route>
 
                     <Route path="notLogIn" element={<NotLogInPage/>} />
+                    <Route path="badRequest" element={<BadRequestPage />} />
+                    <Route path="notFound" element={<NotFoundPage />} />
+
                 </Route>
                 <Route path="/home" element={<RenderNavbar />}>
                     <Route index element={<HomePage />} />
