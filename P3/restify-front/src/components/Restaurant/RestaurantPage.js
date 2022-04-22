@@ -49,6 +49,9 @@ const RestaurantPage = () => {
                         if (data.followed_users.indexOf(restaurantName)>-1){
                             setFollow(false)
                         }
+                        else{
+                            setFollow(true)
+                        }
                     });
                 }
                 else {
