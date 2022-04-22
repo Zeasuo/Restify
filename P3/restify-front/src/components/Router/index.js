@@ -18,7 +18,7 @@ import BlogPage from "../BlogPage";
 import Menu from "../Restaurant/MenuPage";
 import FavouritePage from "../Favourite";
 import MyBlogPage from "../MyBlogPage";
-
+import EditMenu from "../Restaurant/EditMenu/EditMenu";
 
 const Router = () => {
     return (
@@ -43,8 +43,9 @@ const Router = () => {
                             <Route index element={<Restaurant />} />
                             <Route path="menu" element={<Menu />}/>
                             <Route path="gallery" />
-                            <Route path="edit" />
                             <Route path='blog' element={<BlogPage />} />
+                            <Route exact path="edit-menu" element={<EditMenu />} />
+                            <Route exact path="edit-restaurant" />
                         </Route>
                     </Route>
 
