@@ -8,6 +8,7 @@ import { Outlet } from 'react-router-dom';
 
 const RestaurantSideBar = () => {    
     return <>
+        
         <div className="align-items-end align-items-sm-end px-4 text-white min-vh-100" sticky="top" 
         style={{"width": "20em", "paddingTop" : "7em", height: "100%"}}> 
             <Navbar  id='About Us'>
@@ -33,6 +34,7 @@ const RestaurantSideBar = () => {
                     <Navbar.Brand href='/profile/edit'> <CameraFill className="text-white"></CameraFill> <span className ="ms-1 d-none d-sm-inline text-white"> Our Blogs </span></Navbar.Brand>
                 </Container>
             </Navbar>
+            
         </div>
         <Outlet />
     </>
