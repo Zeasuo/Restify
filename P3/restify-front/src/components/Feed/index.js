@@ -49,7 +49,7 @@ const Table = () =>{
     return <Row style= {{marginTop: "8%"}} className="align-items-center">
         <h1 style={{textAlign: "center"}}> Feed </h1>
         <Col className="col-12 col-sm-6 col-md-8 ">
-            {blogs.map(blog=>(
+            {blogs.length>0?blogs.map(blog=>(
                 <Card style={{width:"95%", marginTop: "3%", marginLeft: "25%"}} key={blog.id} id={blog.id}>
                     <Card.Header key={blog.id + " header"}>
                         <Image src={blog.logo} width={"100"} height="100"></Image>
@@ -69,7 +69,7 @@ const Table = () =>{
                         </LikedBtn>
                     </Card.Footer>
                 </Card>
-            ))}
+            )):<h2 style={{paddingLeft: "50%"}}>You have not followed a restaurant/Your followed restaurant(s) have not posted a blog yet</h2>}
         </Col>
     </Row>
 }

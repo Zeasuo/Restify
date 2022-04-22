@@ -15,7 +15,7 @@ const EditMyAccount = () =>{
     const [phone_number_State, setPhoneNumberState]  =useState(true);
     const [buttonState, setButtonState] = useState(false)
     const [user, setUser] = useState({})
-    const [avatar, setAvatar] = useState("")
+    const [avatar, setAvatar] = useState("https://media.geeksforgeeks.org/wp-content/uploads/20210425000233/test-300x297.png")
     
     var username = localStorage.getItem("username")
 
@@ -89,7 +89,9 @@ const EditMyAccount = () =>{
             return json
         })
         .then(json=>{
-            setAvatar(json.avatar)
+            if(json.avatar){
+                setAvatar(json.avatar)
+            }
         })
     }, [])
 
