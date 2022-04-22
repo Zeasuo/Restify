@@ -5,6 +5,7 @@ import Button from 'react-bootstrap/Button'
 import {Link, Outlet} from "react-router-dom";
 import logo from "../images/Resify-logo-new.png";
 import ReactDOM from "react-dom";
+import { useNavigate } from "react-router-dom";
 
 const LoginForm = () => {
     const [errorMessages, setErrorMessages] = useState("");
@@ -16,6 +17,8 @@ const LoginForm = () => {
     const renderErrorMessage = () => errorMessages && (
         <div className="error" style={{color:'red'}}>{errorMessages}</div>
     );
+
+    const navigate = useNavigate();
 
     function handleSubmit(e){
         e.preventDefault();
@@ -36,7 +39,8 @@ const LoginForm = () => {
                 setToken(json.token)
                 setUsername(json.username)
                 setRestaurant(json.restaurant)
-                localStorage.setItem('restifyToken', token);
+                console.log(json.token)
+                localStorage.setItem('restifyToken', json.token);
                 localStorage.setItem('username', username.value);
                 localStorage.setItem('restaurant', restaurant.value)
                 setIsSubmitted(true);
@@ -89,7 +93,7 @@ const LoginForm = () => {
                 </div>
             </div>
             <div className="row align-items-center g-lg-5 py-5">
-                {isSubmitted?<div>User is successfully logged in</div> : renderForm}
+                {isSubmitted?navigate("../home") : renderForm}
             </div>
         </div>
     </>
