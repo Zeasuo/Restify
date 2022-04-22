@@ -5,6 +5,8 @@ import { Container, Grid, TextField, Button, Input } from "@material-ui/core";
 // import Image from '../images/details.jpg';
 import { useNavigate } from "react-router-dom";
 import { width } from "@material-ui/system";
+import MuiPhoneNumber from 'material-ui-phone-number';
+
 
 const AddRestaurant = () => {
     const [nameState, setName] = useState("");
@@ -117,7 +119,7 @@ const AddRestaurant = () => {
     };
 
     const validate_phone_number = (phoneNumber) => {
-        if (phoneNumber.length > 0) {
+        if (phoneNumber.length > 7) {
             setPhoneNumber(phoneNumber);
             setPhoneNumberNotification(true);
         } else {
@@ -187,8 +189,7 @@ const AddRestaurant = () => {
                                 style={{ marginTop: "4em" }}
                             />
 
-                            <Input
-                                type="number"
+                            <MuiPhoneNumber defaultCountry={'us'}
                                 error={!phoneNumberNotification}
                                 placeholder="Phone number"
                                 label= "Phone number"
@@ -199,7 +200,7 @@ const AddRestaurant = () => {
                                 fullWidth
                                 helperText={
                                     !phoneNumberNotification
-                                        ? "Phone number cannot be empty"
+                                        ? "Phone number is not complete"
                                         : ""
                                 }
                                 style={{ marginTop: "4em" }}
