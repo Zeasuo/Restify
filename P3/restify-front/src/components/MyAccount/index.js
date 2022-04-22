@@ -62,17 +62,20 @@ const MyAccount = () =>{
             return json.restaurant_name
         })
         .then(restaurant_name =>{
-            fetch("http://127.0.0.1:8000/restaurants/get/" +restaurant_name+"/", {
-                method: "GET",
-                headers: {
-                    'Content-Type': 'application/json',
-                }
-            })
-            .then(response => response.json())
-            .then(json => {
-                setFollower(json.num_follower)
-                setNumPost(json.num_blog)
-            })
+            if(restaurant_name){
+                fetch("http://127.0.0.1:8000/restaurants/get/" +restaurant_name+"/", {
+                    method: "GET",
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                })
+                .then(response => response.json())
+                .then(json => {
+                    setFollower(json.num_follower)
+                    setNumPost(json.num_blog)
+                })
+            }
+            
 
             fetch("http://127.0.0.1:8000/socials/get_notification/", {
                 method: "GET",
