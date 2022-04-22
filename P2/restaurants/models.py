@@ -33,6 +33,13 @@ class Restaurant(models.Model):
     def num_blog(self):
         return self.blogs.all().count()
 
+    @property
+    def liked_users(self):
+        users = []
+        for rest_like in self.restaurant_likes.all():
+            users.append(rest_like.user.username)
+        return users
+
 
 class Food(models.Model):
     food_name = models.CharField(max_length=100)
