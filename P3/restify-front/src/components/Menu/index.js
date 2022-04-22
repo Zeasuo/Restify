@@ -31,12 +31,6 @@ function Menu() {
             })
         .then((response) => {
             if (response.ok) {
-                // set MenuData by fetching data from the backend follow the same format as
-                //          id: food.get_id,
-                //         title: food.food_name,
-                //         category: food.category,
-                //         price: food.price,
-                //         desc: food.description,
                 response.json().then((data) => {
                     for (var i = 0; i < data.length; i++) {
                         data[i].id = data[i].get_id;
@@ -57,7 +51,6 @@ function Menu() {
             css={css`
                 background: #f0eff1;
                 height: 100%;
-                padding: 70px 0;
             `}
         >
             <Navbar

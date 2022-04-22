@@ -8,8 +8,8 @@ import { Outlet } from 'react-router-dom';
 
 const RestaurantSideBar = () => {    
     return <>
-        <div className="no-gutters align-items-end align-items-sm-end px-4  pt-5 text-white min-vh-100"  
-        style={{"backgroundColor": "#415973", "width": "20em", "padding" : 0}}> 
+        <div className="align-items-end align-items-sm-end px-4 text-white min-vh-100" sticky="top" 
+        style={{"backgroundColor": "#415973", "width": "20em", "paddingTop" : "7em", height: "100%"}}> 
             <Navbar  id='About Us'>
                 <Container className='fs-4' bg="primary">
                     <Navbar.Brand href='/profile'> <HouseFill className="text-white"> </HouseFill><span className="ms-1 d-none d-sm-inline text-white"> About Us </span> </Navbar.Brand>

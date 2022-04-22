@@ -9,12 +9,12 @@ const RestaurantPage = () => {
     const restaurant_name = JSON.stringify(restaurantName);
     return <>
         <Container fluid>
-            <div className = "row flex-nowrap">
-                <div className="col-3 px-sm-2 px-0 bg-light md-auto">
+            <div className = "row p-0 flex-nowrap" >
+                <div className="col-3" style={{"paddingLeft": 0}}>
                     <RestaurantSideBar/>
                 </div>
-                <div className="col-6 pt-5 md-auto">
-                    <Menu />    
+                <div className="col-9 pt-5 md-auto">
+                    
                 </div>
             </div>
         </Container>
