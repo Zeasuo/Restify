@@ -22,6 +22,7 @@ const RestaurantPage = () => {
     const [numBlogs, setNumBlogs] = useState(0);
     const [phoneNumber, setPhoneNumber] = useState("")
     const [follow, setFollow] = useState(false)
+    const [followed_users, setFollowedUsers] = useState([])
 
     useEffect(() => {
         fetch("http://127.0.0.1:8000/restaurants/get/"+restaurantName+"/", {
@@ -44,22 +45,11 @@ const RestaurantPage = () => {
                         setLikedUsers(data.liked_users);
                         setNumBlogs(data.num_blog);
                         setPhoneNumber(data.phone_number)
-                    });
-
-                    fetch('http://127.0.0.1:8000/socials/follow/' + restaurantName +"/", {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            "Authorization": "Token " + localStorage.getItem("restifyToken"),
-                        }
-                    }).then((response) =>{
-                        if (response.ok){
+                        setFollowedUsers(data.followed_users)
+                        if (data.followed_users.indexOf(restaurantName)>-1){
                             setFollow(false)
                         }
-                        else if (response.status === 400){
-                            setFollow(true)
-                        }
-                    })
+                    });
                 }
                 else {
                     navigate("../../../notFound")
