@@ -28,21 +28,9 @@ const RestaurantSideBar = () => {
                 </Container>
             </Navbar>
 
-            <Navbar id = 'Edit Profile'>
+            <Navbar id = 'Blogs'>
                 <Container className='fs-4'>
                     <Navbar.Brand href='/profile/edit'> <CameraFill className="text-white"></CameraFill> <span className ="ms-1 d-none d-sm-inline text-white"> Our Blogs </span></Navbar.Brand>
-                </Container>
-            </Navbar>
-
-            <Navbar id = 'Add Restaurant'>
-                <Container className='fs-4'>
-                    <Navbar.Brand href='/signUp'> <CameraFill className="text-white"></CameraFill> <span className ="ms-1 d-none d-sm-inline text-white"> Add Restaurant </span></Navbar.Brand>
-                </Container>
-            </Navbar>
-
-            <Navbar id = 'Edit Restaurant'>
-                <Container className='fs-4'>
-                    <Navbar.Brand href='/signUp'> <CameraFill className="text-white"></CameraFill> <span className ="ms-1 d-none d-sm-inline text-white">Edit Restaurant </span></Navbar.Brand>
                 </Container>
             </Navbar>
         </div>

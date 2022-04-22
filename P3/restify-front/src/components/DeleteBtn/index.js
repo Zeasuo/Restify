@@ -2,11 +2,10 @@ import Button from 'react-bootstrap/Button'
 import { XLg} from "react-bootstrap-icons";
 import React, {useState} from 'react'
 
-const LikedBtn = ({blogID}) =>{
+const DeleteBtn = ({blogID}) =>{
     const [deleted, setDeleted] = useState(false)
-
-    const handleClick = () =>{
-        setDeleted(True)
+    const handleClick = (e) =>{
+        setDeleted(true)
         fetch("http://localhost:8000/socials/delete_blog/"+blogID+"/", {
             method:"DELETE",
             headers:{
@@ -28,10 +27,10 @@ const LikedBtn = ({blogID}) =>{
     }
 
     return <>
-    <Button variant="warning" onClick={handleClick}>
-        {deleted? <span>Deleted</span>:<XLg></XLg>}
+    <Button variant="danger" onClick={handleClick} disabled={deleted}>
+        {deleted?<span>Deleted</span>:<XLg></XLg>}
     </Button>
     </>
 }
 
-export default LikedBtn
+export default DeleteBtn
