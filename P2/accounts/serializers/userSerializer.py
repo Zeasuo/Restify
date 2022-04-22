@@ -13,10 +13,12 @@ class UserSerializer(serializers.ModelSerializer):
     restaurant_likes = serializers.ReadOnlyField()
     blog_likes = serializers.ReadOnlyField()
     restaurant_name = serializers.ReadOnlyField()
+    followed_restaurant = serializers.ReadOnlyField()
 
     class Meta:
         model = User
-        fields = ['username', 'first_name', 'last_name', 'avatar', 'email', 'birthday', 'following', 'number_of_comments', 'restaurant_likes', 'blog_likes', 'restaurant_name', 'phone_number']
+        fields = ['username', 'first_name', 'last_name', 'avatar', 'email', 'birthday', 'following', 'number_of_comments', 'restaurant_likes', 'blog_likes', 'restaurant_name', 'phone_number', 'followed_restaurant']
+
 
 class CreateUserSerializer(serializers.ModelSerializer):
     password1 = serializers.CharField(write_only=True)
