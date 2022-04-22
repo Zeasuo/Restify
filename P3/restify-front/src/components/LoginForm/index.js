@@ -36,7 +36,8 @@ const LoginForm = () => {
                 setToken(json.token)
                 setUsername(json.username)
                 setRestaurant(json.restaurant)
-                localStorage.setItem('restifyToken', token);
+                console.log(json.token)
+                localStorage.setItem('restifyToken', json.token);
                 localStorage.setItem('username', username.value);
                 localStorage.setItem('restaurant', restaurant.value)
                 setIsSubmitted(true);
