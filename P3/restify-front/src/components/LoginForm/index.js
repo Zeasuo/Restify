@@ -4,6 +4,7 @@ import React, {useEffect, useState} from 'react';
 import Button from 'react-bootstrap/Button'
 import {Link, Outlet} from "react-router-dom";
 import logo from "../images/Resify-logo-new.png";
+import ReactDOM from "react-dom";
 
 const LoginForm = () => {
     const [errorMessages, setErrorMessages] = useState("");
@@ -35,20 +36,17 @@ const LoginForm = () => {
                 setToken(json.token)
                 setUsername(json.username)
                 setRestaurant(json.restaurant)
+                localStorage.setItem('restifyToken', token);
+                localStorage.setItem('username', username.value);
+                localStorage.setItem('restaurant', restaurant.value)
+                setIsSubmitted(true);
             }
             else{
                 setErrorMessages(json)
             }
         })
-        
-        if (token){
-            localStorage.setItem('restifyToken', token);
-            localStorage.setItem('username', username.value);
-            localStorage.setItem('restaurant', restaurant.value)
-            setIsSubmitted(true);
-        }
-
     }
+
 
     const renderForm = (
         <div id = "Signin-form" className = "col-md-5 mx-auto col-lg-5">
