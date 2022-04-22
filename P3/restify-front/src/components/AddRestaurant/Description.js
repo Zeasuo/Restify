@@ -115,7 +115,7 @@ function Description() {
                     <h2 
                    style={{textAlign: "center", marginBottom: "5%", marginTop: "5%"}}
                    ><b>Finally, add some images to your restaurant</b></h2>
-                    <FileUploadComponent allowed={5} setState={setImages}/>
+                    <FileUploadComponent allowed={100} setState={setImages}/>
                     
                     <Button
                                 onClick={Submit}
