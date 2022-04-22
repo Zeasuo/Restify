@@ -82,12 +82,12 @@ const BlogPageComp = () => {
 
     const loader = useRef(null);
 
-    const {restaurant_name} = useParams()
-    console.log(restaurant_name)
+    const {restaurantName} = useParams()
+    console.log(restaurantName)
 
     const getBlog = () =>{
         setLoading(true)
-        fetch("http://localhost:8000/socials/get_blog/"+restaurant_name+"/?page="+start, {
+        fetch("http://localhost:8000/socials/get_blog/"+restaurantName+"/?page="+start, {
             method: "GET",
             headers: {
                 'Authorization': "Token "+localStorage.getItem("restifyToken"),

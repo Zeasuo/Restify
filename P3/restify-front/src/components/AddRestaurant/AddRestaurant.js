@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Container, Grid, TextField, Button, Input } from "@material-ui/core";
 // import Image from '../images/details.jpg';
 import { useNavigate } from "react-router-dom";
+import { width } from "@material-ui/system";
 
 const AddRestaurant = () => {
     const [nameState, setName] = useState("");
@@ -130,13 +131,14 @@ const AddRestaurant = () => {
 
         <Container component="main" maxWidth="xs">
             <div>
+                <h3>Creating Your Own Restaurant</h3>
                 <form>
                     <Grid
                         container
                         spacing={1}
                         alignItems="center"
                         justifyContent="center"
-                        style={{ minHeight: "100vh" }}
+                        style={{ minHeight: "50vh"}}
                     >
                         <Grid>
                             <TextField
