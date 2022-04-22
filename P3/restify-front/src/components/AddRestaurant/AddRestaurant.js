@@ -47,6 +47,7 @@ const AddRestaurant = () => {
                     setNameNotification(false);
                     console.log(response);
                 } else {
+                    localStorage.setItem("restaurantName", nameState);
                     routeChange();
                 }
             });
