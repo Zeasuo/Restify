@@ -107,82 +107,72 @@ const HomePage = () => {
 
     return <>
         <MDBContainer fluid style={{height: "100%", backgroundColor: "#e9ebed"}}>
-            <Container className="justify-content-center" style={{paddingTop: "3%", paddingBottom: "5%", width: "60%"}}>
-                <OverlayTrigger
-                    placement='bottom'
-                    overlay={
-                        <Tooltip>
-                            <div>Hey! How's going!</div>
-                        </Tooltip>
-                    }
-                >
-                    <h1 style={{textAlign:"center", fontSize:"500%", marginBottom:"4%"}}>Restify</h1>
-                </OverlayTrigger>
-                <Carousel fade style={{width:"60%", marginLeft:"auto", marginRight:"auto"}}>
-                    <Carousel.Item>
-                        <img
-                            className="d-block w-100"
-                            src={welcome}
-                            alt="Something goes wrong here..."
-                        />
-                        <Carousel.Caption>
-                            <h3></h3>
-                            <p></p >
-                        </Carousel.Caption>
-                    </Carousel.Item>
-                    <Carousel.Item>
-                        <img
-                            className="d-block w-100"
-                            src={welcome}
-                            alt="Second slide"
-                        />
-
-                        <Carousel.Caption>
-                            <h3></h3>
-                            <p></p >
-                        </Carousel.Caption>
-                    </Carousel.Item>
-                    <Carousel.Item>
-                        <img
-                            className="d-block w-100"
-                            src={welcome}
-                            alt="Third slide"
-                        />
-
-                        <Carousel.Caption>
-                            <h3>Third slide label</h3>
-                            <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p >
-                        </Carousel.Caption>
-                    </Carousel.Item>
-                </Carousel>
-            </Container>
-
-            <Container className="justify-content-center" style={{width: "100%"}}>
-                <h4> Recommend restaurants </h4>
-                <h5> {notification} </h5>
-                <CardGroup>
-                    {rest.map(r =>(
-                        <Card key={r.id} id={r.id}>
-                            <Card.Img variant="top" src={"http://localhost:8000"+r.logo} style={{ width: '50%', marginBottom: "3%", marginTop: "3%", marginRight: "auto", marginLeft: "auto"}}/>
-                            <Card.Body>
-                                <Card.Title> Name: {r.restaurant_name} </Card.Title>
-                                <Card.Text> Description: {r.description} </Card.Text>
-                                <Card.Text> Address: {r.address} {r.postal_code}</Card.Text>
-                                <Card.Text> Phone Number: {r.phone_number} </Card.Text>
-                                <Button href={"../restaurant/" + r.restaurant_name}>Click to see more information!</Button>
-                            </Card.Body>
+            <h1 style={{textAlign: "center"}}>Home</h1>
+            <h3 style={{marginLeft: "30%"}}> Recommend Restaurants </h3>
+            <h3 style={{marginLeft: "80%"}}> Recommend Blogs </h3>
+            <h3 style={{marginLeft: "30%"}}> { notification } </h3>
+            <h3 style={{marginLeft: "80%"}}> { notification1 } </h3>
+            <Row>
+                <Col style={{marginLeft: "1%"}}>
+                    {rest.map((r, index) => {
+                        if (index % 2 === 0){
+                            return <>
+                                <Card key={r.id} style={{ width: '100%', marginBottom: "3%", marginTop: "3%", marginRight: "auto", marginLeft: "auto"}}>
+                                    <Card.Img variant="top" src={"http://127.0.0.1:8000"+r.logo} />
+                                    <Card.Body>
+                                        <Card.Title>Name: {r.restaurant_name} </Card.Title>
+                                        <Card.Text> Description: {r.description} </Card.Text>
+                                        <Card.Text> Address: {r.address} {r.postal_code}</Card.Text>
+                                        <Card.Text> Phone Number: {r.phone_number} </Card.Text>
+                                        <Button href={"../restaurant/" + r.restaurant_name}>Click to see more information!</Button>
+                                    </Card.Body>
+                                </Card>
+                            </>
+                        }
+                    })}
+                </Col>
+                <Col style={{marginTop: "2%"}}>
+                    {rest.map((r, index) => {
+                        if (index % 2 === 1){
+                            return <>
+                                <Card key={r.id} style={{ width: '100%', marginBottom: "3%", marginTop: "3%", marginRight: "auto", marginLeft: "auto"}}>
+                                    <Card.Img variant="top" src={"http://127.0.0.1:8000"+r.logo} />
+                                    <Card.Body>
+                                        <Card.Title>Name: {r.restaurant_name} </Card.Title>
+                                        <Card.Text> Description: {r.description} </Card.Text>
+                                        <Card.Text> Address: {r.address} {r.postal_code}</Card.Text>
+                                        <Card.Text> Phone Number: {r.phone_number} </Card.Text>
+                                        <Button href={"../restaurant/" + r.restaurant_name}>Click to see more information!</Button>
+                                    </Card.Body>
+                                </Card>
+                            </>
+                        }
+                    })}
+                </Col>
+                <Col style={{marginTop: "2%"}}>
+                    {blogs.map(blog=>(
+                        <Card style={{width:"100%"}} key={blog.id} id={blog.id}>
+                            <Card.Header key={blog.id + " header"}>
+                                <Image src={"http://127.0.0.1:8000"+blog.logo} width={"100"} height="100"></Image>
+                                <span style={{marginLeft:"1%", fontSize:"25px"}}>{blog.restaurant}</span>
+                                <h3 style={{marginLeft:"40%"}}>{blog.title}</h3>
+                            </Card.Header>
+                            <ListGroup as="ul" >
+                                <ListGroup.Item key={blog.id+ " images"}>
+                                    <ImageSlide blogID={blog.id}></ImageSlide>
+                                </ListGroup.Item>
+                                <ListGroup.Item key={blog.id +" content"}>
+                                    <h6>{blog.content}</h6>
+                                </ListGroup.Item>
+                            </ListGroup>
                             <Card.Footer>
-                                <small className="text-muted">Last updated at {r.update_at}</small>
+                                <LikedBtn blogID={blog.id} numLikes={blog.num_likes} initState={blog.liked_users.indexOf(localStorage.getItem("username")) > -1?true:false}>
+                                </LikedBtn>
                             </Card.Footer>
                         </Card>
                     ))}
-                </CardGroup>
-            </Container>
-
-            <h4> Recommend blogs for you: </h4>
-            <h5> {notification1} </h5>
-            <Container className="justify-content-center" style={{paddingBottom: "5%"}}>
-            </Container>
+                </Col>
+            </Row>
         </MDBContainer>
     </>
 }
