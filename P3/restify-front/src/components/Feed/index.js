@@ -47,6 +47,7 @@ const Table = () =>{
     const { blogs } = useContext(feedAPIContext)
 
     return <Row style= {{marginTop: "8%"}} className="align-items-center">
+        <h1 style={{textAlign: "center"}}> Feed </h1>
         <Col className="col-12 col-sm-6 col-md-8 ">
             {blogs.map(blog=>(
                 <Card style={{width:"95%", marginTop: "3%", marginLeft: "25%"}} key={blog.id} id={blog.id}>
