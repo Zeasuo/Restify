@@ -1,4 +1,4 @@
-import { Link, Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import React, {useEffect} from 'react';
 import logo from "../images/Resify-logo-new.png";
 import {Navbar, NavDropdown, Container, Nav, Tooltip, OverlayTrigger, NavLink} from 'react-bootstrap';
