@@ -78,9 +78,7 @@ const Feed = () => {
     const [hasMore, setHasMore] = useState(true)
     const [start, setStart] = useState(1)
     const [loading, setLoading] = useState(false)
-
     const { setBlogs } = useContext(feedAPIContext)
-
     const loader = useRef(null);
 
     const getBlog = () =>{
@@ -108,7 +106,7 @@ const Feed = () => {
 
 
     useEffect(()=>{
-        if (loading==false && hasMore==true){
+        if (loading===false && hasMore===true){
             getBlog()
         }
     }, [start, loading])
@@ -116,7 +114,7 @@ const Feed = () => {
     const handleObserver = useCallback((entries) => {
         const target = entries[0];
         
-        if (target.isIntersecting && hasMore == true && loading==false){
+        if (target.isIntersecting && hasMore === true && loading===false){
             setStart(start+1)
         }
         

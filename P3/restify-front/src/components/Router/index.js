@@ -17,6 +17,7 @@ import Notification from "../Notification";
 import BlogPage from "../BlogPage";
 import Menu from "../Restaurant/MenuPage";
 import FavouritePage from "../Favourite";
+import MyBlogPage from "../MyBlogPage";
 
 
 const Router = () => {
@@ -31,6 +32,7 @@ const Router = () => {
                     <Route path="profile" element={<RenderNavbar />}>
                         <Route index element={<Profile />} />
                         <Route path="edit" element={<EditProfile />} />
+                        <Route path="myBlogs" element={<MyBlogPage />} />
                     </Route>
 
 

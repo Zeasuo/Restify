@@ -87,7 +87,7 @@ const CreateBlog = () =>{
                                         setSubmitNotification("Something wrong with uploading images")
                                     } else {
                                         setUploadNotification("You have uploaded images successfully")
-                                        //TODO navigate to blog page
+                                        navigate("../../profile/myBlogs")
                                     }
                                 }
                             );
