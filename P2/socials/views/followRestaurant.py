@@ -45,5 +45,4 @@ class UnFollowRestaurantView(DestroyAPIView):
             raise BadRequest("You have not followed this restaurant")
 
         follow.delete()
-        Notification.objects.get(user=request.user, TargetUser=curr_restaurant.owner, action="follow", Target="rest", target_id=curr_restaurant.id).delete()
         return Response(status.HTTP_204_NO_CONTENT)
