@@ -17,6 +17,8 @@ const LoginForm = () => {
         <div className="error" style={{color:'red'}}>{errorMessages}</div>
     );
 
+    const navigate = useNavigate();
+
     function handleSubmit(e){
         e.preventDefault();
         var {username, password} = document.forms[0]
@@ -90,7 +92,7 @@ const LoginForm = () => {
                 </div>
             </div>
             <div className="row align-items-center g-lg-5 py-5">
-                {isSubmitted?<div>User is successfully logged in</div> : renderForm}
+                {isSubmitted?navigate("../home") : renderForm}
             </div>
         </div>
     </>
