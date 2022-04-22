@@ -8,6 +8,7 @@ import { feedAPIContext } from "../../context/feedAPIContext";
 import Image from 'react-bootstrap/Image'
 import SimpleImageSlider from "react-simple-image-slider"
 import LikedBtn from "../LikeBtn";
+import DeleteBtn from '../DeleteBtn';
 
 const ImageSlide = ({ blogID }) =>{
     const [images, setImages] = useState([])
@@ -52,6 +53,7 @@ const Table = () =>{
                     <Card.Header key={blog.id + " header"}>
                         <Image src={blog.logo} width={"100"} height="100"></Image>
                         <span style={{marginLeft:"1%", fontSize:"25px"}}>{blog.restaurant}</span>
+                        <span style={{marginLeft:"70%"}}><DeleteBtn blogID={blog.id}></DeleteBtn></span>
                         <h3 style={{marginLeft:"40%"}}>{blog.title}</h3>
                     </Card.Header>
                     <ListGroup as="ul" >
@@ -81,7 +83,7 @@ const MyBlogPage = () => {
 
     const getBlog = () =>{
         setLoading(true)
-        fetch("http://localhost:8000/socials/get_blog/"+localStorage.getItem("restaurant")+"/", {
+        fetch("http://localhost:8000/socials/get_blog/"+localStorage.getItem("restaurant")+"/?page="+start, {
             method: "GET",
             headers: {
                 'Authorization': "Token "+localStorage.getItem("restifyToken"),
