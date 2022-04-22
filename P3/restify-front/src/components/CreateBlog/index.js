@@ -161,7 +161,7 @@ const CreateBlog = () =>{
                         <Form.Control
                             as="textarea"
                             rows={10}
-                            placeholder="Title"
+                            placeholder="Content"
                             onChange={(e) => Checkcontent(e.target.value)}
                         />
                     </Form.Group>
