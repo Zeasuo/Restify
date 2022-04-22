@@ -8,7 +8,7 @@ const MenuPage = () => {
     <>
         <Container fluid>
             <div className = "row p-0 flex-nowrap" >
-                <div className="col-3" style={{"paddingLeft": 0}}>
+                <div className="col-3" style={{"paddingLeft": 0, "backgroundColor": "#415973"}}>
                     <RestaurantSideBar/>
                 </div>
                 <div className="col-9 pt-5 md-auto">
