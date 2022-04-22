@@ -20,7 +20,7 @@ import FavouritePage from "../Favourite";
 import MyBlogPage from "../MyBlogPage";
 import BadRequestPage from "../BadRequestPage";
 import NotFoundPage from "../NotFoundPage";
-
+import EditMenu from '../Restaurant/EditMenu/EditMenu';
 
 const Router = () => {
     return (
