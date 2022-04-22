@@ -7,7 +7,7 @@ const LikedBtn = ({blogID, numLikes, initState}) =>{
     const [num_likes, setNumLikes] = useState(numLikes)
 
     const handleClick = () =>{
-        if (liked == true){
+        if (liked === true){
             setLiked(false)
             fetch("http://localhost:8000/socials/unlike_blog/"+blogID+"/", {
                 method:"DELETE",
@@ -29,7 +29,7 @@ const LikedBtn = ({blogID, numLikes, initState}) =>{
                 alert("You have not liked this blog")
             })
         }
-        else if(liked == false){
+        else if(liked === false){
             setLiked(true)
             fetch("http://localhost:8000/socials/like_blog/"+blogID+"/", {
                 method:"POST",

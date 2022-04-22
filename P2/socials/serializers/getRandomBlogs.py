@@ -1,9 +1,8 @@
 from rest_framework import serializers
-
 from socials.models import Blog
 
 
-class FeedSerializer(serializers.ModelSerializer):
+class GetRandomBlogsSerializer(serializers.ModelSerializer):
     restaurant = serializers.CharField(source='restaurant.get_name',
                                        read_only=True)
     logo = serializers.ImageField(source='restaurant.get_logo')

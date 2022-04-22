@@ -13,10 +13,14 @@ class GetMenu(ListAPIView):
     model = Food
     serializer_class = GetMenuSerializer
     queryset = Food.objects.all()
-    pagination_class = OnePagesPagination
+    # pagination_class = OnePagesPagination
 
-    def get(self, request, *args, **kwargs):
-        foods = Food.objects.filter(restaurant=get_object_or_404(Restaurant, restaurant_name=self.kwargs["restaurant_name"]))
-        serializer = GetMenuSerializer(foods, many=True)
-        page = self.paginate_queryset(serializer.data)
-        return self.get_paginated_response(page)
+    # def get(self, request, *args, **kwargs):
+    #     foods = Food.objects.filter(restaurant=get_object_or_404(Restaurant, restaurant_name=self.kwargs["restaurant_name"])).order_by('-price')
+    #     serializer = GetMenuSerializer(foods, many=True)
+    #     page = self.paginate_queryset(serializer.data)
+    #     return self.get_paginated_response(page)
+
+    def get_queryset(self):
+        self.queryset = Food.objects.filter(restaurant=get_object_or_404(Restaurant, restaurant_name=self.kwargs["restaurant_name"]))
+        return self.queryset

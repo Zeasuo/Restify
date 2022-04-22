@@ -1,7 +1,7 @@
 import { Link, Outlet, useNavigate } from "react-router-dom";
-import React from 'react';
+import React, {useEffect} from 'react';
 import logo from "../images/Resify-logo-new.png";
-import {Navbar, NavDropdown, Container, Nav, Tooltip, OverlayTrigger} from 'react-bootstrap';
+import {Navbar, NavDropdown, Container, Nav, Tooltip, OverlayTrigger, NavLink} from 'react-bootstrap';
 import { Plus, Search, House, Bell, Book, Heart, People} from 'react-bootstrap-icons';
 
 // https://react-bootstrap.github.io/components/navbar/
@@ -12,11 +12,17 @@ import { Plus, Search, House, Bell, Book, Heart, People} from 'react-bootstrap-i
 const RenderNavbar = () => {
     const navigate = useNavigate();
 
+    useEffect(()=>{
+        if (!(localStorage.getItem("restifyToken"))){
+            navigate("../../notLogIn")
+        }
+    }, [])
+
     const LogOut = (e) => {
         e.preventDefault()
         localStorage.removeItem('restifyToken')
         localStorage.removeItem('username')
-        navigate("/signIn");
+        navigate("../../signIn");
     }
 
     return <>
@@ -37,33 +43,33 @@ const RenderNavbar = () => {
                         style={{ maxHeight: '100px' }}
                         navbarScroll
                     >
-                        <OverlayTrigger key='bottom' placement='bottom' overlay={<Tooltip><div>Search</div></Tooltip>}>
-                            <Nav.Link><Search size={25}></Search></Nav.Link>
+                        <OverlayTrigger placement='bottom' overlay={<Tooltip><div>Search</div></Tooltip>}>
+                            <NavLink onClick={()=>navigate("../../../socials/search")}><Search size={25}></Search></NavLink>
                         </OverlayTrigger>
 
-                        <OverlayTrigger key='bottom' placement='bottom' overlay={<Tooltip><div>Home Page</div></Tooltip>}>
-                            <Nav.Link href="../../home"><House size={25}></House></Nav.Link>
+                        <OverlayTrigger placement='bottom' overlay={<Tooltip><div>Home Page</div></Tooltip>}>
+                            <NavLink onClick={()=>navigate("../../../home")}><House size={25}></House></NavLink>
                         </OverlayTrigger>
 
-                        <OverlayTrigger key='bottom' placement='bottom' overlay={<Tooltip><div>Create A Blog</div></Tooltip>}>
-                            <Nav.Link href="../../socials/createBlog"><Plus size={25}></Plus></Nav.Link>
+                        <OverlayTrigger placement='bottom' overlay={<Tooltip><div>Create A Blog</div></Tooltip>}>
+                            <NavLink onClick={()=>navigate("../../../socials/createBlog")}><Plus size={25}></Plus></NavLink>
                         </OverlayTrigger>
 
-                        <OverlayTrigger key='bottom' placement='bottom' overlay={<Tooltip><div>Notifications</div></Tooltip>}>
-                            <Nav.Link href="../../notifications"><Bell size={25}></Bell></Nav.Link>
+                        <OverlayTrigger placement='bottom' overlay={<Tooltip><div>Notifications</div></Tooltip>}>
+                            <NavLink onClick={()=>navigate("../../../socials/notifications")}><Bell size={25}></Bell></NavLink>
                         </OverlayTrigger>
 
-                        <OverlayTrigger key='bottom' placement='bottom' overlay={<Tooltip><div>Feed</div></Tooltip>}>
-                            <Nav.Link href="../../socials/feed"><Book size={25}></Book></Nav.Link>
+                        <OverlayTrigger placement='bottom' overlay={<Tooltip><div>Feed</div></Tooltip>}>
+                            <NavLink onClick={()=>navigate("../../../socials/feed")}><Book size={25}></Book></NavLink>
                         </OverlayTrigger>
 
-                        <OverlayTrigger key='bottom' placement='bottom' overlay={<Tooltip><div>Favourite</div></Tooltip>}>
-                            <Nav.Link href=""><Heart size={25}></Heart></Nav.Link>
+                        <OverlayTrigger placement='bottom' overlay={<Tooltip><div>Favourite</div></Tooltip>}>
+                            <Nav.Link onClick={()=>navigate("../../../socials/favourite")}><Heart size={25}></Heart></Nav.Link>
                         </OverlayTrigger>
 
                         <NavDropdown title="Account" id="account">
-                            <NavDropdown.Item href="../../profile">My Profile</NavDropdown.Item>
-                            <NavDropdown.Item href="../../profile/edit">Edit Profile</NavDropdown.Item>
+                            <NavDropdown.Item onClick={()=>navigate("../../../profile")}>My Profile</NavDropdown.Item>
+                            <NavDropdown.Item onClick={()=>navigate("../../../profile/edit")}>Edit Profile</NavDropdown.Item>
                             <NavDropdown.Divider />
                             <NavDropdown.Item onClick={event => LogOut(event)}>Log Out</NavDropdown.Item>
                         </NavDropdown>

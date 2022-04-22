@@ -14,6 +14,7 @@ from socials.views.getNotification import GetNotificationView
 from socials.views.likeBlog import LikeBlogView, UnLikeBlogView
 from socials.views.likeRestaurant import LikeRestaurantView, \
     UnLikeRestaurantView
+from socials.views.getRandomBlogs import GetRandomBlogs
 
 app_name = 'socials'
 
@@ -32,5 +33,6 @@ urlpatterns = [
     path('get_blog_image/<int:blog_id>/', GetBlogImageView.as_view(), name='get_blog_image'),
     path('get_notification/', GetNotificationView.as_view(), name='add_notification'),
     path('feed/', FeedView.as_view(), name='feed'),
-    path('delete_blog/<int:blog_id>/', DeleteBlogView.as_view(), name='delete_blog')
+    path('delete_blog/<int:blog_id>/', DeleteBlogView.as_view(), name='delete_blog'),
+    path('get_random_blogs/', GetRandomBlogs.as_view(), name='get_random_blogs')
 ]

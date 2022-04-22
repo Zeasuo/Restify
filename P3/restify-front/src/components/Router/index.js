@@ -12,18 +12,19 @@ import AddRestaurant from "../AddRestaurant/AddRestaurant";
 import Description from "../AddRestaurant/Description";
 import NotLogInPage from "../NotLogInPage";
 import Search from "../SearchResultPage";
-import Restaurant from "../Restaurant";
+import Restaurant from "../Restaurant/RestaurantPage";
 import Notification from "../Notification";
 import BlogPage from "../BlogPage";
+import Menu from "../Restaurant/MenuPage";
+import FavouritePage from "../Favourite";
 
-/**
- *
- */
+
 const Router = () => {
     return (
         <BrowserRouter>
             <Routes>
                 <Route path="/" >
+                    <Route index element={<LoginForm />} />
                     <Route path="signIn" element={<LoginForm />} />
                     <Route path="signUp" element={<SignUpForm />} />
 
@@ -36,7 +37,13 @@ const Router = () => {
                     <Route exact path="restaurant" element={<RenderNavbar />}>
                         <Route path="register" element={<AddRestaurant />}/>
                         <Route path="followup" element={<Description />} />
-                        <Route path=":restaurantName" element={<Restaurant />} />
+                        <Route exact path=":restaurantName">
+                            <Route index element={<Restaurant />} />
+                            <Route path="menu" element={<Menu />}/>
+                            <Route path="gallery" />
+                            <Route path="edit" />
+                            <Route path='blog' element={<BlogPage />} />
+                        </Route>
                     </Route>
 
                     <Route path="notLogIn" element={<NotLogInPage/>} />
@@ -49,9 +56,8 @@ const Router = () => {
                     <Route path="createBlog" element={<CreateBlog />} />
                     <Route path="search" element={<Search />} />
                     <Route path="notifications" element={<Notification />} />
-                    <Route path='feed' element={<FeedPage />} />
-                    <Route path='restaurant_blog/:restaurant_name' element={<BlogPage />} />
-                    
+                    <Route path="feed" element={<FeedPage />} />
+                    <Route path="favourite" element={<FavouritePage />} />
                 </Route>
             </Routes>
         </BrowserRouter>
