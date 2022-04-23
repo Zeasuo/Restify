@@ -12,7 +12,7 @@ const ProfileNavBar = ({id}) => {
         <div className="align-items-end align-items-sm-end px-4 pt-5 text-white min-vh-100 position-fixed"> 
             <Navbar bg="light" id='home'>
                 <Container className='fs-4' bg="primary">
-                    <Navbar.Brand onClick={()=>navigate("../../../home")}> <House className="text-primary"> </House><span className="ms-1 d-none d-sm-inline text-primary"> Home </span> </Navbar.Brand>
+                    <Navbar.Brand onClick={()=>navigate("../../../profile")}> <House className="text-primary"> </House><span className="ms-1 d-none d-sm-inline text-primary"> Home </span> </Navbar.Brand>
                 </Container>
             </Navbar>
 
