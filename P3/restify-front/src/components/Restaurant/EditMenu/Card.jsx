@@ -37,7 +37,10 @@ export default function OutlinedCard({
     description1,
     category1,
     menu,
+    new_menu,
     setMenu,
+    setNewMenu,
+    isNew
 }) {
     const classes = useStyles();
     const bull = <span className={classes.bullet}>•</span>;
@@ -67,7 +70,6 @@ export default function OutlinedCard({
         console.log(1);
         console.log(menu);
         const food = menu.find((food) => food.food_name === name);
-        console.log(food);
         if (food) {
             food.food_name = name;
             food.price = price;
@@ -76,30 +78,34 @@ export default function OutlinedCard({
             setMenu([...menu]);
         } else {
             // if name1 is not empty, then it is an edit
-            if (name1) {
+            if (!isNew) {
                 // detele previous food
-                const newMenu = menu.filter((food) => food.food_name !== name1);
+                const old_menu = menu.filter((food) => food.food_name !== name1);
                 // add new food
                 if (name && price && description && category) {
-                    newMenu.push({
+                    old_menu.push({
                         food_name: name,
                         price: price,
                         description: description,
                         category: category,
                     });
-                    setMenu([...newMenu]);
+                    setMenu([...old_menu]);
                 }
+
             } else {
                 if (name && price && description && category) {
-                    setMenu([
-                        ...menu,
-                        {
-                            food_name: name,
-                            price: price,
-                            description: description,
-                            category: category,
-                        },
-                    ]);
+                    // if name uniqe, then add new food
+                    if (!new_menu.find((food) => food.food_name === name)) {
+                        setNewMenu([
+                            ...new_menu,
+                            {
+                                food_name: name,
+                                price: price,
+                                description: description,
+                                category: category,
+                            },
+                        ]);
+                    }
                 }
             }
         }
