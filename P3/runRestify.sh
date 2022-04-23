@@ -1,2 +1,0 @@
-./runBackend.sh &
-./runFrontend.sh &
