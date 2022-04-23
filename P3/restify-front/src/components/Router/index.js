@@ -21,6 +21,7 @@ import MyBlogPage from "../MyBlogPage";
 import BadRequestPage from "../BadRequestPage";
 import NotFoundPage from "../NotFoundPage";
 import EditMenu from '../Restaurant/EditMenu/EditMenu';
+import EditRestaurant from '../Restaurant/Edit Restaurant/index';
 
 const Router = () => {
     return (
@@ -47,7 +48,7 @@ const Router = () => {
                             <Route path="gallery" />
                             <Route path='blog' element={<BlogPage />} />
                             <Route exact path="edit-menu" element={<EditMenu />} />
-                            <Route exact path="edit-restaurant" />
+                            <Route exact path="edit-restaurant" element={<EditRestaurant />}/>
                         </Route>
                     </Route>
 
