@@ -30,30 +30,41 @@ class EditMenu(UpdateAPIView):
         if self.request.user.is_anonymous:
             raise AuthenticationFailed()
 
+        restaurant = None
         try:
-            Restaurant.objects.get(owner=self.request.user)
+            restaurant = Restaurant.objects.get(owner=self.request.user)
         except Restaurant.DoesNotExist:
             raise BadRequest('You do not have a restaurant yet!')
 
         data = request.data
         instances = []
+
+        Food.objects.filter(restaurant=restaurant).delete()
+
         for temp_dict in data:
-            obj = self.get_food(temp_dict['id'])
+
+            food_name = "Cannot Be Empty"
+            price = 0
+            description = ""
+            category = "Breakfast"
             if 'food_name' in temp_dict and temp_dict['food_name'] != "":
-                obj.food_name = temp_dict['food_name']
+                food_name = temp_dict['food_name']
             if 'price' in temp_dict and temp_dict['price'] != "":
-                obj.price = temp_dict['price']
+                price = temp_dict['price']
             if 'description' in temp_dict:
-                obj.description = temp_dict['description']
+                description = temp_dict['description']
             if 'category' in temp_dict:
-                obj.category = temp_dict['category']
+                category = temp_dict['category']
+
             try:
+                obj = Food.objects.create(food_name=food_name, restaurant=restaurant, price=price, description=description, category=category)
                 obj.save()
             except IntegrityError:
                 raise BadRequest('Your foods name need to be unique!')
             except ValueError:
                 raise BadRequest('Inappropriate data format!')
             instances.append(obj)
+
         serializer = EditMenuSerializer(instances, many=True)
 
         rest = Restaurant.objects.get(owner=self.request.user)
