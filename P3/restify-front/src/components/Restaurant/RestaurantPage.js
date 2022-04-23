@@ -273,15 +273,13 @@ const RestaurantPage = () => {
                     </Container>
 
                     <h1> Comments </h1>
-                    <Container className="justify-content-center" style={{paddingTop: "2%", paddingBottom: "10%", width: "60%"}}>
-                        {comments.map(comment => {
-                            return <>
-                                <h2> {comment.content} </h2>
-                            </>
-                        })}
+                    <Container className="align-items-start" style={{paddingTop: "2%", paddingBottom: "10%", width: "60%", marginLeft:"0%"}}>
+                        {comments.map(comment => 
+                            <h2> {comment.user}: {comment.content} </h2>
+                        )}
                     </Container>
 
-                    <Container className="justify-content-center" style={{paddingTop: "2%", paddingBottom: "10%", width: "60%"}}>
+                    <Container className="justify-content-center" style={{paddingTop: "2%", paddingBottom: "10%", width: "60%", marginLeft:"0%"}}>
                     <h2
                         style={{textAlign: "center", marginBottom: "5%"}}
                     ><b>Add A Comment!</b></h2>
