@@ -4,7 +4,7 @@ import Container from 'react-bootstrap/Container'
 import RestaurantSideBar from "./RestaurantSideBar";
 import Header from "./RestaurantMain/Header.jsx";
 import { Heart, HeartFill} from "react-bootstrap-icons";
-import {Card, Form} from "react-bootstrap";
+import {Card, Form, Pagination} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import {MDBContainer} from "mdb-react-ui-kit";
 import {useNavigate} from "react-router-dom";
@@ -88,9 +88,13 @@ const RestaurantPage = () => {
     const [notification, setNotification] = useState("")
     const [error, setError] = useState("")
     const [check, setCheck] = useState(true)
+    const [page, setPage] = useState(1)
+    const [pagenotification, setPageNotification] = useState("")
+    const [next, setNext] = useState(true)
+    const [prev, setPrev] = useState(true)
 
     function getComment() {
-        fetch("http://127.0.0.1:8000/socials/get_comments/"+restaurantName+"/", {
+        fetch("http://127.0.0.1:8000/socials/get_comments/"+restaurantName+"/"+"?page="+page, {
             method: "GET",
             headers: {
                 'Authorization': "Token "+localStorage.getItem("restifyToken"),
@@ -101,9 +105,22 @@ const RestaurantPage = () => {
                 if (response.ok) {
                     response.json().then((data) => {
                         setComments(data.results);
+                        if (data.next === null){
+                            setNext(false)
+                        }
+                        else{
+                            setNext(true)
+                        }
+
+                        if (data.previous === null){
+                            setPrev(false)
+                        }
+                        else {
+                            setPrev(true)
+                        }
                     });
                 }
-                else {
+                else if (response.status === 404){
                     navigate("../../../notFound")
                 }
             })
@@ -151,7 +168,7 @@ const RestaurantPage = () => {
     useEffect(() => {
         getData()
         getComment()
-    }, [followed, liked]);
+    }, [followed, liked, page, next, prev]);
 
     const handleClick = () =>{
         if (liked === true){
@@ -245,6 +262,32 @@ const RestaurantPage = () => {
         }
     }
 
+    const NextPagination = () => {
+        if (next){
+            return <>
+                <Pagination.Next onClick={()=>setPage(page + 1)}/>
+            </>
+        }
+        else {
+            return <>
+                <Pagination.Next disabled/>
+            </>
+        }
+    }
+
+    const PrevPagination = () => {
+        if (prev){
+            return <>
+                <Pagination.Prev onClick={()=>setPage(page - 1)}/>
+            </>
+        }
+        else {
+            return <>
+                <Pagination.Prev disabled/>
+            </>
+        }
+    }
+
 
     const render = (
         <Container fluid>
@@ -277,6 +320,12 @@ const RestaurantPage = () => {
                         {comments.map(comment => 
                             <h2> {comment.user}: {comment.content} </h2>
                         )}
+
+                        <Pagination style={{ marginBottom: "3%", marginTop: "3%", marginRight: "auto", marginLeft: "auto"}} className="justify-content-center">
+                            <PrevPagination/>
+                            <NextPagination/>
+                        </Pagination>
+
                     </Container>
 
                     <Container className="justify-content-center" style={{paddingTop: "2%", paddingBottom: "10%", width: "60%", marginLeft:"0%"}}>

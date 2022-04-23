@@ -86,7 +86,7 @@ const EditRestaurant = () => {
                 } 
             });
         }
-        
+
         if (nameState && addressState && postalCodeState && phoneNumber) {
             const formData = new FormData();
             formData.append("restaurant_name", nameState);
@@ -312,7 +312,7 @@ const EditRestaurant = () => {
                                         <b>Expend your gallery!</b>
                                     </h2>
                                     <FileUploadComponent
-                                        allowed={100}
+                                        allowed={5}
                                         setState={setImages}
                                     />
 
