@@ -4,7 +4,7 @@ import Container from 'react-bootstrap/Container'
 import RestaurantSideBar from "./RestaurantSideBar";
 import Header from "./RestaurantMain/Header.jsx";
 import { Heart, HeartFill} from "react-bootstrap-icons";
-import {Card} from "react-bootstrap";
+import {Card, Form} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import {MDBContainer} from "mdb-react-ui-kit";
 import {useNavigate} from "react-router-dom";
@@ -83,10 +83,31 @@ const RestaurantPage = () => {
     const [followed_users, setFollowedUsers] = useState([])
     const [fetched, setFetched] = useState(false)
     const [liked, setLiked] = useState(false)
-    
-    const [info, setInfo] = useState()
+    const [comments, setComments] = useState([])
+    const [input, setInput] = useState("")
+    const [notification, setNotification] = useState("")
+    const [error, setError] = useState("")
+    const [check, setCheck] = useState(true)
 
-
+    function getComment() {
+        fetch("http://127.0.0.1:8000/socials/get_comments/"+restaurantName+"/", {
+            method: "GET",
+            headers: {
+                'Authorization': "Token "+localStorage.getItem("restifyToken"),
+                "Content-Type": "application/json",
+            },
+        })
+            .then((response) => {
+                if (response.ok) {
+                    response.json().then((data) => {
+                        setComments(data.results);
+                    });
+                }
+                else {
+                    navigate("../../../notFound")
+                }
+            })
+    }
 
 
     function getData() {
@@ -129,7 +150,8 @@ const RestaurantPage = () => {
 
     useEffect(() => {
         getData()
-    }, []);
+        getComment()
+    }, [followed, liked]);
 
     const handleClick = () =>{
         if (liked === true){
@@ -180,6 +202,49 @@ const RestaurantPage = () => {
         }
     }
 
+    const submit = (e) => {
+        e.preventDefault()
+        fetch("http://localhost:8000/socials/comment/"+restaurantName+"/", {
+            method:"POST",
+            headers:{
+                'Authorization': "Token "+localStorage.getItem("restifyToken"),
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(
+                {
+                    "content":input
+                }
+            )
+        }).then((response) => {
+            if (response.ok) {
+               setNotification("You have added a comment!")
+            }
+            else if (response.status === 404){
+                navigate("../../../notFound")
+            }
+            else if (response.status === 400){
+                navigate("../../../badRequest")
+            }
+            else{
+                setNotification("Something goes wrong...")
+            }
+        })
+    }
+
+    const Checkcontent = (content) => {
+        var notification = "Comment cannot be empty or only spaces!";
+        var regex = /^(?=.*\S).+$/
+        if(regex.test(content)){
+            setInput(content);
+            setCheck(false);
+            setError("");
+        }
+        else{
+            setCheck(true);
+            setError(notification);
+        }
+    }
+
 
     const render = (
         <Container fluid>
@@ -195,7 +260,7 @@ const RestaurantPage = () => {
                             {liked?<HeartFill></HeartFill>:<Heart></Heart>} {numLike} Likes
                         </Button>
                     </div>
-
+                    <></>
                     <Container className="justify-content-center" style={{paddingTop: "2%", paddingBottom: "10%", width: "60%"}}>
                         <Card.Body> <h1> Number of Followers: {numFollower}  |  Number of Likes: {numLike} </h1></Card.Body>
                         <Card.Body> <h2> Address: {address} </h2> </Card.Body>
@@ -205,6 +270,46 @@ const RestaurantPage = () => {
                         <Card.Body> <h2> Description: {description} </h2> </Card.Body>
                         <Button variant="danger"
                                 onClick={(e) => followunfollow(e)}>{followed? "Unfollow" : "Follow"}</Button>
+                    </Container>
+
+                    <h1> Comments </h1>
+                    <Container className="justify-content-center" style={{paddingTop: "2%", paddingBottom: "10%", width: "60%"}}>
+                        {comments.map(comment => {
+                            return <>
+                                <h2> {comment.content} </h2>
+                            </>
+                        })}
+                    </Container>
+
+                    <Container className="justify-content-center" style={{paddingTop: "2%", paddingBottom: "10%", width: "60%"}}>
+                    <h2
+                        style={{textAlign: "center", marginBottom: "5%"}}
+                    ><b>Add A Comment!</b></h2>
+                    <Form className="bg-white shadow-lg p-5 rounded" onSubmit={submit}>
+                        <h4 style={{color:"red"}}> {error} </h4>
+                        <Form.Group>
+                            <Form.Control
+                                as="textarea"
+                                rows={2}
+                                placeholder="Comment"
+                                onChange={(e) => Checkcontent(e.target.value)}/>
+                        </Form.Group>
+                        <Button
+                            type="submit"
+                            size="large"
+                            variant="contained"
+                            color="primary"
+                            style={{
+                                marginTop: "4em",
+                                position: "relative",
+                                left: "85%",
+                            }}
+                            disabled={check}
+                        >
+                            Submit
+                        </Button>
+                    </Form>
+                    <h3 style={{color:"red"}}> {notification} </h3>
                     </Container>
                 </MDBContainer>
             </div>
