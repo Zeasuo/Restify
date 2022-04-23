@@ -7,7 +7,10 @@ import {useNavigate} from "react-router-dom";
 
 const ProfileNavBar = ({id}) => {
     const navigate = useNavigate()
-    const restaurantName = localStorage.getItem("restaurant")
+    var restaurantName = localStorage.getItem("restaurant")
+    if (restaurantName.length === 0){
+        restaurantName = "fwafdsafdasfdawdawsdfwafasdf"
+    }
     return <>
         <div className="align-items-end align-items-sm-end px-4 pt-5 text-white min-vh-100 position-fixed"> 
             <Navbar bg="light" id='home'>
@@ -40,7 +43,7 @@ const ProfileNavBar = ({id}) => {
                 </Container>
             </Navbar>
 
-            <Navbar bg="light" id = 'Edit Restaurant'>
+            <Navbar bg="light" id = 'Edit Restaurant' >
                 <Container className='fs-4'>
                     <Navbar.Brand onClick={()=>navigate("../../../restaurant/"+restaurantName+"/edit-restaurant/")}> <PencilSquare className="text-primary"></PencilSquare> <span className ="ms-1 d-none d-sm-inline text-primary">Edit Restaurant </span></Navbar.Brand>
                 </Container>
