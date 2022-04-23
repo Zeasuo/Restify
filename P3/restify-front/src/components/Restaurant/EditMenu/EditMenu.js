@@ -17,7 +17,6 @@ const useStyles = makeStyles({
 
 export default function EditMenu() {
     const [menu, setMenu] = React.useState([]);
-    const [new_menu, setNewMenu] = React.useState([]);
 
     const navigate = useNavigate();
     const routeChange = () => {
@@ -52,21 +51,16 @@ export default function EditMenu() {
         console.log(menu);
     }, [menu]);
 
-    useEffect(() => {
-        console.log(new_menu);
-    }, [new_menu]);
-
     const list = menu.map((item, index) => (
-        <Grid item xs={12} sm={6} md={4} key={index}>
+        <Grid item xs={12} sm={6} md={4} key={item.id}>
+            {console.log(item)}
             <Card
                 name1={item.food_name}
                 price1={item.price}
                 description1={item.description}
                 category1={item.category}
                 menu={menu}
-                new_menu={new_menu}
                 setMenu={setMenu}
-                setNewMenu={setNewMenu}
                 isNew={false}
             />
         </Grid>
@@ -94,29 +88,6 @@ export default function EditMenu() {
                 routeChange();
             }
         });
-
-        // for each food in new_menu, add to menu
-        for(let food of new_menu){
-            fetch(
-                "http://127.0.0.1:8000/restaurants/add_menu/",
-                {
-                    method: "POST",
-                    headers: {
-                        Authorization:
-                            "Token " + localStorage.getItem("restifyToken"),
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify(food),
-                }
-            ).then((response) => {
-                if (!response.ok) {
-                    console.log("error");
-                } else {
-                    console.log("success");
-                    routeChange();
-                }
-            });
-        }
     };
 
     const classes = useStyles();
@@ -145,9 +116,7 @@ export default function EditMenu() {
                                 description1={""}
                                 category1={"Breakfast"}
                                 menu={menu}
-                                new_menu={new_menu}
                                 setMenu={setMenu}
-                                setNewMenu={setNewMenu}
                                 isNew={true}
                             />
                         </Grid>
