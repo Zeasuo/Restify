@@ -42,7 +42,7 @@ const ProfileNavBar = ({id}) => {
 
             <Navbar bg="light" id = 'Edit Restaurant'>
                 <Container className='fs-4'>
-                    <Navbar.Brand onClick={()=>navigate("../../../restaurant/"+restaurantName+"edit-restaurant/")}> <PencilSquare className="text-primary"></PencilSquare> <span className ="ms-1 d-none d-sm-inline text-primary">Edit Restaurant </span></Navbar.Brand>
+                    <Navbar.Brand onClick={()=>navigate("../../../restaurant/"+restaurantName+"/edit-restaurant/")}> <PencilSquare className="text-primary"></PencilSquare> <span className ="ms-1 d-none d-sm-inline text-primary">Edit Restaurant </span></Navbar.Brand>
                 </Container>
             </Navbar>
         </div>
