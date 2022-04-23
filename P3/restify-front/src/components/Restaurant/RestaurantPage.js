@@ -79,7 +79,7 @@ const RestaurantPage = () => {
     const [liked_users, setLikedUsers] = useState([]);
     const [numBlogs, setNumBlogs] = useState(0);
     const [phoneNumber, setPhoneNumber] = useState("")
-    const [follow, setFollow] = useState(false)
+    const [followed, setFollowed] = useState(false)
     const [followed_users, setFollowedUsers] = useState([])
     const [fetched, setFetched] = useState(false)
     const [liked, setLiked] = useState(false)
@@ -114,7 +114,7 @@ const RestaurantPage = () => {
                         setPhoneNumber(data.phone_number)
                         setFollowedUsers(data.followed_users)
                         if (data.followed_users.indexOf(localStorage.getItem("username"))>-1){
-                            setFollow(false)
+                            setFollowed(true)
                         }
                         if (data.liked_users.indexOf(localStorage.getItem("username"))>-1){
                             setLiked(true)
@@ -125,10 +125,6 @@ const RestaurantPage = () => {
                     navigate("../../../notFound")
                 }
             })
-            .then(()=>{
-                console.log(liked_users)
-                console.log(numLike)
-                 })
         }
 
     useEffect(() => {
@@ -208,7 +204,7 @@ const RestaurantPage = () => {
                         <Card.Body> <h2> Number of Blogs: {numBlogs} </h2> </Card.Body>
                         <Card.Body> <h2> Description: {description} </h2> </Card.Body>
                         <Button variant="danger"
-                                onClick={(e) => followunfollow(e)}>{follow? "Follow" : "Unfollow"}</Button>
+                                onClick={(e) => followunfollow(e)}>{followed? "Unfollow" : "Follow"}</Button>
                     </Container>
                 </MDBContainer>
             </div>
@@ -217,7 +213,7 @@ const RestaurantPage = () => {
 
     const followunfollow = (e) =>{
         e.preventDefault()
-        if (follow){
+        if (!followed){
             fetch('http://127.0.0.1:8000/socials/follow/' + restaurantName +"/", {
                 method: 'POST',
                 headers: {
@@ -226,7 +222,7 @@ const RestaurantPage = () => {
                 }
             }).then((response) =>{
                 if (response.ok){
-                    setFollow(false)
+                    setFollowed(true)
                 }
             })
         }
@@ -239,7 +235,7 @@ const RestaurantPage = () => {
                 }
             }).then((response) =>{
                 if (response.ok){
-                    setFollow(true)
+                    setFollowed(false)
                 }
             })
         }

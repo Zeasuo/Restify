@@ -7,7 +7,7 @@ import {useNavigate} from "react-router-dom";
 
 const ProfileNavBar = ({id}) => {
     const navigate = useNavigate()
-
+    const restaurantName = localStorage.getItem("restaurant")
     return <>
         <div className="align-items-end align-items-sm-end px-4 pt-5 text-white min-vh-100 position-fixed"> 
             <Navbar bg="light" id='home'>
@@ -18,7 +18,7 @@ const ProfileNavBar = ({id}) => {
 
             <Navbar bg="light" id='My Restaurant'>
                 <Container className='fs-4'>
-                    <Navbar.Brand onClick={()=>navigate("../../../")}> <Award className="text-primary"> </Award> <span className="ms-1 d-none d-sm-inline text-primary"> My Restaurant </span> </Navbar.Brand>
+                    <Navbar.Brand onClick={()=>navigate("../../../restaurant/"+restaurantName+"/")}> <Award className="text-primary"> </Award> <span className="ms-1 d-none d-sm-inline text-primary"> My Restaurant </span> </Navbar.Brand>
                 </Container>
             </Navbar>
 

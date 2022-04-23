@@ -94,12 +94,25 @@ const BlogPageComp = () => {
                 'Content-Type': 'application/json',
             }
         })
-        .then(response => response.json())
+        .then(response => {
+            if(response.ok){
+                response.json()
+            }
+            else{
+                setHasMore(false)
+                throw new Error("something went wrong")
+            }
+        })
         .then(json =>{
-            setBlogs(blogs=>[...blogs, ...json.results])
+            if (json.results.length>0){
+                setBlogs(blogs=>[...blogs, ...json.results])
+            }
             if (!json.next){
                 setHasMore(false)
             }
+        })
+        .catch((error)=>{
+            console.log(error)
         })
         setTimeout(()=>{
             setLoading(false)
