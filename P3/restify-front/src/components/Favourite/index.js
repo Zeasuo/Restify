@@ -6,7 +6,7 @@ import {Container} from "@material-ui/core";
 
 const FavouritePage = () => {
     const [infos, setInfos] = useState([])
-    const [follow, setFollow] = useState(false)
+    const [followed, setFollowed] = useState(false)
 
     useEffect(() => {
         fetch("http://127.0.0.1:8000/accounts/user/" + localStorage.getItem("username") + "/details/", {
@@ -43,7 +43,7 @@ const FavouritePage = () => {
 
     const followunfollow = (e, rest_name) =>{
         e.preventDefault()
-        if (follow){
+        if (followed){
             fetch('http://127.0.0.1:8000/socials/follow/' + rest_name+"/", {
                 method: 'POST',
                 headers: {
@@ -52,7 +52,7 @@ const FavouritePage = () => {
                 }
             }).then((response) =>{
                 if (response.ok){
-                    setFollow(false)
+                    setFollowed(false)
                 }
             })
         }
@@ -65,7 +65,7 @@ const FavouritePage = () => {
                 }
             }).then((response) =>{
                 if (response.ok){
-                    setFollow(true)
+                    setFollowed(true)
                 }
             })
         }
@@ -91,7 +91,7 @@ const FavouritePage = () => {
                             <Button href={"../restaurant/" + info.restaurant_name} variant="light">Click to see more
                                 information!</Button>
                             <Button variant="danger"
-                                    onClick={(e) => followunfollow(e, info.restaurant_name)}>{follow? "Follow" : "Unfollow"}</Button>
+                                    onClick={(e) => followunfollow(e, info.restaurant_name)}>{followed? "Follow" : "Unfollow"}</Button>
                         </Card.Body>
                     </Card>))}
             </Container>
