@@ -44,8 +44,8 @@ const FavouritePage = () => {
     const followunfollow = (e, rest_name) =>{
         e.preventDefault()
         if (followed){
-            fetch('http://127.0.0.1:8000/socials/follow/' + rest_name+"/", {
-                method: 'POST',
+            fetch('http://127.0.0.1:8000/socials/unfollow/' + rest_name+"/", {
+                method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
                     "Authorization": "Token " + localStorage.getItem("restifyToken"),
@@ -57,8 +57,8 @@ const FavouritePage = () => {
             })
         }
         else{
-            fetch('http://127.0.0.1:8000/socials/unfollow/' + rest_name+"/", {
-                method: 'DELETE',
+            fetch('http://127.0.0.1:8000/socials/follow/' + rest_name+"/", {
+                method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     "Authorization": "Token " + localStorage.getItem("restifyToken"),
