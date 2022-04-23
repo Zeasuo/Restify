@@ -89,7 +89,7 @@ const Notification = () =>{
                 </ListGroup>
 
                 <div style={{color: "red"}}>{pagenotification}</div>
-                <Pagination style={{ marginBottom: "3%", marginTop: "3%", marginRight: "auto", marginLeft: "auto"}}>
+                <Pagination style={{ marginBottom: "3%", marginTop: "3%", marginRight: "auto", marginLeft: "auto"}} className="justify-content-center">
                     <PrevPagination/>
                     <NextPagination/>
                 </Pagination>
