@@ -195,13 +195,9 @@ const RestaurantPage = () => {
                 <MDBContainer fluid style={{height: "100%", backgroundColor: "#e9ebed"}}>
                     <div className="col-9 md-auto">
                         <Header restaurantName={restaurantName} pass_logo={logo}/>
-<<<<<<< HEAD
                         <Button variant="light" onClick={handleClick}>
                             {liked?<HeartFill></HeartFill>:<Heart></Heart>} {numLike} Likes
                         </Button>
-=======
-                        <RestaurantLike restaurantName={restaurantName} numLikes={numLike} initState={liked_users.values(localStorage.getItem("username")) > -1?true:false}/>
->>>>>>> 1d8df8d719aa20d53f2f97f05225c1c9f608ba15
                     </div>
 
                     <Container className="justify-content-center" style={{paddingTop: "2%", paddingBottom: "10%", width: "60%"}}>
