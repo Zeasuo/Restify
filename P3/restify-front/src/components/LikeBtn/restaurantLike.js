@@ -49,6 +49,7 @@ const RestaurantLike = ({restaurantName, numLikes, initState}) =>{
             .then(json=>{
                 setNumLikes(json.num_likes)
             })
+            .then(()=>console.log(num_likes))
             .catch((error)=>{
                 alert("You Liked this restaurant")
             })
