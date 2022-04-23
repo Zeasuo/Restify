@@ -10,6 +10,7 @@ from socials.views.followRestaurant import FollowRestaurantView, \
     UnFollowRestaurantView
 from socials.views.getBlog import GetBlogView
 from socials.views.getBlogImage import GetBlogImageView
+from socials.views.getComments import GetCommentsView
 from socials.views.getNotification import GetNotificationView
 from socials.views.likeBlog import LikeBlogView, UnLikeBlogView
 from socials.views.likeRestaurant import LikeRestaurantView, \
@@ -27,6 +28,7 @@ urlpatterns = [
     path('unlike_restaurant/<str:restaurant_name>/', UnLikeRestaurantView.as_view(), name='unlike_restaurant'),
     path('like_blog/<int:blog_id>/', LikeBlogView.as_view(), name='like_blog'),
     path('unlike_blog/<int:blog_id>/', UnLikeBlogView.as_view(), name='unlike_blog'),
+    path('get_comments/<str:restaurant_name>/', GetCommentsView.as_view(), name='get_comments'),
     path('comment/<str:restaurant_name>/', AddCommentView.as_view(), name='add_comment'),
     path('add_notification/', AddNotificationView.as_view(), name='add_notification'),
     path('add_blog_image/', AddBlogImage.as_view(), name='add_blog_image'),
