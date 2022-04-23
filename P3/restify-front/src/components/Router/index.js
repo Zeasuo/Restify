@@ -22,6 +22,7 @@ import BadRequestPage from "../BadRequestPage";
 import NotFoundPage from "../NotFoundPage";
 import EditMenu from '../Restaurant/EditMenu/EditMenu';
 import EditRestaurant from '../Restaurant/Edit Restaurant/index';
+import PhotoGallery from "../Restaurant/PhotoGallery";
 
 const Router = () => {
     return (
@@ -45,7 +46,7 @@ const Router = () => {
                         <Route exact path=":restaurantName">
                             <Route index element={<Restaurant />} />
                             <Route path="menu" element={<Menu />}/>
-                            <Route path="gallery" />
+                            <Route path="gallery" element={<PhotoGallery />}/>
                             <Route path='blog' element={<BlogPage />} />
                             <Route exact path="edit-menu" element={<EditMenu />} />
                             <Route exact path="edit-restaurant" element={<EditRestaurant />}/>

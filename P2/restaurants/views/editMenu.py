@@ -14,6 +14,7 @@ from socials.models import Follow, Notification
 class EditMenu(UpdateAPIView):
     serializer_class = EditMenuSerializer
     permission_class = [IsAuthenticated]
+    queryset = Food.objects
 
     # https://stackoverflow.com/questions/60258388/how-to-update-multiple-objects-in-django-rest-framework
     def get_food(self, f_id):
@@ -44,6 +45,8 @@ class EditMenu(UpdateAPIView):
                 obj.price = temp_dict['price']
             if 'description' in temp_dict:
                 obj.description = temp_dict['description']
+            if 'category' in temp_dict:
+                obj.category = temp_dict['category']
             try:
                 obj.save()
             except IntegrityError:
