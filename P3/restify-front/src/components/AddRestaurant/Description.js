@@ -20,7 +20,7 @@ function Description() {
 
     const navigate = useNavigate();
     const routeChange = () => {
-        let path = "/restaurant/"+location.state.name+"/";
+        let path = "../../../profile";
         navigate(path);
     };
 
@@ -115,7 +115,7 @@ function Description() {
                     <h2 
                    style={{textAlign: "center", marginBottom: "5%", marginTop: "5%"}}
                    ><b>Finally, add some images to your restaurant</b></h2>
-                    <FileUploadComponent allowed={100} setState={setImages}/>
+                    <FileUploadComponent allowed={3} setState={setImages}/>
                     
                     <Button
                                 onClick={Submit}
