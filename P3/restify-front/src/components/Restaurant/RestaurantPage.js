@@ -86,7 +86,10 @@ const RestaurantPage = () => {
     
     const [info, setInfo] = useState()
 
-    useEffect(() => {
+
+
+
+    function getData() {
         fetch("http://127.0.0.1:8000/restaurants/get/"+restaurantName+"/", {
             method: "GET",
             headers: {
@@ -109,9 +112,9 @@ const RestaurantPage = () => {
                         setLikedUsers(()=>[...data.liked_users]);
                         setNumBlogs(data.num_blog);
                         setPhoneNumber(data.phone_number)
-                        setFollowedUsers(()=>[...data.followed_users])
+                        setFollowedUsers(data.followed_users)
                         if (data.followed_users.indexOf(localStorage.getItem("username"))>-1){
-                            setFollow(true)
+                            setFollow(false)
                         }
                         if (data.liked_users.indexOf(localStorage.getItem("username"))>-1){
                             setLiked(true)
@@ -121,7 +124,15 @@ const RestaurantPage = () => {
                 else {
                     navigate("../../../notFound")
                 }
-            });
+            })
+            .then(()=>{
+                console.log(liked_users)
+                console.log(numLike)
+                 })
+        }
+
+    useEffect(() => {
+        getData()
     }, []);
 
     const handleClick = () =>{
@@ -184,9 +195,13 @@ const RestaurantPage = () => {
                 <MDBContainer fluid style={{height: "100%", backgroundColor: "#e9ebed"}}>
                     <div className="col-9 md-auto">
                         <Header restaurantName={restaurantName} pass_logo={logo}/>
+<<<<<<< HEAD
                         <Button variant="light" onClick={handleClick}>
                             {liked?<HeartFill></HeartFill>:<Heart></Heart>} {numLike} Likes
                         </Button>
+=======
+                        <RestaurantLike restaurantName={restaurantName} numLikes={numLike} initState={liked_users.values(localStorage.getItem("username")) > -1?true:false}/>
+>>>>>>> 1d8df8d719aa20d53f2f97f05225c1c9f608ba15
                     </div>
 
                     <Container className="justify-content-center" style={{paddingTop: "2%", paddingBottom: "10%", width: "60%"}}>
