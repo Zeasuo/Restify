@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { Container } from 'react-bootstrap';
 import Gallery from 'react-photo-gallery';
+import { useParams } from 'react-router';
 import RestaurantSideBar from "./RestaurantSideBar";
 
 const PhotoGalleryComp = () => {
-  const restaurantName = localStorage.getItem("restaurant")
+  const {restaurantName} = useParams()
   const [images, setImages] = useState([])
   const [fetched, setFetched] = useState(false)
 
