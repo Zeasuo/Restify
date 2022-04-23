@@ -184,6 +184,7 @@ const CreateBlog = () =>{
                             left: "85%",
                         }}
                         disabled={checkall}
+                        onClick={()=>navigate("../../../profile/myBlogs")}
                     >
                         Submit
                     </Button>
