@@ -66,7 +66,7 @@ class Food(models.Model):
         return str(self.restaurant) + ': ' + str(self.food_name)
 
     @property
-    def get_id(self):
+    def id(self):
         return self.pk
 
     class Meta:

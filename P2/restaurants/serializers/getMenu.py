@@ -4,8 +4,8 @@ from restaurants.models import Food
 
 
 class GetMenuSerializer(serializers.ModelSerializer):
-    get_id = serializers.ReadOnlyField()
+    id = serializers.ReadOnlyField()
 
     class Meta:
         model = Food
-        fields = ['food_name', 'price', 'description', 'category', 'get_id']
+        fields = ['food_name', 'price', 'description', 'category', 'id']
