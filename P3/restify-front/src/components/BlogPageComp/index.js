@@ -95,7 +95,7 @@ const BlogPageComp = () => {
         })
         .then(response => {
             if(response.ok){
-                response.json()
+                return response.json()
             }
             else{
                 setHasMore(false)
