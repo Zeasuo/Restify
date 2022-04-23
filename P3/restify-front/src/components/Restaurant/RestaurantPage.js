@@ -168,7 +168,7 @@ const RestaurantPage = () => {
     useEffect(() => {
         getData()
         getComment()
-    }, [followed, liked]);
+    }, [followed, liked, page, next, prev]);
 
     const handleClick = () =>{
         if (liked === true){
