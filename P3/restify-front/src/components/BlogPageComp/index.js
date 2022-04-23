@@ -78,12 +78,11 @@ const BlogPageComp = () => {
     const [start, setStart] = useState(1)
     const [loading, setLoading] = useState(false)
 
-    const { setBlogs } = useContext(feedAPIContext)
+    const { blogs, setBlogs } = useContext(feedAPIContext)
 
     const loader = useRef(null);
 
     const {restaurantName} = useParams()
-    console.log(restaurantName)
 
     const getBlog = () =>{
         setLoading(true)
@@ -148,7 +147,7 @@ const BlogPageComp = () => {
 
     return <>
         <Container className="align-items-center">
-            <Table />
+            {blogs.length>0?<Table />:<div>This restaurant does not have any blog</div>}
             <div ref={loader} />
         </Container>
     </>

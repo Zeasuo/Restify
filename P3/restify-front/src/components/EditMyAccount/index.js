@@ -97,7 +97,7 @@ const EditMyAccount = () =>{
 
     const handleSubmit = (e) =>{
         e.preventDefault();
-        var {firstname, lastname, email, phone_number, birthday} = document.forms[1];
+        var {firstname, lastname, email, phone_number, birthday} = document.forms[0];
         const formData = new FormData()
         formData.append("first_name", firstname.value)
         formData.append("last_name", lastname.value)
