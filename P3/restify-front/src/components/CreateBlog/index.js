@@ -23,6 +23,7 @@ const CreateBlog = () =>{
     const [submitnotification, setSubmitNotification] = useState("")
     const [uploadnotification, setUploadNotification] = useState("")
     const [images, setImages] = useState([])
+    const [success, setSuccess] = useState(false)
     const navigate = useNavigate();
 
     // https://stackoverflow.com/questions/5599934/regular-expression-that-allows-spaces-in-a-string-but-not-only-blank-spaces
@@ -69,6 +70,7 @@ const CreateBlog = () =>{
         })
             .then((response) => {
                 if (response.ok) {
+                    setSuccess(true)
                     setSubmitNotification("You have made a blog successfully! Congrats!");
                     response.json().then((data) => {
                         const formData = new FormData();
@@ -95,9 +97,10 @@ const CreateBlog = () =>{
                     })
                 }
                 else if (response.status === 400) {
+                    setSuccess(false)
                     setSubmitNotification("You need to have a restaurant before making a post!");
-                } else {
-                    alert("Error: " + response.status);
+                } else if (response.status === 404){
+                    setSuccess(false)
                     setSubmitNotification("Something goes wrong!");
                 }
             })
@@ -116,6 +119,46 @@ const CreateBlog = () =>{
             navigate("/notLogIn");
         }
     }, [titlecheck && contentcheck && check])
+
+    const submitButton = () => {
+        if (success){
+            return <>
+                <Button
+                    type="submit"
+                    size="large"
+                    variant="contained"
+                    color="primary"
+                    style={{
+                        marginTop: "4em",
+                        position: "relative",
+                        left: "85%",
+                    }}
+                    disabled={checkall}
+                    onClick={()=>(navigate("../../../profile/myBlogs"))}
+                >
+                    Submit
+                </Button>
+            </>
+        }
+        else{
+            return <>
+                <Button
+                    type="submit"
+                    size="large"
+                    variant="contained"
+                    color="primary"
+                    style={{
+                        marginTop: "4em",
+                        position: "relative",
+                        left: "85%",
+                    }}
+                    disabled={checkall}
+                >
+                    Submit
+                </Button>
+            </>
+        }
+    }
 
     return <>
         <MDBContainer
@@ -173,21 +216,9 @@ const CreateBlog = () =>{
 
                     <Form.Check type="checkbox" label="Your blog's title and content must be polite."
                                 onClick={(e) => setCheck(e.target.checked)}/>
-                    <Button
-                        type="submit"
-                        size="large"
-                        variant="contained"
-                        color="primary"
-                        style={{
-                            marginTop: "4em",
-                            position: "relative",
-                            left: "85%",
-                        }}
-                        disabled={checkall}
-                        onClick={()=>navigate("../../../profile/myBlogs")}
-                    >
-                        Submit
-                    </Button>
+
+                    {submitButton()}
+
                     <div style={{color: "red"}}>{submitnotification}</div>
                     <div style={{color: "red"}}>{uploadnotification}</div>
                 </Form>
