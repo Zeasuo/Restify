@@ -87,7 +87,7 @@ const AddRestaurant = () => {
                     setName("");
                     setNameNotification(false);
                 } else if (response.status === 404) {
-                    setName(restaurantName);
+                    setName(restaurantName.trim());
                     setNameNotification(true);
                 } else {
                     alert("Error: " + response.status);
