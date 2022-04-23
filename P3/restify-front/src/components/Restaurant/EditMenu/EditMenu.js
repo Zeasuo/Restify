@@ -1,18 +1,94 @@
 import React from "react";
 import Card from "./Card";
-import { Grid } from "@material-ui/core";
+import { Grid, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import Container from 'react-bootstrap/Container'
+import Container from "react-bootstrap/Container";
 import RestaurantSideBar from "../RestaurantSideBar";
+import { useEffect } from "react";
+import { useNavigate } from "react-router";
 
 const useStyles = makeStyles({
     gridContainer: {
         paddingLeft: "40px",
         paddingRight: "40px",
+        textAlign: "center",
     },
 });
 
 export default function EditMenu() {
+    const [menu, setMenu] = React.useState([]);
+
+    const navigate = useNavigate();
+    const routeChange = () => {
+        let path = "/restaurant/" + localStorage.getItem("restaurant") + "/menu/";
+        navigate(path);
+    };
+
+    // fetch menu
+    useEffect(() => {
+        fetch(
+            "http://127.0.0.1:8000/restaurants/get_menu/" +
+                localStorage.getItem("restaurant") +
+                "/",
+            {
+                method: "GET",
+                headers: {
+                    Authorization:
+                        "Token " + localStorage.getItem("restifyToken"),
+                    "Content-Type": "application/json",
+                },
+            }
+        ).then((response) => {
+            if (response.ok) {
+                response.json().then((data) => {
+                    setMenu(data);
+                });
+            }
+        });
+    }, []);
+
+    useEffect(() => {
+        console.log(menu);
+    }, [menu]);
+
+    const list = menu.map((item, index) => (
+        <Grid item xs={12} sm={6} md={4} key={index}>
+            <Card
+                name1={item.food_name}
+                price1={item.price}
+                description1={item.description}
+                category1={item.category}
+                menu={menu}
+                setMenu={setMenu}
+            />
+        </Grid>
+    ));
+
+    // submit menu
+    const submitMenu = () => {
+        const new_menu = JSON.stringify(menu);
+        console.log(new_menu);
+        fetch(
+            "http://127.0.0.1:8000/restaurants/edit_menu/",
+            {
+                method: "PUT",
+                headers: {
+                    Authorization:
+                        "Token " + localStorage.getItem("restifyToken"),
+                    "Content-Type": "application/json",
+                },
+                body: new_menu,
+            }
+        ).then((response) => {
+            if (!response.ok) {
+                console.log("error");
+            } else {
+                console.log("success");
+                routeChange();
+            }
+        });
+    };
+
     const classes = useStyles();
     return (
         <Container fluid>
@@ -30,22 +106,34 @@ export default function EditMenu() {
                         className={classes.gridContainer}
                         justify="center"
                     >
+                        {list}
+
                         <Grid item xs={12} sm={6} md={4}>
-                            <Card />
-                        </Grid>
-                        <Grid item xs={12} sm={6} md={4}>
-                            <Card />
-                        </Grid>
-                        <Grid item xs={12} sm={6} md={4}>
-                            <Card />
-                        </Grid>
-                        <Grid item xs={12} sm={6} md={4}>
-                            <Card />
-                        </Grid>
-                        <Grid item xs={12} sm={6} md={4}>
-                            <Card />
+                            <Card
+                                name1={""}
+                                price1={""}
+                                description1={""}
+                                category1={"Breakfast"}
+                                menu={menu}
+                                setMenu={setMenu}
+                            />
                         </Grid>
                     </Grid>
+
+                    <Button
+                        onClick={submitMenu}
+                        type="submit"
+                        size="large"
+                        variant="contained"
+                        color="primary"
+                        style={{
+                            marginTop: "4em",
+                            position: "relative",
+                            left: "35%",
+                        }}
+                    >
+                        Save
+                    </Button>
                 </div>
             </div>
         </Container>

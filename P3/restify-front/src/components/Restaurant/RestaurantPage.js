@@ -24,7 +24,10 @@ const RestaurantPage = () => {
     const [follow, setFollow] = useState(false)
     const [followed_users, setFollowedUsers] = useState([])
 
-    useEffect(() => {
+
+
+
+    function getData() {
         fetch("http://127.0.0.1:8000/restaurants/get/"+restaurantName+"/", {
             method: "GET",
             headers: {
@@ -46,7 +49,7 @@ const RestaurantPage = () => {
                         setNumBlogs(data.num_blog);
                         setPhoneNumber(data.phone_number)
                         setFollowedUsers(data.followed_users)
-                        if (data.followed_users.indexOf(restaurantName)>-1){
+                        if (data.followed_users.indexOf(localStorage.getItem("username"))>-1){
                             setFollow(false)
                         }
                         else{
@@ -57,7 +60,15 @@ const RestaurantPage = () => {
                 else {
                     navigate("../../../notFound")
                 }
-            });
+            })
+            .then(()=>{
+                console.log(liked_users)
+                console.log(numLike)
+                 })
+        }
+
+    useEffect(() => {
+        getData()
     }, []);
 
     const followunfollow = (e) =>{
@@ -101,7 +112,7 @@ const RestaurantPage = () => {
                 <MDBContainer fluid style={{height: "100%", backgroundColor: "#e9ebed"}}>
                     <div className="col-9 md-auto">
                         <Header restaurantName={restaurantName} pass_logo={logo}/>
-                        <RestaurantLike restaurantName={restaurantName} numLikes={numLike} initState={liked_users.indexOf(localStorage.getItem("username")) > -1?true:false}/>
+                        <RestaurantLike restaurantName={restaurantName} numLikes={numLike} initState={liked_users.values(localStorage.getItem("username")) > -1?true:false}/>
                     </div>
 
                     <Container className="justify-content-center" style={{paddingTop: "2%", paddingBottom: "10%", width: "60%"}}>
