@@ -1,1 +1,2 @@
-PLease have two ternimal open, one run runBackend.sh and another one run runFrontend.sh
+To run the server, first do ./setup.sh
+And then ./run.sh
